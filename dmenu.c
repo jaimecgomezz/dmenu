@@ -55,8 +55,11 @@ static Clr *scheme[SchemeLast];
 
 #include "config.def.h"
 
+// >>>>>>>>>>>>>>>>>>>> case-insensitive
+// ==================== case-insensitive
 static int (*fstrncmp)(const char *, const char *, size_t) = strncmp;
 static char *(*fstrstr)(const char *, const char *) = strstr;
+// <<<<<<<<<<<<<<<<<<<< case-insensitive
 
 static void
 appenditem(struct item *item, struct item **list, struct item **last)
@@ -715,6 +718,9 @@ usage(void)
     "[-f]"
     "[-i]"
     "[-v]"
+    // >>>>>>>>>>>>>>>>>>>> case-insensitive
+    // ==================== case-insensitive
+    // <<<<<<<<<<<<<<<<<<<< case-insensitive
     "\n\t\t"
     "[-m monitor]"
     "[-w windowid]"
@@ -751,6 +757,9 @@ main(int argc, char *argv[])
 			topbar = 0;
 		else if (!strcmp(argv[i], "-f"))   /* grabs keyboard before reading stdin */
 			fast = 1;
+    // >>>>>>>>>>>>>>>>>>>> case-insensitive
+    // ==================== case-insensitive
+    // <<<<<<<<<<<<<<<<<<<< case-insensitive
 		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
 			fstrncmp = strncasecmp;
 			fstrstr = cistrstr;

@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.5.0] - 2020-07-18
+
+### Added
+
+- Add the case-insensitive patch
+- Add support for the case-insensitive patch in handle
+- Add the case-insensitive patch support in handle-usage
+
+### Changed
+
+- Prepare the case-insensitive patch integration
+
 ## [0.4.0] - 2020-07-18
 
 ### Added

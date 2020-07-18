@@ -56,7 +56,7 @@ esac
 
 # Test patch
 case "$patch" in
-  border)
+  border|case-insensitive)
     shift
   ;;
   * )
