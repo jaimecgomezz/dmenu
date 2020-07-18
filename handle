@@ -1,0 +1,77 @@
+#!/usr/bin/env sh
+
+##############################
+# @jaimecgomezz
+# 
+# This script handles all the
+# patching related to this
+# dmenu distribution
+##############################
+
+set -e
+
+should_build=0
+handler="git apply"
+
+print_usage() { cat handle-usage ; exit 1 ; }
+pdr() { echo "==============================" ; }
+contains() {
+  string="$1"
+  substring="$2"
+  if test "${string#*$substring}" != "$string"; then
+    return 0    # $substring is in $string
+  else
+    return 1    # $substring is not in $string
+  fi
+}
+
+# Handle uncompatible syntax
+[ "$#" -lt 2 ] && print_usage
+
+# Define arguments
+action="$1"; patch="$2"
+
+# Test action
+case "$action" in
+  diff)
+    shift
+  ;;
+  patch)
+    should_build=1
+    shift
+  ;;
+  stash)
+    options="-R"
+    shift
+  ;;
+  depatch)
+    options="-R"
+    should_build=1
+    shift
+  ;;
+  *)
+    print_usage
+  ;;
+esac
+
+# Test patch
+case "$patch" in
+  border)
+    shift
+  ;;
+  * )
+    print_usage 
+  ;;
+esac
+
+contains "$@" "-q" && handle_std="> /dev/null 2>&1"
+
+# Print patching process
+pdr; echo "${action}ing $patch..."; pdr
+eval "$handler $options patches/$patch.patch $handle_std" 
+
+[ "$should_build" -eq 1 ] \
+  && pdr; echo "building dmenu..."; pdr \
+  && eval "sudo make install clean $handle_std" \
+  && pdr; echo "${action}ing $patch Done!"; pdr
+
