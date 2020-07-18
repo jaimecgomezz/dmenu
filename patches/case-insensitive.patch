@@ -1,0 +1,62 @@
+diff --git a/dmenu.1 b/dmenu.1
+index 9963ee6..18953b2 100644
+--- a/dmenu.1
++++ b/dmenu.1
+@@ -8,7 +8,7 @@ dmenu \- dynamic menu
+ .RB [ \-i ]
+ .RB [ \-v ]
+ \" >>>>>>>>>>>>>>>>>>>> case-insensitive
+-\" ==================== case-insensitive
++.RB [ \-s ]
+ \" <<<<<<<<<<<<<<<<<<<< case-insensitive
+ .RB [ \-m
+ .IR monitor ]
+@@ -60,7 +60,9 @@ dmenu matches menu items case insensitively.
+ prints version information to stdout, then exits.
+ .TP
+ \" >>>>>>>>>>>>>>>>>>>> case-insensitive
+-\" ==================== case-insensitive
++.B \-s
++makes dmenu case insensible
++.TP
+ \" <<<<<<<<<<<<<<<<<<<< case-insensitive
+ .BI \-m " monitor"
+ dmenu is displayed on the monitor number supplied. Monitor numbers are starting
+diff --git a/dmenu.c b/dmenu.c
+index 35d59eb..751cc99 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -56,9 +56,9 @@ static Clr *scheme[SchemeLast];
+ #include "config.def.h"
+ 
+ // >>>>>>>>>>>>>>>>>>>> case-insensitive
+-// ==================== case-insensitive
+-static int (*fstrncmp)(const char *, const char *, size_t) = strncmp;
+-static char *(*fstrstr)(const char *, const char *) = strstr;
++static char * cistrstr(const char *s, const char *sub);
++static int (*fstrncmp)(const char *, const char *, size_t) = strncasecmp;
++static char *(*fstrstr)(const char *, const char *) = cistrstr;
+ // <<<<<<<<<<<<<<<<<<<< case-insensitive
+ 
+ static void
+@@ -719,7 +719,7 @@ usage(void)
+     "[-i]"
+     "[-v]"
+     // >>>>>>>>>>>>>>>>>>>> case-insensitive
+-    // ==================== case-insensitive
++    "[-s]"
+     // <<<<<<<<<<<<<<<<<<<< case-insensitive
+     "\n\t\t"
+     "[-m monitor]"
+@@ -758,7 +758,10 @@ main(int argc, char *argv[])
+ 		else if (!strcmp(argv[i], "-f"))   /* grabs keyboard before reading stdin */
+ 			fast = 1;
+     // >>>>>>>>>>>>>>>>>>>> case-insensitive
+-    // ==================== case-insensitive
++    else if (!strcmp(argv[i], "-s")) { /* case-sensitive item matching */
++      fstrncmp = strncmp;
++      fstrstr = strstr;
++    }
+     // <<<<<<<<<<<<<<<<<<<< case-insensitive
+ 		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
+ 			fstrncmp = strncasecmp;
