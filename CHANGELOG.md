@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.3.0] - 2020-07-18
+
+### Added
+
+- Add the border-patch
+
+### Changed
+
+- Prepare the border-patch integration
+
 ## [0.2.1] - 2020-07-17
 
 ### Added
