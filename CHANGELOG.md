@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.4.0] - 2020-07-18
+
+### Added
+
+- Add the handle utility with its usage doc
+
 ## [0.3.0] - 2020-07-18
 
 ### Added
