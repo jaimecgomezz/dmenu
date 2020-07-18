@@ -3,14 +3,15 @@ usage: handle ACTION PATCH [OPTIONS]
 A truly modular implementation of dmenu
 
 Options:
-  -q        Quiet, prevents compiler output
+  -q                  Quiet, prevents compiler output
 
 Actions:
-  patch     Apply the PATCH and rebuild
-  depatch   Removes the PATCH and rebuild
-  diff      Apply the PATCH while keeping the current build, useful for debugging
-  stash     Removes the PATCH while keeping the current build, useful for debugging
+  patch               Apply the PATCH and rebuild
+  depatch             Removes the PATCH and rebuild
+  diff                Apply the PATCH while keeping the current build, useful for debugging
+  stash               Removes the PATCH while keeping the current build, useful for debugging
 
 Patches:
-  border  Allows borders in the dmenu window
+  border              Allows borders in the dmenu window
+  case-insensitive    Makes dmenu case insensitive
 
