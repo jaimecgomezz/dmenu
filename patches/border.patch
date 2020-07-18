@@ -1,0 +1,78 @@
+diff --git a/config.def.h b/config.def.h
+index 4c13747..093855f 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -23,5 +23,6 @@ static unsigned int lines      = 0;
+ static const char worddelimiters[] = " ";
+ 
+ // >>>>>>>>>>>>>>>>>>>> border
+-// ==================== border
++/* Size of the window border */
++static unsigned int border_width = 0;
+ // <<<<<<<<<<<<<<<<<<<< border
+diff --git a/dmenu.1 b/dmenu.1
+index 63e06c2..530c0a0 100644
+--- a/dmenu.1
++++ b/dmenu.1
+@@ -18,7 +18,8 @@ dmenu \- dynamic menu
+ .RB [ \-p
+ .IR prompt ]
+ \" >>>>>>>>>>>>>>>>>>>> border
+-\" ==================== border
++.RB [ \-bw
++.IR width ]
+ \" <<<<<<<<<<<<<<<<<<<< border
+ .RB [ \-nb
+ .IR color ]
+@@ -72,7 +73,9 @@ defines the font or font set used.
+ defines the prompt to be displayed to the left of the input field.
+ .TP
+ \" >>>>>>>>>>>>>>>>>>>> border
+-\" ==================== border
++.BI \-bw " width"
++defines the width of the dmenu window borders
++.TP
+ \" <<<<<<<<<<<<<<<<<<<< border
+ .BI \-nb " color"
+ defines the normal background color.
+diff --git a/dmenu.c b/dmenu.c
+index 482fe58..6b8b18a 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -668,7 +668,7 @@ setup(void)
+     mw,
+     mh,
+     // >>>>>>>>>>>>>>>>>>>> border
+-    0, // ==================== border
++    border_width,
+     // <<<<<<<<<<<<<<<<<<<< border
+     CopyFromParent,
+     CopyFromParent,
+@@ -678,7 +678,7 @@ setup(void)
+   );
+ 
+   // >>>>>>>>>>>>>>>>>>>> border
+-  // ==================== border
++  if (border_width) XSetWindowBorder(dpy, win, scheme[SchemeSel][ColBg].pixel);
+   // <<<<<<<<<<<<<<<<<<<< border
+ 
+ 	XSetClassHint(dpy, win, &ch);
+@@ -720,7 +720,7 @@ usage(void)
+     "[-w windowid]"
+     "\n\t\t"
+     // >>>>>>>>>>>>>>>>>>>> border
+-    // ==================== border
++    "[-bw width]"
+     // <<<<<<<<<<<<<<<<<<<< border
+     "[-l lines]"
+     "[-fn font]"
+@@ -776,7 +776,8 @@ main(int argc, char *argv[])
+ 		else if (!strcmp(argv[i], "-w"))   /* embedding window id */
+ 			embed = argv[++i];
+     // >>>>>>>>>>>>>>>>>>>> border
+-    // ==================== border
++    else if (!strcmp(argv[i], "-bw"))
++      border_width = atoi(argv[++i]); /* border width */
+     // <<<<<<<<<<<<<<<<<<<< border
+ 		else
+ 			usage();
