@@ -1,0 +1,155 @@
+diff --git a/config.def.h b/config.def.h
+index 0677059..65712a8 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -31,5 +31,5 @@ static const char worddelimiters[] = " ";
+ // <<<<<<<<<<<<<<<<<<<< center
+ 
+ // >>>>>>>>>>>>>>>>>>>> dynamic-options
+-// ==================== dynamic-options
++static const char *dynamic     = NULL;      /* -dy option; dynamic command to run on input change */
+ // <<<<<<<<<<<<<<<<<<<< dynamic-options
+diff --git a/dmenu.1 b/dmenu.1
+index b10c8e3..4d80949 100644
+--- a/dmenu.1
++++ b/dmenu.1
+@@ -27,7 +27,8 @@ dmenu \- dynamic menu
+ \" ==================== border
+ \" <<<<<<<<<<<<<<<<<<<< border
+ \" >>>>>>>>>>>>>>>>>>>> dynamic-options
+-\" ==================== dynamic-options
++.RB [ \-dy
++.IR command ]
+ \" <<<<<<<<<<<<<<<<<<<< dynamic-options
+ .RB [ \-nb
+ .IR color ]
+@@ -90,7 +91,9 @@ defines the prompt to be displayed to the left of the input field.
+ \" ==================== border
+ \" <<<<<<<<<<<<<<<<<<<< border
+ \" >>>>>>>>>>>>>>>>>>>> dynamic-options
+-\" ==================== dynamic-options
++.BI \-dy " command"
++makes dmenu run the command given to it whenever input is changed with the current input as the last argument and update the option list according to the output of that command.
++.TP
+ \" <<<<<<<<<<<<<<<<<<<< dynamic-options
+ .BI \-nb " color"
+ defines the normal background color.
+diff --git a/dmenu.c b/dmenu.c
+index 9592307..ef105a2 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -218,14 +218,34 @@ grabkeyboard(void)
+ }
+ 
+ // >>>>>>>>>>>>>>>>>>>> dynamic-options
+-// ==================== dynamic-options
++static void readstdin(FILE* stream);
++
++static void
++refreshoptions(){
++	int dynlen = strlen(dynamic);
++	char* cmd= malloc(dynlen + strlen(text)+2);
++	if(cmd == NULL)
++		die("malloc:");
++	sprintf(cmd,"%s %s",dynamic, text);
++	FILE *stream = popen(cmd, "r");
++	if(!stream)
++		die("popen(%s):",cmd);
++	readstdin(stream);
++	int pc = pclose(stream);
++	if(pc == -1)
++		die("pclose:");
++	free(cmd);
++	curr = sel = items;
++}
+ // <<<<<<<<<<<<<<<<<<<< dynamic-options
+ 
+ static void
+ match(void)
+ {
+   // >>>>>>>>>>>>>>>>>>>> dynamic-options
+-  // ==================== dynamic-options
++  if(dynamic && *dynamic){
++    refreshoptions();
++  }
+   // <<<<<<<<<<<<<<<<<<<< dynamic-options
+ 	static char **tokv = NULL;
+ 	static int tokn = 0;
+@@ -249,8 +269,7 @@ match(void)
+ 			if (!fstrstr(item->text, tokv[i]))
+ 				break;
+     // >>>>>>>>>>>>>>>>>>>> dynamic-options
+-    // ==================== dynamic-options
+-		if (i != tokc) /* not all tokens match */
++    if (i != tokc && !(dynamic && *dynamic)) /* not all tokens match */
+     // <<<<<<<<<<<<<<<<<<<< dynamic-options
+ 			continue;
+ 		/* exact matches go first, then prefixes, then substrings */
+@@ -537,8 +556,7 @@ paste(void)
+ 
+ static void
+ // >>>>>>>>>>>>>>>>>>>> dynamic-options
+-// ==================== dynamic-options
+-readstdin(void)
++readstdin(FILE* stream)
+ // <<<<<<<<<<<<<<<<<<<< dynamic-options
+ {
+ 	char buf[sizeof text], *p;
+@@ -547,8 +565,7 @@ readstdin(void)
+ 
+ 	/* read each line from stdin and add it to the item list */
+   // >>>>>>>>>>>>>>>>>>>> dynamic-options
+-  // ==================== dynamic-options
+-	for (i = 0; fgets(buf, sizeof buf, stdin); i++) {
++  for (i = 0; fgets(buf, sizeof buf, stream); i++) {
+   // <<<<<<<<<<<<<<<<<<<< dynamic-options
+ 		if (i + 1 >= size / sizeof *items)
+ 			if (!(items = realloc(items, (size += BUFSIZ))))
+@@ -633,8 +650,8 @@ setup(void)
+ 	/* calculate menu geometry */
+ 	bh = drw->fonts->h + 2;
+   // >>>>>>>>>>>>>>>>>>>> dynamic-options
+-  // ==================== dynamic-options
+-	lines = MAX(lines, 0);
++  if (!dynamic || !*dynamic)
++    lines = MIN(lines, i);
+   // <<<<<<<<<<<<<<<<<<<< dynamic-options
+ 	mh = (lines + 1) * bh;
+   // >>>>>>>>>>>>>>>>>>>> center
+@@ -770,7 +787,7 @@ usage(void)
+     "[-fn font]"
+     "[-p prompt]"
+     // >>>>>>>>>>>>>>>>>>>> dynamic-options
+-    // ==================== dynamic-options
++    "[-dy command]"
+     // <<<<<<<<<<<<<<<<<<<< dynamic-options
+     "\n\t\t"
+     "[-nb color]"
+@@ -832,7 +849,8 @@ main(int argc, char *argv[])
+     // ==================== border
+     // <<<<<<<<<<<<<<<<<<<< border
+     // >>>>>>>>>>>>>>>>>>>> dynamic-options
+-    // ==================== dynamic-options
++    else if (!strcmp(argv[i], "-dy"))  /* dynamic command to run */
++      dynamic = argv[++i];
+     // <<<<<<<<<<<<<<<<<<<< dynamic-options
+ 		else
+ 			usage();
+@@ -861,13 +879,13 @@ main(int argc, char *argv[])
+ 	if (fast && !isatty(0)) {
+ 		grabkeyboard();
+     // >>>>>>>>>>>>>>>>>>>> dynamic-options
+-    // ==================== dynamic-options
+-		readstdin();
++    if(!(dynamic && *dynamic))
++      readstdin(stdin);
+     // <<<<<<<<<<<<<<<<<<<< dynamic-options
+ 	} else {
+     // >>>>>>>>>>>>>>>>>>>> dynamic-options
+-    // ==================== dynamic-options
+-		readstdin();
++    if(!(dynamic && *dynamic))
++      readstdin(stdin);
+     // <<<<<<<<<<<<<<<<<<<< dynamic-options
+ 		grabkeyboard();
+ 	}
