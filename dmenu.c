@@ -92,6 +92,10 @@ calcoffsets(void)
 			break;
 }
 
+// >>>>>>>>>>>>>>>>>>>> center
+// ==================== center
+// <<<<<<<<<<<<<<<<<<<< center
+
 static void
 cleanup(void)
 {
@@ -614,6 +618,9 @@ setup(void)
 	bh = drw->fonts->h + 2;
 	lines = MAX(lines, 0);
 	mh = (lines + 1) * bh;
+  // >>>>>>>>>>>>>>>>>>>> center
+  // ==================== center
+  // <<<<<<<<<<<<<<<<<<<< center
 #ifdef XINERAMA
 	i = 0;
 	if (parentwin == root && (info = XineramaQueryScreens(dpy, &n))) {
@@ -640,9 +647,12 @@ setup(void)
 				if (INTERSECT(x, y, 1, 1, info[i]))
 					break;
 
+    // >>>>>>>>>>>>>>>>>>>> center
+    // ==================== center
 		x = info[i].x_org;
 		y = info[i].y_org + (topbar ? 0 : info[i].height - mh);
 		mw = info[i].width;
+    // <<<<<<<<<<<<<<<<<<<< center
 		XFree(info);
 	} else
 #endif
@@ -650,11 +660,17 @@ setup(void)
 		if (!XGetWindowAttributes(dpy, parentwin, &wa))
 			die("could not get embedding window attributes: 0x%lx",
 			    parentwin);
+    // >>>>>>>>>>>>>>>>>>>> center
+    // ==================== center
 		x = 0;
 		y = topbar ? 0 : wa.height - mh;
 		mw = wa.width;
+    // <<<<<<<<<<<<<<<<<<<< center
 	}
+  // >>>>>>>>>>>>>>>>>>>> center
+  // ==================== center
 	promptw = (prompt && *prompt) ? TEXTW(prompt) - lrpad / 4 : 0;
+  // <<<<<<<<<<<<<<<<<<<< center
 	inputw = MIN(inputw, mw/3);
 	match();
 
@@ -721,6 +737,9 @@ usage(void)
     // >>>>>>>>>>>>>>>>>>>> case-insensitive
     // ==================== case-insensitive
     // <<<<<<<<<<<<<<<<<<<< case-insensitive
+    // >>>>>>>>>>>>>>>>>>>> center
+    // ==================== center
+    // <<<<<<<<<<<<<<<<<<<< center
     "\n\t\t"
     "[-m monitor]"
     "[-w windowid]"
@@ -760,6 +779,9 @@ main(int argc, char *argv[])
     // >>>>>>>>>>>>>>>>>>>> case-insensitive
     // ==================== case-insensitive
     // <<<<<<<<<<<<<<<<<<<< case-insensitive
+    // >>>>>>>>>>>>>>>>>>>> center
+    // ==================== center
+    // <<<<<<<<<<<<<<<<<<<< center
 		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
 			fstrncmp = strncasecmp;
 			fstrstr = cistrstr;
