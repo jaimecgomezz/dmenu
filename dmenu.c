@@ -689,8 +689,28 @@ setup(void)
 static void
 usage(void)
 {
-	fputs("usage: dmenu [-bfiv] [-l lines] [-p prompt] [-fn font] [-m monitor]\n"
-	      "             [-nb color] [-nf color] [-sb color] [-sf color] [-w windowid]\n", stderr);
+	fputs(
+    "usage: dmenu"
+    "\t"
+    "[-b]"
+    "[-f]"
+    "[-i]"
+    "[-v]"
+    "\n\t\t"
+    "[-m monitor]"
+    "[-w windowid]"
+    "\n\t\t"
+    "[-l lines]"
+    "[-fn font]"
+    "[-p prompt]"
+    "\n\t\t"
+    "[-nb color]"
+    "[-nf color]"
+    "[-sb color]"
+    "[-sf color]"
+    "\n",
+    stderr
+  );
 	exit(1);
 }
 
