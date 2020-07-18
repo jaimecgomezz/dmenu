@@ -1,6 +1,9 @@
 /* See LICENSE file for copyright and license details. */
 #include <ctype.h>
 #include <locale.h>
+// >>>>>>>>>>>>>>>>>>>> fuzzymatch
+// ==================== fuzzymatch
+// <<<<<<<<<<<<<<<<<<<< fuzzymatch
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -32,6 +35,9 @@ struct item {
 	char *text;
 	struct item *left, *right;
 	int out;
+  // >>>>>>>>>>>>>>>>>>>> fuzzymatch
+  // ==================== fuzzymatch
+  // <<<<<<<<<<<<<<<<<<<< fuzzymatch
 };
 
 static char text[BUFSIZ] = "";
@@ -217,6 +223,10 @@ grabkeyboard(void)
 	die("cannot grab keyboard");
 }
 
+// >>>>>>>>>>>>>>>>>>>> fuzzymatch
+// ==================== fuzzymatch
+// <<<<<<<<<<<<<<<<<<<< fuzzymatch
+
 // >>>>>>>>>>>>>>>>>>>> dynamic-options
 // ==================== dynamic-options
 // <<<<<<<<<<<<<<<<<<<< dynamic-options
@@ -227,6 +237,11 @@ match(void)
   // >>>>>>>>>>>>>>>>>>>> dynamic-options
   // ==================== dynamic-options
   // <<<<<<<<<<<<<<<<<<<< dynamic-options
+
+  // >>>>>>>>>>>>>>>>>>>> fuzzymatch
+  // ==================== fuzzymatch
+  // <<<<<<<<<<<<<<<<<<<< fuzzymatch
+
 	static char **tokv = NULL;
 	static int tokn = 0;
 
@@ -759,6 +774,9 @@ usage(void)
     // >>>>>>>>>>>>>>>>>>>> center
     // ==================== center
     // <<<<<<<<<<<<<<<<<<<< center
+    // >>>>>>>>>>>>>>>>>>>> fuzzymatch
+    // ==================== fuzzymatch
+    // <<<<<<<<<<<<<<<<<<<< fuzzymatch
     "\n\t\t"
     "[-m monitor]"
     "[-w windowid]"
@@ -804,6 +822,9 @@ main(int argc, char *argv[])
     // >>>>>>>>>>>>>>>>>>>> center
     // ==================== center
     // <<<<<<<<<<<<<<<<<<<< center
+    // >>>>>>>>>>>>>>>>>>>> fuzzymatch
+    // ==================== fuzzymatch
+    // <<<<<<<<<<<<<<<<<<<< fuzzymatch
 		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
 			fstrncmp = strncasecmp;
 			fstrstr = cistrstr;

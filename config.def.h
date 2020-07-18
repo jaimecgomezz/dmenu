@@ -33,3 +33,7 @@ static const char worddelimiters[] = " ";
 // >>>>>>>>>>>>>>>>>>>> dynamic-options
 // ==================== dynamic-options
 // <<<<<<<<<<<<<<<<<<<< dynamic-options
+
+// >>>>>>>>>>>>>>>>>>>> fuzzymatch
+// ==================== fuzzymatch
+// <<<<<<<<<<<<<<<<<<<< fuzzymatch
