@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.7.0] - 2020-07-18
+
+### Added
+
+- Add dynamic-options-patch
+- Add support for the dynamic-options-patch in the handle utility
+
+### Changed
+
+- Prepare the dynamic-options-patch integration
+
+
 ## [0.6.0] - 2020-07-18
 
 ### Added
