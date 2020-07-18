@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.6.0] - 2020-07-18
+
+### Added
+
+- Add center-patch
+- Add support for the center-patch in the handle utility
+
+### Changed
+
+- Prepare the center-patch integration
+- Migrate handle utility from 'git apply' to 'patch'
+
 ## [0.5.0] - 2020-07-18
 
 ### Added
