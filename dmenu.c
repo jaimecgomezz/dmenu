@@ -53,7 +53,7 @@ static XIC xic;
 static Drw *drw;
 static Clr *scheme[SchemeLast];
 
-#include "config.h"
+#include "config.def.h"
 
 static int (*fstrncmp)(const char *, const char *, size_t) = strncmp;
 static char *(*fstrstr)(const char *, const char *) = strstr;
@@ -659,9 +659,28 @@ setup(void)
 	swa.override_redirect = True;
 	swa.background_pixel = scheme[SchemeNorm][ColBg].pixel;
 	swa.event_mask = ExposureMask | KeyPressMask | VisibilityChangeMask;
-	win = XCreateWindow(dpy, parentwin, x, y, mw, mh, 0,
-	                    CopyFromParent, CopyFromParent, CopyFromParent,
-	                    CWOverrideRedirect | CWBackPixel | CWEventMask, &swa);
+
+	win = XCreateWindow(
+    dpy,
+    parentwin,
+    x,
+    y,
+    mw,
+    mh,
+    // >>>>>>>>>>>>>>>>>>>> border
+    0, // ==================== border
+    // <<<<<<<<<<<<<<<<<<<< border
+    CopyFromParent,
+    CopyFromParent,
+    CopyFromParent,
+    CWOverrideRedirect | CWBackPixel | CWEventMask,
+    &swa
+  );
+
+  // >>>>>>>>>>>>>>>>>>>> border
+  // ==================== border
+  // <<<<<<<<<<<<<<<<<<<< border
+
 	XSetClassHint(dpy, win, &ch);
 
 
@@ -700,6 +719,9 @@ usage(void)
     "[-m monitor]"
     "[-w windowid]"
     "\n\t\t"
+    // >>>>>>>>>>>>>>>>>>>> border
+    // ==================== border
+    // <<<<<<<<<<<<<<<<<<<< border
     "[-l lines]"
     "[-fn font]"
     "[-p prompt]"
@@ -753,6 +775,9 @@ main(int argc, char *argv[])
 			colors[SchemeSel][ColFg] = argv[++i];
 		else if (!strcmp(argv[i], "-w"))   /* embedding window id */
 			embed = argv[++i];
+    // >>>>>>>>>>>>>>>>>>>> border
+    // ==================== border
+    // <<<<<<<<<<<<<<<<<<<< border
 		else
 			usage();
 
