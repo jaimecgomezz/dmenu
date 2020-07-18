@@ -3,15 +3,20 @@
 dmenu \- dynamic menu
 .SH SYNOPSIS
 .B dmenu
-.RB [ \-bfiv ]
-.RB [ \-l
-.IR lines ]
+.RB [ \-b ]
+.RB [ \-f ]
+.RB [ \-i ]
+.RB [ \-v ]
 .RB [ \-m
 .IR monitor ]
-.RB [ \-p
-.IR prompt ]
+.RB [ \-w
+.IR windowid ]
+.RB [ \-l
+.IR lines ]
 .RB [ \-fn
 .IR font ]
+.RB [ \-p
+.IR prompt ]
 .RB [ \-nb
 .IR color ]
 .RB [ \-nf
@@ -20,8 +25,6 @@ dmenu \- dynamic menu
 .IR color ]
 .RB [ \-sf
 .IR color ]
-.RB [ \-w
-.IR windowid ]
 .P
 .BR dmenu_run " ..."
 .SH DESCRIPTION
@@ -47,18 +50,23 @@ is faster, but will lock up X until stdin reaches end\-of\-file.
 .B \-i
 dmenu matches menu items case insensitively.
 .TP
-.BI \-l " lines"
-dmenu lists items vertically, with the given number of lines.
+.B \-v
+prints version information to stdout, then exits.
 .TP
 .BI \-m " monitor"
 dmenu is displayed on the monitor number supplied. Monitor numbers are starting
 from 0.
 .TP
-.BI \-p " prompt"
-defines the prompt to be displayed to the left of the input field.
+.BI \-w " windowid"
+embed into windowid.
+.BI \-l " lines"
+dmenu lists items vertically, with the given number of lines.
 .TP
 .BI \-fn " font"
 defines the font or font set used.
+.TP
+.BI \-p " prompt"
+defines the prompt to be displayed to the left of the input field.
 .TP
 .BI \-nb " color"
 defines the normal background color.
@@ -75,11 +83,6 @@ defines the selected background color.
 .BI \-sf " color"
 defines the selected foreground color.
 .TP
-.B \-v
-prints version information to stdout, then exits.
-.TP
-.BI \-w " windowid"
-embed into windowid.
 .SH USAGE
 dmenu is completely controlled by the keyboard.  Items are selected using the
 arrow keys, page up, page down, home, and end.
