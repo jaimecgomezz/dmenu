@@ -217,9 +217,16 @@ grabkeyboard(void)
 	die("cannot grab keyboard");
 }
 
+// >>>>>>>>>>>>>>>>>>>> dynamic-options
+// ==================== dynamic-options
+// <<<<<<<<<<<<<<<<<<<< dynamic-options
+
 static void
 match(void)
 {
+  // >>>>>>>>>>>>>>>>>>>> dynamic-options
+  // ==================== dynamic-options
+  // <<<<<<<<<<<<<<<<<<<< dynamic-options
 	static char **tokv = NULL;
 	static int tokn = 0;
 
@@ -241,7 +248,10 @@ match(void)
 		for (i = 0; i < tokc; i++)
 			if (!fstrstr(item->text, tokv[i]))
 				break;
+    // >>>>>>>>>>>>>>>>>>>> dynamic-options
+    // ==================== dynamic-options
 		if (i != tokc) /* not all tokens match */
+    // <<<<<<<<<<<<<<<<<<<< dynamic-options
 			continue;
 		/* exact matches go first, then prefixes, then substrings */
 		if (!tokc || !fstrncmp(text, item->text, textsize))
@@ -526,14 +536,20 @@ paste(void)
 }
 
 static void
+// >>>>>>>>>>>>>>>>>>>> dynamic-options
+// ==================== dynamic-options
 readstdin(void)
+// <<<<<<<<<<<<<<<<<<<< dynamic-options
 {
 	char buf[sizeof text], *p;
 	size_t i, imax = 0, size = 0;
 	unsigned int tmpmax = 0;
 
 	/* read each line from stdin and add it to the item list */
+  // >>>>>>>>>>>>>>>>>>>> dynamic-options
+  // ==================== dynamic-options
 	for (i = 0; fgets(buf, sizeof buf, stdin); i++) {
+  // <<<<<<<<<<<<<<<<<<<< dynamic-options
 		if (i + 1 >= size / sizeof *items)
 			if (!(items = realloc(items, (size += BUFSIZ))))
 				die("cannot realloc %u bytes:", size);
@@ -616,7 +632,10 @@ setup(void)
 
 	/* calculate menu geometry */
 	bh = drw->fonts->h + 2;
+  // >>>>>>>>>>>>>>>>>>>> dynamic-options
+  // ==================== dynamic-options
 	lines = MAX(lines, 0);
+  // <<<<<<<<<<<<<<<<<<<< dynamic-options
 	mh = (lines + 1) * bh;
   // >>>>>>>>>>>>>>>>>>>> center
   // ==================== center
@@ -750,6 +769,9 @@ usage(void)
     "[-l lines]"
     "[-fn font]"
     "[-p prompt]"
+    // >>>>>>>>>>>>>>>>>>>> dynamic-options
+    // ==================== dynamic-options
+    // <<<<<<<<<<<<<<<<<<<< dynamic-options
     "\n\t\t"
     "[-nb color]"
     "[-nf color]"
@@ -809,6 +831,9 @@ main(int argc, char *argv[])
     // >>>>>>>>>>>>>>>>>>>> border
     // ==================== border
     // <<<<<<<<<<<<<<<<<<<< border
+    // >>>>>>>>>>>>>>>>>>>> dynamic-options
+    // ==================== dynamic-options
+    // <<<<<<<<<<<<<<<<<<<< dynamic-options
 		else
 			usage();
 
@@ -835,9 +860,15 @@ main(int argc, char *argv[])
 
 	if (fast && !isatty(0)) {
 		grabkeyboard();
+    // >>>>>>>>>>>>>>>>>>>> dynamic-options
+    // ==================== dynamic-options
 		readstdin();
+    // <<<<<<<<<<<<<<<<<<<< dynamic-options
 	} else {
+    // >>>>>>>>>>>>>>>>>>>> dynamic-options
+    // ==================== dynamic-options
 		readstdin();
+    // <<<<<<<<<<<<<<<<<<<< dynamic-options
 		grabkeyboard();
 	}
 	setup();
