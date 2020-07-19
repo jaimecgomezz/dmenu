@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.10.0] - 2020-07-18
+
+### Added
+
+- Add grid-patch
+- Add support for the grid-patch in handle util
+
+### Changed
+
+- Prepare the grid-patch integration
+
 ## [0.9.0] - 2020-07-18
 
 ### Added
