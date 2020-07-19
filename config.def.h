@@ -40,3 +40,7 @@ static const char worddelimiters[] = " ";
 // >>>>>>>>>>>>>>>>>>>> fuzzymatch
 // ==================== fuzzymatch
 // <<<<<<<<<<<<<<<<<<<< fuzzymatch
+
+// >>>>>>>>>>>>>>>>>>>> grid
+// ==================== grid
+// <<<<<<<<<<<<<<<<<<<< grid
