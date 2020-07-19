@@ -12,6 +12,9 @@ static const char *colors[SchemeLast][2] = {
 	[SchemeNorm] = { "#d2d4de", "#161821" },
 	[SchemeSel] = { "#000000", "#a89984" },
 	[SchemeOut] = { "#000000", "#95c4ce" },
+  // >>>>>>>>>>>>>>>>>>>> fuzzyhighlight
+  // ==================== fuzzyhighlight
+  // <<<<<<<<<<<<<<<<<<<< fuzzyhighlight
 };
 /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
 static unsigned int lines      = 0;
