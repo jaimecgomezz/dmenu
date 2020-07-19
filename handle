@@ -81,6 +81,7 @@ case "$patch" in
     |dynamic-options\
     |fuzzymatch\
     |fuzzyhighlight\
+    |grid\
     |center)
     shift
   ;;
