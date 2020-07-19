@@ -8,25 +8,42 @@
 # dmenu distribution
 ##############################
 
-set -e
-
 should_build=0
 handler="patch -p1"
+applied_file="applied"
 
-missing_dependency() { echo "[!] ( $1 ) missing, please install" ; }
-print_usage() { cat handle-usage ; exit 1 ; }
-pdr() { echo "==============================" ; }
+patch_applied() {
+  echo "[!] ( $1 ) has already been applied, remove the patch name from the file '$applied_file' if mistaken" ;
+  exit 1
+}
+patch_unapplied() {
+  echo "[!] ( $1 ) hasn't been applied yet, add the patch to the file '$applied_file' if mistaken" ;
+  exit 1
+}
 contains() {
   str="$1"
   substr="$2"
   if test "${str#*$substr}" != "$str"; then return 0; fi
   return 1
 }
+check_applied() {
+  if cat $applied_file | grep -q "$1"; then
+    echo 1
+  else
+    echo 0
+  fi
+}
+check_dependency() {
+  if ! ( command -v "$1" ) > /dev/null ;then
+    missing_dependency "$1"
+    exit 1
+  fi
+}
+print_usage() { cat handle-usage ; exit 1 ; }
+pdr() { echo "===================================" ; }
+missing_dependency() { echo "[!] ( $1 ) missing, please install" ; }
 
-if ! command -v patch ;then
-  missing_dependency "patch"
-  exit 1
-fi
+check_dependency "patch"
 
 # Handle uncompatible syntax
 [ "$#" -lt 2 ] && print_usage
@@ -62,6 +79,7 @@ case "$patch" in
   border\
     |case-insensitive\
     |dynamic-options\
+    |fuzzymatch\
     |center)
     shift
   ;;
@@ -70,14 +88,29 @@ case "$patch" in
   ;;
 esac
 
+# Check if patch is applied
+applied="$( check_applied "$patch" )"
+
+[ "$applied" = "1" ] \
+  && contains " diff patch " " $action " \
+    && patch_applied "$patch" \
+
+[ "$applied" = "0" ] \
+  && contains " stash depatch " " $action " \
+    && patch_unapplied "$patch" \
+
 contains "$@" "-q" && handle_std="> /dev/null 2>&1"
 
-# Print patching process
-pdr; echo "${action}ing $patch..."; pdr
+set -e
+
+pdr; echo "${action}ing ${patch}..."; pdr
 eval "( $handler $options < patches/${patch}.patch ) $handle_std"
 
 [ "$should_build" -eq 1 ] \
   && pdr; echo "building dmenu..."; pdr \
   && eval "sudo make install clean $handle_std" \
-  && pdr; echo "${action}ing $patch Done!"; pdr
+  && pdr; echo "${action}ing $patch done!"; pdr
+
+contains " diff patch " " $action " && echo "$patch" >> "$applied_file"
+contains " stash depatch " " $action " && sed -i "/^${patch}$/d" "$applied_file"
 

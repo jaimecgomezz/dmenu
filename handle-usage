@@ -16,4 +16,5 @@ Patches:
   case-insensitive    Makes dmenu case insensitive
   center              Makes dmenu appear centered on the screen
   dynamic-options     Makes dmenu run the command given to it whenever input is changed with the current input as the last argument and update the option list according to the output of that command
+  fuzzymatch          Allows the users to type non-consecutive portions of the string to be matched
 
