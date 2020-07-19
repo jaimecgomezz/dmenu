@@ -80,6 +80,7 @@ case "$patch" in
     |case-insensitive\
     |dynamic-options\
     |fuzzymatch\
+    |fuzzyhighlight\
     |center)
     shift
   ;;
