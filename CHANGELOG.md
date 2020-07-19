@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Prepare the fuzzymatch-patch integration
 - Improve the handle utility
+- Add 'applied' file to .gitignore
 
 ## [0.7.0] - 2020-07-18
 
