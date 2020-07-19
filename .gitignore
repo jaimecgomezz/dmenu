@@ -54,3 +54,5 @@ dkms.conf
 # Git related files
 *.orig
 *.rej
+
+applied
