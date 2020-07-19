@@ -29,7 +29,15 @@
 #define TEXTW(X)              (drw_fontset_getwidth(drw, (X)) + lrpad)
 
 /* enums */
-enum { SchemeNorm, SchemeSel, SchemeOut, SchemeLast }; /* color schemes */
+enum {
+  // >>>>>>>>>>>>>>>>>>>> fuzzyhighlight
+  // ==================== fuzzyhighlight
+  // <<<<<<<<<<<<<<<<<<<< fuzzyhighlight
+  SchemeNorm,
+  SchemeSel,
+  SchemeOut,
+  SchemeLast
+}; /* color schemes */
 
 struct item {
 	char *text;
@@ -126,9 +134,16 @@ cistrstr(const char *s, const char *sub)
 	return NULL;
 }
 
+// >>>>>>>>>>>>>>>>>>>> fuzzyhighlight
+// ==================== fuzzyhighlight
+// <<<<<<<<<<<<<<<<<<<< fuzzyhighlight
+
 static int
 drawitem(struct item *item, int x, int y, int w)
 {
+  // >>>>>>>>>>>>>>>>>>>> fuzzyhighlight
+  // ==================== fuzzyhighlight
+  // <<<<<<<<<<<<<<<<<<<< fuzzyhighlight
 	if (item == sel)
 		drw_setscheme(drw, scheme[SchemeSel]);
 	else if (item->out)
@@ -136,7 +151,10 @@ drawitem(struct item *item, int x, int y, int w)
 	else
 		drw_setscheme(drw, scheme[SchemeNorm]);
 
+  // >>>>>>>>>>>>>>>>>>>> fuzzyhighlight
+  // ==================== fuzzyhighlight
 	return drw_text(drw, x, y, w, bh, lrpad / 2, item->text, 0);
+  // <<<<<<<<<<<<<<<<<<<< fuzzyhighlight
 }
 
 static void
@@ -795,6 +813,9 @@ usage(void)
     "[-nf color]"
     "[-sb color]"
     "[-sf color]"
+    // >>>>>>>>>>>>>>>>>>>> fuzzyhighlight
+    // ==================== fuzzyhighlight
+    // <<<<<<<<<<<<<<<<<<<< fuzzyhighlight
     "\n",
     stderr
   );
@@ -855,6 +876,9 @@ main(int argc, char *argv[])
     // >>>>>>>>>>>>>>>>>>>> dynamic-options
     // ==================== dynamic-options
     // <<<<<<<<<<<<<<<<<<<< dynamic-options
+    // >>>>>>>>>>>>>>>>>>>> fuzzyhighlight
+    // ==================== fuzzyhighlight
+    // <<<<<<<<<<<<<<<<<<<< fuzzyhighlight
 		else
 			usage();
 
