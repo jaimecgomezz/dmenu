@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.9.0] - 2020-07-18
+
+### Added
+
+- Add fuzzyhighlight-patch
+- Add support for the fuzzyhighlight-patch in handle util
+
+### Changed
+
+- Prepare the fuzzyhighlight-patch integration
+
 ## [0.8.0] - 2020-07-18
 
 ### Added
