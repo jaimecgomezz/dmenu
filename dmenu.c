@@ -94,7 +94,10 @@ calcoffsets(void)
 	int i, n;
 
 	if (lines > 0)
-		n = lines * bh;
+    // >>>>>>>>>>>>>>>>>>>> grid
+    // ==================== grid
+    n = lines * bh;
+    // <<<<<<<<<<<<<<<<<<<< grid
 	else
 		n = mw - (promptw + inputw + TEXTW("<") + TEXTW(">"));
 	/* calculate which items will begin the next page and previous page */
@@ -183,9 +186,12 @@ drawmenu(void)
 	}
 
 	if (lines > 0) {
+    // >>>>>>>>>>>>>>>>>>>> grid
+    // ==================== grid
 		/* draw vertical list */
 		for (item = curr; item != next; item = item->right)
 			drawitem(item, x, y += bh, mw - x);
+    // <<<<<<<<<<<<<<<<<<<< grid
 	} else if (matches) {
 		/* draw horizontal list */
 		x += inputw;
@@ -808,6 +814,9 @@ usage(void)
     // >>>>>>>>>>>>>>>>>>>> dynamic-options
     // ==================== dynamic-options
     // <<<<<<<<<<<<<<<<<<<< dynamic-options
+    // >>>>>>>>>>>>>>>>>>>> grid
+    // ==================== grid
+    // <<<<<<<<<<<<<<<<<<<< grid
     "\n\t\t"
     "[-nb color]"
     "[-nf color]"
@@ -852,8 +861,11 @@ main(int argc, char *argv[])
 		} else if (i + 1 == argc)
 			usage();
 		/* these options take one argument */
+    // >>>>>>>>>>>>>>>>>>>> grid
+    // ==================== grid
 		else if (!strcmp(argv[i], "-l"))   /* number of lines in vertical list */
 			lines = atoi(argv[++i]);
+    // <<<<<<<<<<<<<<<<<<<< grid
 		else if (!strcmp(argv[i], "-m"))
 			mon = atoi(argv[++i]);
 		else if (!strcmp(argv[i], "-p"))   /* adds prompt to left of input field */
@@ -879,6 +891,9 @@ main(int argc, char *argv[])
     // >>>>>>>>>>>>>>>>>>>> fuzzyhighlight
     // ==================== fuzzyhighlight
     // <<<<<<<<<<<<<<<<<<<< fuzzyhighlight
+    // >>>>>>>>>>>>>>>>>>>> grid
+    // ==================== grid
+    // <<<<<<<<<<<<<<<<<<<< grid
 		else
 			usage();
 

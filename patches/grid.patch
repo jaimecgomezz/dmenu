@@ -1,0 +1,105 @@
+diff --git a/config.def.h b/config.def.h
+index bf63b15..d2764eb 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -42,5 +42,6 @@ static const char worddelimiters[] = " ";
+ // <<<<<<<<<<<<<<<<<<<< fuzzymatch
+ 
+ // >>>>>>>>>>>>>>>>>>>> grid
+-// ==================== grid
++/* -g controls number of columns in grid if > 0 */
++static unsigned int columns    = 0;
+ // <<<<<<<<<<<<<<<<<<<< grid
+diff --git a/dmenu.1 b/dmenu.1
+index 8466345..cca9f03 100644
+--- a/dmenu.1
++++ b/dmenu.1
+@@ -33,7 +33,8 @@ dmenu \- dynamic menu
+ \" ==================== dynamic-options
+ \" <<<<<<<<<<<<<<<<<<<< dynamic-options
+ \" >>>>>>>>>>>>>>>>>>>> grid
+-\" ==================== grid
++.RB [ \-g
++.IR columns ]
+ \" <<<<<<<<<<<<<<<<<<<< grid
+ .RB [ \-nb
+ .IR color ]
+@@ -105,7 +106,9 @@ defines the prompt to be displayed to the left of the input field.
+ \" ==================== dynamic-options
+ \" <<<<<<<<<<<<<<<<<<<< dynamic-options
+ \" >>>>>>>>>>>>>>>>>>>> grid
+-\" ==================== grid
++.BI \-g " columns"
++dmenu lists items in a grid with the given number of columns. Not compatible with the dynamic-options patch.
++.TP
+ \" <<<<<<<<<<<<<<<<<<<< grid
+ .BI \-nb " color"
+ defines the normal background color.
+diff --git a/dmenu.c b/dmenu.c
+index 01300e7..6c447c5 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -95,8 +95,7 @@ calcoffsets(void)
+ 
+ 	if (lines > 0)
+     // >>>>>>>>>>>>>>>>>>>> grid
+-    // ==================== grid
+-    n = lines * bh;
++    n = lines * columns * bh;
+     // <<<<<<<<<<<<<<<<<<<< grid
+ 	else
+ 		n = mw - (promptw + inputw + TEXTW("<") + TEXTW(">"));
+@@ -187,10 +186,15 @@ drawmenu(void)
+ 
+ 	if (lines > 0) {
+     // >>>>>>>>>>>>>>>>>>>> grid
+-    // ==================== grid
+-		/* draw vertical list */
+-		for (item = curr; item != next; item = item->right)
+-			drawitem(item, x, y += bh, mw - x);
++    /* draw grid */
++    int i = 0;
++    for (item = curr; item != next; item = item->right, i++)
++      drawitem(
++        item,
++        x + ((i / lines) *  ((mw - x) / columns)),
++        y + (((i % lines) + 1) * bh),
++        (mw - x) / columns
++      );
+     // <<<<<<<<<<<<<<<<<<<< grid
+ 	} else if (matches) {
+ 		/* draw horizontal list */
+@@ -815,7 +819,7 @@ usage(void)
+     // ==================== dynamic-options
+     // <<<<<<<<<<<<<<<<<<<< dynamic-options
+     // >>>>>>>>>>>>>>>>>>>> grid
+-    // ==================== grid
++    "[-g columns]"
+     // <<<<<<<<<<<<<<<<<<<< grid
+     "\n\t\t"
+     "[-nb color]"
+@@ -862,9 +866,10 @@ main(int argc, char *argv[])
+ 			usage();
+ 		/* these options take one argument */
+     // >>>>>>>>>>>>>>>>>>>> grid
+-    // ==================== grid
+-		else if (!strcmp(argv[i], "-l"))   /* number of lines in vertical list */
++		else if (!strcmp(argv[i], "-l")) { /* number of lines in grid */
+ 			lines = atoi(argv[++i]);
++			if (columns == 0) columns = 1;
++    }
+     // <<<<<<<<<<<<<<<<<<<< grid
+ 		else if (!strcmp(argv[i], "-m"))
+ 			mon = atoi(argv[++i]);
+@@ -892,7 +897,10 @@ main(int argc, char *argv[])
+     // ==================== fuzzyhighlight
+     // <<<<<<<<<<<<<<<<<<<< fuzzyhighlight
+     // >>>>>>>>>>>>>>>>>>>> grid
+-    // ==================== grid
++    else if (!strcmp(argv[i], "-g")) {   /* number of columns in grid */
++      columns = atoi(argv[++i]);
++      if (lines == 0) lines = 1;
++    }
+     // <<<<<<<<<<<<<<<<<<<< grid
+ 		else
+ 			usage();
