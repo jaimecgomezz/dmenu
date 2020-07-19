@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.8.0] - 2020-07-18
+
+### Added
+
+- Add fuzzymatch-patch
+- Add support for the fuzzymatch-patch in the handle utility
+
+### Changed
+
+- Prepare the fuzzymatch-patch integration
+- Improve the handle utility
+
 ## [0.7.0] - 2020-07-18
 
 ### Added
@@ -17,7 +29,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - Prepare the dynamic-options-patch integration
-
 
 ## [0.6.0] - 2020-07-18
 
