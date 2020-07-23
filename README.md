@@ -1,6 +1,3 @@
-# dmenum
-A modular, well-documented dmenu distribution
-=======
 # dmenu
 
 [dmenu](https://tools.suckless.org/dmenu/) is dynamic menu for X. It manages large numbers of user-defined menu items efficiently.
