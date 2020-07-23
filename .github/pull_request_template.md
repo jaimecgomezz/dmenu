@@ -1,28 +1,65 @@
-# Pull Request
+---
+type: "\U0001F5FB Pull Request"
+title: "PR title"
+description: "Define your PR in some key words"
+breaking: "Yes/No"
+origin: "🇲🇽"
 
-## Description
-<!--- Please include a summary of the change and which issue is fixed. Please also include relevant motivation and context. List any dependencies that are required for this change. --->
+---
 
-Fixes [ ]
+## Proposed changes
+
+<!-- Describe the big picture of your changes here to communicate to the 
+maintainers why we should accept this pull request. If it fixes a bug or
+resolves a feature request, be sure to link to that issue. -->
 
 
-## Type of change
-<!--- Check as many as needed to fully describe the change --->
 
-- [ ] Hotfix (non-creaking change that requires inmediat attention)
-- [ ] Bug fix (non-breaking change which fixes an issue)
+
+
+## Types of changes
+<!-- Please do not submit updates to dependencies unless it fixes an issue. --> 
+<!-- Please try to limit your pull request to one type, submit multiple pull requests if needed. --> 
+
+What types of changes does your code introduce? Mark whichever better defines your change.
+
+- [ ] Build related changes
+
+- [ ] Style change (related to the appearance)
+
+- [ ] Code style update (formatting, renaming)
+
+- [ ] Refactoring (no functional changes, no api changes)
+
+- [ ] Bugfix (non-breaking change which fixes an issue)
+
 - [ ] New feature (non-breaking change which adds functionality)
-- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
-- [ ] Production release
+
+- [ ] Documentation Update (if none of the other choices apply)
+
+- [ ] Other (please describe): 
+
+  
+
+  
+
+## Checklist
+<!-- Put an `x` in the boxes that apply. You can also fill these out after creating the PR.
+If you're unsure about any of them, don't hesitate to ask. We're here to help!
+This is simply a reminder of what we are going to look for before merging your code. -->
+
+- [ ] I have read the `CONTRIBUTING` doc
+- [ ] I have added necessary documentation (if appropriate)
+- [ ] I have updated the version control files (`CHANGELOG`, `.version`)
+- [ ] I have added tests that prove my fix is effective or that my feature works or tested myself.
 
 
-## How Has This Been Tested?
-<!--- Please describe the tests that you ran to verify your changes. Provide instructions so we can reproduce. Please also list any relevant details for your test configuration --->
 
 
-## Checklist:
-<!--- Check as many as needed to fully describe the change --->
 
-- [ ] I have updated the CHANGELOG
-- [ ] I have updated the .version file
-- [ ] I have updated the man page (if needed)
+## Further comments
+<!-- If this is a relatively large or complex change, kick off the discussion by explaining
+why you chose the solution you did and what alternatives you considered, etc... -->
+
+<!-- If this introduces a breaking change, please describe the impact and migration path for
+existing applications below. -->
