@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.11.1] - 2020-07-23
+
+### Changed
+
+- Fix PR template
+
 ## [0.11.0] - 2020-07-22
 
 ### Added
