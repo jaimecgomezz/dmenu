@@ -8,10 +8,9 @@ This distribution aims to solve the patches integration problem, as well as the 
 
 ## Features
 
-### Patches
-
-| [border](https://tools.suckless.org/dmenu/patches/border/)   | ✔️    | [instant](https://tools.suckless.org/dmenu/patches/instant/) |      | [pipe-out](https://tools.suckless.org/dmenu/patches/pipeout/) |      |
+|                                                              |      | Patches                                                      |      |                                                              |      |
 | ------------------------------------------------------------ | ---- | ------------------------------------------------------------ | ---- | ------------------------------------------------------------ | ---- |
+| [border](https://tools.suckless.org/dmenu/patches/border/)   | ✔️    | [instant](https://tools.suckless.org/dmenu/patches/instant/) |      | [pipe-out](https://tools.suckless.org/dmenu/patches/pipeout/) |      |
 | [case insensitive](https://tools.suckless.org/dmenu/patches/case-insensitive/) | ✔️    | [json](https://tools.suckless.org/dmenu/patches/json/)       |      | [prefix completition](https://tools.suckless.org/dmenu/patches/prefix-completion/) |      |
 | [center](https://tools.suckless.org/dmenu/patches/center/)   | ✔️    | [line height](https://tools.suckless.org/dmenu/patches/line-height/) |      | [preselect](https://tools.suckless.org/dmenu/patches/preselect/) |      |
 | [dynamic options](https://tools.suckless.org/dmenu/patches/dynamicoptions/) | ✔️    | [managed](https://tools.suckless.org/dmenu/patches/managed/) |      | [print-input-text](https://tools.suckless.org/dmenu/patches/printinputtext/) |      |
@@ -25,15 +24,14 @@ This distribution aims to solve the patches integration problem, as well as the 
 
 
 
-### Scripts
-
-| [dbrowse](https://github.com/clamiax/scripts/blob/master/src/dbrowse) | [passmenu](https://git.zx2c4.com/password-store/tree/contrib/dmenu/passmenu) | [dbdb](https://tools.suckless.org/dmenu/scripts/dbdb.sh) |
+|                                                              | Scripts                                                      |                                                          |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | -------------------------------------------------------- |
-| [dmenu-pass](https://efe.kim/files/scripts/dmenu_pass)       | [passmenu2](https://tools.suckless.org/dmenu/scripts/passmenu2) | [clipmenu](https://github.com/cdown/clipmenu)            |
-| [dmenu-path](https://github.com/ema/dotfiles/blob/master/bin/dmenu_path) | [todo](https://tools.suckless.org/dmenu/scripts/todo)        |                                                          |
-| [dmenu-run](https://tools.suckless.org/dmenu/scripts/dmenu_run_with_command_history/) (command history) | [via](https://github.com/xalexalex/via)                      |                                                          |
-| [dmenu-websearch](https://efe.kim/files/scripts/dmenu_websearch) | [dmenu-run-i](https://tools.suckless.org/dmenu/scripts/dmenu_run_i) |                                                          |
-| [mpdmenu](https://github.com/cdown/mpdmenu/blob/master/mpdmenu) | [dmenu-launch](https://github.com/fsilveir/dmenu-launch)     |                                                          |
+| [passmenu](https://git.zx2c4.com/password-store/tree/contrib/dmenu/passmenu) | [dbrowse](https://github.com/clamiax/scripts/blob/master/src/dbrowse) | [dbdb](https://tools.suckless.org/dmenu/scripts/dbdb.sh) |
+| [passmenu2](https://tools.suckless.org/dmenu/scripts/passmenu2) | [dmenu-pass](https://efe.kim/files/scripts/dmenu_pass)       | [clipmenu](https://github.com/cdown/clipmenu)            |
+| [todo](https://tools.suckless.org/dmenu/scripts/todo)        | [dmenu-path](https://github.com/ema/dotfiles/blob/master/bin/dmenu_path) |                                                          |
+| [via](https://github.com/xalexalex/via)                      | [dmenu-run](https://tools.suckless.org/dmenu/scripts/dmenu_run_with_command_history/) |                                                          |
+| [dmenu-run-i](https://tools.suckless.org/dmenu/scripts/dmenu_run_i) | [dmenu-websearch](https://efe.kim/files/scripts/dmenu_websearch) |                                                          |
+| [dmenu-launch](https://github.com/fsilveir/dmenu-launch)     | [mpdmenu](https://github.com/cdown/mpdmenu/blob/master/mpdmenu) |                                                          |
 
 
 
@@ -103,4 +101,3 @@ You can read the `CONTRIBUTING` and make a `PR` whenever you’re ready, they ar
 ## License
 
  [Jaime Castro](https://github.com/jaimecgomezz), 2020. Code released under the MIT license.
-
