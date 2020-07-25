@@ -14,9 +14,10 @@ Actions:
 Patches:
   border              Allows borders in the dmenu window
   case-insensitive    Makes dmenu case insensitive
-  center              Makes dmenu appear centered on the screen
+  center              Makes dmenu appear centered on the screen. Uncompatible with xyw.
   dynamic-options     Makes dmenu run the command given to it whenever input is changed with the current input as the last argument and update the option list according to the output of that command
   fuzzymatch          Allows the users to type non-consecutive portions of the string to be matched
   fuzzyhighlight      This patch make it so that fuzzy matches gets highlighted and is therefore meant to be used together with the patch fuzzymatch
   grid                Allows you to render dmenu's entries in a grid. Not compatible with the dynamic-options patch.
+  xyw                 The patch adds options for setting window position and width. Uncompatible with center.
 

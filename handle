@@ -82,6 +82,7 @@ case "$patch" in
     |fuzzymatch\
     |fuzzyhighlight\
     |grid\
+    |xyw\
     |center)
     shift
   ;;
