@@ -58,6 +58,9 @@ static struct item *items = NULL;
 static struct item *matches, *matchend;
 static struct item *prev, *curr, *next, *sel;
 static int mon = -1, screen;
+// >>>>>>>>>>>>>>>>>>>> xyw
+// ==================== xyw
+// <<<<<<<<<<<<<<<<<<<< xyw
 
 static Atom clip, utf8;
 static Display *dpy;
@@ -804,6 +807,9 @@ usage(void)
     "\n\t\t"
     "[-m monitor]"
     "[-w windowid]"
+    // >>>>>>>>>>>>>>>>>>>> xyw
+    // ==================== xyw
+    // <<<<<<<<<<<<<<<<<<<< xyw
     "\n\t\t"
     // >>>>>>>>>>>>>>>>>>>> border
     // ==================== border
@@ -894,6 +900,9 @@ main(int argc, char *argv[])
     // >>>>>>>>>>>>>>>>>>>> grid
     // ==================== grid
     // <<<<<<<<<<<<<<<<<<<< grid
+    // >>>>>>>>>>>>>>>>>>>> xyw
+    // ==================== xyw
+    // <<<<<<<<<<<<<<<<<<<< xyw
 		else
 			usage();
 
