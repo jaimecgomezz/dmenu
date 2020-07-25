@@ -27,6 +27,9 @@
                              * MAX(0, MIN((y)+(h),(r).y_org+(r).height) - MAX((y),(r).y_org)))
 #define LENGTH(X)             (sizeof X / sizeof X[0])
 #define TEXTW(X)              (drw_fontset_getwidth(drw, (X)) + lrpad)
+// >>>>>>>>>>>>>>>>>>>> numbers
+// ==================== numbers
+// <<<<<<<<<<<<<<<<<<<< numbers
 
 /* enums */
 enum {
@@ -61,6 +64,9 @@ static int mon = -1, screen;
 // >>>>>>>>>>>>>>>>>>>> xyw
 // ==================== xyw
 // <<<<<<<<<<<<<<<<<<<< xyw
+// >>>>>>>>>>>>>>>>>>>> numbers
+// ==================== numbers
+// <<<<<<<<<<<<<<<<<<<< numbers
 
 static Atom clip, utf8;
 static Display *dpy;
@@ -163,6 +169,10 @@ drawitem(struct item *item, int x, int y, int w)
   // <<<<<<<<<<<<<<<<<<<< fuzzyhighlight
 }
 
+// >>>>>>>>>>>>>>>>>>>> numbers
+// ==================== numbers
+// <<<<<<<<<<<<<<<<<<<< numbers
+
 static void
 drawmenu(void)
 {
@@ -188,6 +198,9 @@ drawmenu(void)
 		drw_rect(drw, x + curpos, 2, 2, bh - 4, 1, 0);
 	}
 
+  // >>>>>>>>>>>>>>>>>>>> numbers
+  // ==================== numbers
+  // <<<<<<<<<<<<<<<<<<<< numbers
 	if (lines > 0) {
     // >>>>>>>>>>>>>>>>>>>> grid
     // ==================== grid
@@ -205,13 +218,22 @@ drawmenu(void)
 		}
 		x += w;
 		for (item = curr; item != next; item = item->right)
-			x = drawitem(item, x, 0, MIN(TEXTW(item->text), mw - x - TEXTW(">")));
+      // >>>>>>>>>>>>>>>>>>>> numbers
+      // ==================== numbers
+      x = drawitem(item, x, 0, MIN(TEXTW(item->text), mw - x - TEXTW(">")));
+      // <<<<<<<<<<<<<<<<<<<< numbers
 		if (next) {
 			w = TEXTW(">");
 			drw_setscheme(drw, scheme[SchemeNorm]);
-			drw_text(drw, mw - w, 0, w, bh, lrpad / 2, ">", 0);
+      // >>>>>>>>>>>>>>>>>>>> numbers
+      // ==================== numbers
+      drw_text(drw, mw - w, 0, w, bh, lrpad / 2, ">", 0);
+      // <<<<<<<<<<<<<<<<<<<< numbers
 		}
 	}
+  // >>>>>>>>>>>>>>>>>>>> numbers
+  // ==================== numbers
+  // <<<<<<<<<<<<<<<<<<<< numbers
 	drw_map(drw, win, 0, 0, mw, mh);
 }
 
