@@ -17,9 +17,9 @@ This distribution aims to solve the patches integration problem, as well as the 
 | [fuzzy-highlight](https://tools.suckless.org/dmenu/patches/fuzzyhighlight/) | ✔️    | [more-color](https://tools.suckless.org/dmenu/patches/morecolor/) |      | [reject no match](https://tools.suckless.org/dmenu/patches/reject-no-match/) |      |
 | [fuzzy-match](https://tools.suckless.org/dmenu/patches/fuzzymatch/) | ✔️    | [mouse support](https://tools.suckless.org/dmenu/patches/mouse-support/) |      | [scroll](https://tools.suckless.org/dmenu/patches/scroll/)   |      |
 | [grid](https://tools.suckless.org/dmenu/patches/grid/)       | ✔️    | [multi selection](https://tools.suckless.org/dmenu/patches/multi-selection/) |      | [symbols](https://tools.suckless.org/dmenu/patches/symbols/) |      |
-| [xyw](https://tools.suckless.org/dmenu/patches/xyw/)         |      | [nav-history](https://tools.suckless.org/dmenu/patches/navhistory/) |      | [vertfull](https://tools.suckless.org/dmenu/patches/vertfull/) |      |
-| [high-priority](https://tools.suckless.org/dmenu/patches/highpriority/) |      | [non blocking stdin](https://tools.suckless.org/dmenu/patches/non_blocking_stdin/) |      | [x-resources](https://tools.suckless.org/dmenu/patches/xresources/) |      |
-| [incremental](https://tools.suckless.org/dmenu/patches/incremental/) |      | [numbers](https://tools.suckless.org/dmenu/patches/numbers/) |      | [highlight](https://tools.suckless.org/dmenu/patches/highlight/) |      |
+| [xyw](https://tools.suckless.org/dmenu/patches/xyw/)         | ✔️    | [nav-history](https://tools.suckless.org/dmenu/patches/navhistory/) |      | [vertfull](https://tools.suckless.org/dmenu/patches/vertfull/) |      |
+| [numbers](https://tools.suckless.org/dmenu/patches/numbers/) |      | [non blocking stdin](https://tools.suckless.org/dmenu/patches/non_blocking_stdin/) |      | [x-resources](https://tools.suckless.org/dmenu/patches/xresources/) |      |
+| [incremental](https://tools.suckless.org/dmenu/patches/incremental/) |      | [high-priority](https://tools.suckless.org/dmenu/patches/highpriority/) |      | [highlight](https://tools.suckless.org/dmenu/patches/highlight/) |      |
 | [initial-text](https://tools.suckless.org/dmenu/patches/initialtext/) |      | [password](https://tools.suckless.org/dmenu/patches/password/) |      |                                                              |      |
 
 
