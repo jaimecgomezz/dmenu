@@ -20,4 +20,5 @@ Patches:
   fuzzyhighlight      This patch make it so that fuzzy matches gets highlighted and is therefore meant to be used together with the patch fuzzymatch
   grid                Allows you to render dmenu's entries in a grid. Not compatible with the dynamic-options patch.
   xyw                 The patch adds options for setting window position and width. Uncompatible with center.
+  numbers             Adds text which displays the number of matched and total items in the top right corner of dmenu.
 
