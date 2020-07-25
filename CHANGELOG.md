@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.13.0] - 2020-07-25
+
+### Added
+
+- Add numbers-patch
+- Add support for the numbers-patch in the handle utility
+
+### Changed
+
+- Prepare the numbers-patch integration
+- Update CHANGELOG with xyw-patch version
+
+## [0.12.0] - 2020-07-25
+
+### Added
+
+- Add xyw-patch
+- Add support for the xyw-patch in the handle utility
+
+### Changed
+
+- Prepare the xyw-patch integration
+
 ## [0.11.1] - 2020-07-23
 
 ### Changed
