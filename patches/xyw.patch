@@ -1,0 +1,111 @@
+diff --git a/dmenu.1 b/dmenu.1
+index 398cfff..fd62060 100644
+--- a/dmenu.1
++++ b/dmenu.1
+@@ -17,7 +17,14 @@ dmenu \- dynamic menu
+ \" ==================== fuzzymatch
+ \" <<<<<<<<<<<<<<<<<<<< fuzzymatch
+ \" >>>>>>>>>>>>>>>>>>>> xyw
+-\" ==================== xyw
++.RB [ \-mm ]
++.RB [ \-bb ]
++.RB [ \-xx
++.IR xoffset ]
++.RB [ \-yy
++.IR yoffset ]
++.RB [ \-ww
++.IR width ]
+ \" <<<<<<<<<<<<<<<<<<<< xyw
+ .RB [ \-m
+ .IR monitor ]
+@@ -87,7 +94,21 @@ prints version information to stdout, then exits.
+ \" ==================== fuzzymatch
+ \" <<<<<<<<<<<<<<<<<<<< fuzzymatch
+ \" >>>>>>>>>>>>>>>>>>>> xyw
+-\" ==================== xyw
++.B \-mm
++if present, the measurement will use the given monitor.
++.TP
++.BI \-xx " xoffset"
++dmenu is placed at this offset measured from the left side of the monitor.
++Can be negative.
++If option
++.BI \-yy " yoffset"
++dmenu is placed at this offset measured from the top of the monitor.  If the
++.B \-mm
++if present, the measurement will use the given monitor.
++.TP
++.BI \-ww " width"
++sets the width of the dmenu window.
++.TP
+ \" <<<<<<<<<<<<<<<<<<<< xyw
+ .BI \-m " monitor"
+ dmenu is displayed on the monitor number supplied. Monitor numbers are starting
+diff --git a/dmenu.c b/dmenu.c
+index 06c6371..f8d9435 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -59,7 +59,9 @@ static struct item *matches, *matchend;
+ static struct item *prev, *curr, *next, *sel;
+ static int mon = -1, screen;
+ // >>>>>>>>>>>>>>>>>>>> xyw
+-// ==================== xyw
++static int dmx = 0; /* put dmenu at this x offset */
++static int dmy = 0; /* put dmenu at this y offset (measured from the bottom if topbar is 0) */
++static unsigned int dmw = 0; /* make dmenu this wide */
+ // <<<<<<<<<<<<<<<<<<<< xyw
+ 
+ static Atom clip, utf8;
+@@ -709,10 +711,9 @@ setup(void)
+ 					break;
+ 
+     // >>>>>>>>>>>>>>>>>>>> center-xyw
+-    // ==================== center
+-		x = info[i].x_org;
+-		y = info[i].y_org + (topbar ? 0 : info[i].height - mh);
+-		mw = info[i].width;
++    x = info[i].x_org + dmx;
++    y = info[i].y_org + (topbar ? dmy : info[i].height - mh - dmy);
++    mw = (dmw>0 ? dmw : info[i].width);
+     // <<<<<<<<<<<<<<<<<<<< center-xyw
+ 		XFree(info);
+ 	} else
+@@ -722,10 +723,9 @@ setup(void)
+ 			die("could not get embedding window attributes: 0x%lx",
+ 			    parentwin);
+     // >>>>>>>>>>>>>>>>>>>> center-xyw
+-    // ==================== center
+-		x = 0;
+-		y = topbar ? 0 : wa.height - mh;
+-		mw = wa.width;
++    x = dmx;
++    y = topbar ? dmy : wa.height - mh - dmy;
++    mw = (dmw>0 ? dmw : wa.width);
+     // <<<<<<<<<<<<<<<<<<<< center-xyw
+ 	}
+   // >>>>>>>>>>>>>>>>>>>> center
+@@ -808,7 +808,9 @@ usage(void)
+     "[-m monitor]"
+     "[-w windowid]"
+     // >>>>>>>>>>>>>>>>>>>> xyw
+-    // ==================== xyw
++    "[-xx xoffset]"
++    "[-yy yoffset]"
++    "[-ww width]"
+     // <<<<<<<<<<<<<<<<<<<< xyw
+     "\n\t\t"
+     // >>>>>>>>>>>>>>>>>>>> border
+@@ -901,7 +903,12 @@ main(int argc, char *argv[])
+     // ==================== grid
+     // <<<<<<<<<<<<<<<<<<<< grid
+     // >>>>>>>>>>>>>>>>>>>> xyw
+-    // ==================== xyw
++    else if (!strcmp(argv[i], "-xx"))   /* window x offset */
++      dmx = atoi(argv[++i]);
++    else if (!strcmp(argv[i], "-yy"))   /* window y offset (from bottom up if -b) */
++      dmy = atoi(argv[++i]);
++    else if (!strcmp(argv[i], "-ww"))   /* make dmenu this wide */
++      dmw = atoi(argv[++i]);
+     // <<<<<<<<<<<<<<<<<<<< xyw
+ 		else
+ 			usage();
