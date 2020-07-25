@@ -705,12 +705,12 @@ setup(void)
 				if (INTERSECT(x, y, 1, 1, info[i]))
 					break;
 
-    // >>>>>>>>>>>>>>>>>>>> center
+    // >>>>>>>>>>>>>>>>>>>> center-xyw
     // ==================== center
 		x = info[i].x_org;
 		y = info[i].y_org + (topbar ? 0 : info[i].height - mh);
 		mw = info[i].width;
-    // <<<<<<<<<<<<<<<<<<<< center
+    // <<<<<<<<<<<<<<<<<<<< center-xyw
 		XFree(info);
 	} else
 #endif
@@ -718,12 +718,12 @@ setup(void)
 		if (!XGetWindowAttributes(dpy, parentwin, &wa))
 			die("could not get embedding window attributes: 0x%lx",
 			    parentwin);
-    // >>>>>>>>>>>>>>>>>>>> center
+    // >>>>>>>>>>>>>>>>>>>> center-xyw
     // ==================== center
 		x = 0;
 		y = topbar ? 0 : wa.height - mh;
 		mw = wa.width;
-    // <<<<<<<<<<<<<<<<<<<< center
+    // <<<<<<<<<<<<<<<<<<<< center-xyw
 	}
   // >>>>>>>>>>>>>>>>>>>> center
   // ==================== center
