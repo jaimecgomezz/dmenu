@@ -66,7 +66,7 @@ index 8bcecdf..a4011fc 100644
 @@ -648,10 +655,15 @@ setup(void)
  					break;
  
-     // >>>>>>>>>>>>>>>>>>>> center
+     // >>>>>>>>>>>>>>>>>>>> center-xyw
 -    // ==================== center
 -		x = info[i].x_org;
 -		y = info[i].y_org + (topbar ? 0 : info[i].height - mh);
@@ -80,13 +80,13 @@ index 8bcecdf..a4011fc 100644
 +      y = info[i].y_org + (topbar ? 0 : info[i].height - mh);
 +      mw = info[i].width;
 +    }
-     // <<<<<<<<<<<<<<<<<<<< center
+     // <<<<<<<<<<<<<<<<<<<< center-xyw
  		XFree(info);
  	} else
 @@ -661,15 +673,18 @@ setup(void)
  			die("could not get embedding window attributes: 0x%lx",
  			    parentwin);
-     // >>>>>>>>>>>>>>>>>>>> center
+     // >>>>>>>>>>>>>>>>>>>> center-xyw
 -    // ==================== center
 -		x = 0;
 -		y = topbar ? 0 : wa.height - mh;
@@ -100,7 +100,7 @@ index 8bcecdf..a4011fc 100644
 +      y = topbar ? 0 : wa.height - mh;
 +      mw = wa.width;
 +    }
-     // <<<<<<<<<<<<<<<<<<<< center
+     // <<<<<<<<<<<<<<<<<<<< center-xyw
  	}
    // >>>>>>>>>>>>>>>>>>>> center
 -  // ==================== center

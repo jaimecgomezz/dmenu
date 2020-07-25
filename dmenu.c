@@ -58,6 +58,9 @@ static struct item *items = NULL;
 static struct item *matches, *matchend;
 static struct item *prev, *curr, *next, *sel;
 static int mon = -1, screen;
+// >>>>>>>>>>>>>>>>>>>> xyw
+// ==================== xyw
+// <<<<<<<<<<<<<<<<<<<< xyw
 
 static Atom clip, utf8;
 static Display *dpy;
@@ -705,12 +708,12 @@ setup(void)
 				if (INTERSECT(x, y, 1, 1, info[i]))
 					break;
 
-    // >>>>>>>>>>>>>>>>>>>> center
+    // >>>>>>>>>>>>>>>>>>>> center-xyw
     // ==================== center
 		x = info[i].x_org;
 		y = info[i].y_org + (topbar ? 0 : info[i].height - mh);
 		mw = info[i].width;
-    // <<<<<<<<<<<<<<<<<<<< center
+    // <<<<<<<<<<<<<<<<<<<< center-xyw
 		XFree(info);
 	} else
 #endif
@@ -718,12 +721,12 @@ setup(void)
 		if (!XGetWindowAttributes(dpy, parentwin, &wa))
 			die("could not get embedding window attributes: 0x%lx",
 			    parentwin);
-    // >>>>>>>>>>>>>>>>>>>> center
+    // >>>>>>>>>>>>>>>>>>>> center-xyw
     // ==================== center
 		x = 0;
 		y = topbar ? 0 : wa.height - mh;
 		mw = wa.width;
-    // <<<<<<<<<<<<<<<<<<<< center
+    // <<<<<<<<<<<<<<<<<<<< center-xyw
 	}
   // >>>>>>>>>>>>>>>>>>>> center
   // ==================== center
@@ -804,6 +807,9 @@ usage(void)
     "\n\t\t"
     "[-m monitor]"
     "[-w windowid]"
+    // >>>>>>>>>>>>>>>>>>>> xyw
+    // ==================== xyw
+    // <<<<<<<<<<<<<<<<<<<< xyw
     "\n\t\t"
     // >>>>>>>>>>>>>>>>>>>> border
     // ==================== border
@@ -894,6 +900,9 @@ main(int argc, char *argv[])
     // >>>>>>>>>>>>>>>>>>>> grid
     // ==================== grid
     // <<<<<<<<<<<<<<<<<<<< grid
+    // >>>>>>>>>>>>>>>>>>>> xyw
+    // ==================== xyw
+    // <<<<<<<<<<<<<<<<<<<< xyw
 		else
 			usage();
 
