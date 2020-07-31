@@ -44,3 +44,7 @@ static const char worddelimiters[] = " ";
 // >>>>>>>>>>>>>>>>>>>> grid
 // ==================== grid
 // <<<<<<<<<<<<<<<<<<<< grid
+
+// >>>>>>>>>>>>>>>>>>>> incremental
+// ==================== incremental
+// <<<<<<<<<<<<<<<<<<<< incremental

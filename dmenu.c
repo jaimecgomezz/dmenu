@@ -586,6 +586,10 @@ insert:
 		break;
 	}
 
+  // >>>>>>>>>>>>>>>>>>>> incremental
+  // ==================== incremental
+  // <<<<<<<<<<<<<<<<<<<< incremental
+
 draw:
 	drawmenu();
 }
@@ -842,6 +846,9 @@ usage(void)
     // >>>>>>>>>>>>>>>>>>>> password
     // ==================== password
     // <<<<<<<<<<<<<<<<<<<< password
+    // >>>>>>>>>>>>>>>>>>>> incremental
+    // ==================== incremental
+    // <<<<<<<<<<<<<<<<<<<< incremental
     "\n\t\t"
     "[-m monitor]"
     "[-w windowid]"
@@ -902,6 +909,9 @@ main(int argc, char *argv[])
     // >>>>>>>>>>>>>>>>>>>> password
     // ==================== password
     // <<<<<<<<<<<<<<<<<<<< password
+    // >>>>>>>>>>>>>>>>>>>> incremental
+    // ==================== incremental
+    // <<<<<<<<<<<<<<<<<<<< incremental
 		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
 			fstrncmp = strncasecmp;
 			fstrstr = cistrstr;
