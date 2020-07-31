@@ -24,4 +24,5 @@ Patches:
   password            Makes dmenu replace the keyboard input with dots
   incremental         Makes dmenu to print out the current text each time a key is pressed 
   preselect           This patch adds an option to preselect an item by providing a number
+  scroll              This patch adds support for text scrolling, it doesn't append '...' for long input anymore as it can handle long text now
 
