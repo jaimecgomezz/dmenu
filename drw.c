@@ -379,6 +379,10 @@ drw_text(Drw *drw, int x, int y, unsigned int w, unsigned int h, unsigned int lp
 	return x + (render ? w : 0);
 }
 
+// >>>>>>>>>>>>>>>>>>>> scroll
+// ==================== scroll
+// <<<<<<<<<<<<<<<<<<<< scroll
+
 void
 drw_map(Drw *drw, Window win, int x, int y, unsigned int w, unsigned int h)
 {
