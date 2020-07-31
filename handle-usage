@@ -21,12 +21,12 @@ Patches:
   preselect           This patch adds an option to preselect an item by providing a number
   center              Makes dmenu appear centered on the screen
                         Not compatible with the xyw patch
+  xyw                 The patch adds options for setting window position and width
+                        Not compatible with center patch
   dynamic-options     Makes dmenu run the command given to it whenever input is changed with the current input as the last argument and update the option list according to the output of that command
                         Not compatible with the grid patch
   grid                Allows you to render dmenu's entries in a grid
                         Not compatible with the dynamic-options patch
-  xyw                 The patch adds options for setting window position and width
-                        Not compatible with center patch
   password            Makes dmenu replace the keyboard input with dots
                         Not compatible with scroll patch
   scroll              This patch adds support for text scrolling, it doesn't append '...' for long input anymore as it can handle long text now
