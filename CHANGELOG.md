@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.14.0] - 2020-07-30
+
+### Added
+
+- Add password-patch
+- Add support for the password-patch in the handle utility
+
+### Changed
+
+- Prepare the password-patch integration
+- Update README
+
 ## [0.13.0] - 2020-07-25
 
 ### Added
