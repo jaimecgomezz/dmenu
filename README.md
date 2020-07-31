@@ -20,7 +20,7 @@ This distribution aims to solve the patches integration problem, as well as the 
 | [xyw](https://tools.suckless.org/dmenu/patches/xyw/)         | ✔️    | [reject no match](https://tools.suckless.org/dmenu/patches/reject-no-match/) |      | [x-resources](https://tools.suckless.org/dmenu/patches/xresources/) |      |
 | [numbers](https://tools.suckless.org/dmenu/patches/numbers/) | ✔️    | [prefix completition](https://tools.suckless.org/dmenu/patches/prefix-completion/) |      | [high-priority](https://tools.suckless.org/dmenu/patches/highpriority/) |      |
 | [password](https://tools.suckless.org/dmenu/patches/password/) | ✔️    | [instant](https://tools.suckless.org/dmenu/patches/instant/) |      | [highlight](https://tools.suckless.org/dmenu/patches/highlight/) |      |
-| [incremental](https://tools.suckless.org/dmenu/patches/incremental/) |      | [mouse support](https://tools.suckless.org/dmenu/patches/mouse-support/) |      |                                                              |      |
+| [incremental](https://tools.suckless.org/dmenu/patches/incremental/) | ✔️    | [mouse support](https://tools.suckless.org/dmenu/patches/mouse-support/) |      |                                                              |      |
 
 ### Coming...
 
