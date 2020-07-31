@@ -54,7 +54,10 @@ struct item {
 static char text[BUFSIZ] = "";
 static char *embed;
 static int bh, mw, mh;
+// >>>>>>>>>>>>>>>>>>>> password
+// ==================== password
 static int inputw = 0, promptw;
+// <<<<<<<<<<<<<<<<<<<< password
 static int lrpad; /* sum of left and right padding */
 static size_t cursor;
 static struct item *items = NULL;
@@ -179,6 +182,9 @@ drawmenu(void)
 	unsigned int curpos;
 	struct item *item;
 	int x = 0, y = 0, w;
+  // >>>>>>>>>>>>>>>>>>>> password
+  // ==================== password
+  // <<<<<<<<<<<<<<<<<<<< password
 
 	drw_setscheme(drw, scheme[SchemeNorm]);
 	drw_rect(drw, 0, 0, mw, mh, 1, 1);
@@ -190,7 +196,10 @@ drawmenu(void)
 	/* draw input field */
 	w = (lines > 0 || !matches) ? mw - x : inputw;
 	drw_setscheme(drw, scheme[SchemeNorm]);
-	drw_text(drw, x, 0, w, bh, lrpad / 2, text, 0);
+  // >>>>>>>>>>>>>>>>>>>> password
+  // ==================== password
+  drw_text(drw, x, 0, w, bh, lrpad / 2, text, 0);
+  // <<<<<<<<<<<<<<<<<<<< password
 
 	curpos = TEXTW(text) - TEXTW(&text[cursor]);
 	if ((curpos += lrpad / 2 - 1) < w) {
@@ -609,6 +618,10 @@ readstdin(void)
 	size_t i, imax = 0, size = 0;
 	unsigned int tmpmax = 0;
 
+  // >>>>>>>>>>>>>>>>>>>> password
+  // ==================== password
+  // <<<<<<<<<<<<<<<<<<<< password
+
 	/* read each line from stdin and add it to the item list */
   // >>>>>>>>>>>>>>>>>>>> dynamic-options
   // ==================== dynamic-options
@@ -826,6 +839,9 @@ usage(void)
     // >>>>>>>>>>>>>>>>>>>> fuzzymatch
     // ==================== fuzzymatch
     // <<<<<<<<<<<<<<<<<<<< fuzzymatch
+    // >>>>>>>>>>>>>>>>>>>> password
+    // ==================== password
+    // <<<<<<<<<<<<<<<<<<<< password
     "\n\t\t"
     "[-m monitor]"
     "[-w windowid]"
@@ -883,6 +899,9 @@ main(int argc, char *argv[])
     // >>>>>>>>>>>>>>>>>>>> fuzzymatch
     // ==================== fuzzymatch
     // <<<<<<<<<<<<<<<<<<<< fuzzymatch
+    // >>>>>>>>>>>>>>>>>>>> password
+    // ==================== password
+    // <<<<<<<<<<<<<<<<<<<< password
 		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
 			fstrncmp = strncasecmp;
 			fstrstr = cistrstr;

@@ -10,19 +10,19 @@ This distribution aims to solve the patches integration problem, as well as the 
 
 |                                                              |      | Patches                                                      |      |                                                              |      |
 | ------------------------------------------------------------ | ---- | ------------------------------------------------------------ | ---- | ------------------------------------------------------------ | ---- |
-| [border](https://tools.suckless.org/dmenu/patches/border/)   | ✔️    | [instant](https://tools.suckless.org/dmenu/patches/instant/) |      | [pipe-out](https://tools.suckless.org/dmenu/patches/pipeout/) |      |
-| [case insensitive](https://tools.suckless.org/dmenu/patches/case-insensitive/) | ✔️    | [json](https://tools.suckless.org/dmenu/patches/json/)       |      | [prefix completition](https://tools.suckless.org/dmenu/patches/prefix-completion/) |      |
-| [center](https://tools.suckless.org/dmenu/patches/center/)   | ✔️    | [line height](https://tools.suckless.org/dmenu/patches/line-height/) |      | [preselect](https://tools.suckless.org/dmenu/patches/preselect/) |      |
-| [dynamic options](https://tools.suckless.org/dmenu/patches/dynamicoptions/) | ✔️    | [managed](https://tools.suckless.org/dmenu/patches/managed/) |      | [print-input-text](https://tools.suckless.org/dmenu/patches/printinputtext/) |      |
-| [fuzzy-highlight](https://tools.suckless.org/dmenu/patches/fuzzyhighlight/) | ✔️    | [more-color](https://tools.suckless.org/dmenu/patches/morecolor/) |      | [reject no match](https://tools.suckless.org/dmenu/patches/reject-no-match/) |      |
-| [fuzzy-match](https://tools.suckless.org/dmenu/patches/fuzzymatch/) | ✔️    | [mouse support](https://tools.suckless.org/dmenu/patches/mouse-support/) |      | [scroll](https://tools.suckless.org/dmenu/patches/scroll/)   |      |
-| [grid](https://tools.suckless.org/dmenu/patches/grid/)       | ✔️    | [multi selection](https://tools.suckless.org/dmenu/patches/multi-selection/) |      | [symbols](https://tools.suckless.org/dmenu/patches/symbols/) |      |
-| [xyw](https://tools.suckless.org/dmenu/patches/xyw/)         | ✔️    | [nav-history](https://tools.suckless.org/dmenu/patches/navhistory/) |      | [vertfull](https://tools.suckless.org/dmenu/patches/vertfull/) |      |
-| [numbers](https://tools.suckless.org/dmenu/patches/numbers/) | ✔️    | [non blocking stdin](https://tools.suckless.org/dmenu/patches/non_blocking_stdin/) |      | [x-resources](https://tools.suckless.org/dmenu/patches/xresources/) |      |
-| [incremental](https://tools.suckless.org/dmenu/patches/incremental/) |      | [high-priority](https://tools.suckless.org/dmenu/patches/highpriority/) |      | [highlight](https://tools.suckless.org/dmenu/patches/highlight/) |      |
-| [initial-text](https://tools.suckless.org/dmenu/patches/initialtext/) |      | [password](https://tools.suckless.org/dmenu/patches/password/) |      |                                                              |      |
+| [border](https://tools.suckless.org/dmenu/patches/border/)   | ✔️    | [preselect](https://tools.suckless.org/dmenu/patches/preselect/) |      | [symbols](https://tools.suckless.org/dmenu/patches/symbols/) |      |
+| [case insensitive](https://tools.suckless.org/dmenu/patches/case-insensitive/) | ✔️    | [scroll](https://tools.suckless.org/dmenu/patches/scroll/)   |      | [vertfull](https://tools.suckless.org/dmenu/patches/vertfull/) |      |
+| [center](https://tools.suckless.org/dmenu/patches/center/)   | ✔️    | [initial-text](https://tools.suckless.org/dmenu/patches/initialtext/) |      | [nav-history](https://tools.suckless.org/dmenu/patches/navhistory/) |      |
+| [dynamic options](https://tools.suckless.org/dmenu/patches/dynamicoptions/) | ✔️    | [pipe-out](https://tools.suckless.org/dmenu/patches/pipeout/) |      | [non blocking stdin](https://tools.suckless.org/dmenu/patches/non_blocking_stdin/) |      |
+| [fuzzy-highlight](https://tools.suckless.org/dmenu/patches/fuzzyhighlight/) | ✔️    | [json](https://tools.suckless.org/dmenu/patches/json/)       |      | [more-color](https://tools.suckless.org/dmenu/patches/morecolor/) |      |
+| [fuzzy-match](https://tools.suckless.org/dmenu/patches/fuzzymatch/) | ✔️    | [multi selection](https://tools.suckless.org/dmenu/patches/multi-selection/) |      | [line height](https://tools.suckless.org/dmenu/patches/line-height/) |      |
+| [grid](https://tools.suckless.org/dmenu/patches/grid/)       | ✔️    | [managed](https://tools.suckless.org/dmenu/patches/managed/) |      | [print-input-text](https://tools.suckless.org/dmenu/patches/printinputtext/) |      |
+| [xyw](https://tools.suckless.org/dmenu/patches/xyw/)         | ✔️    | [reject no match](https://tools.suckless.org/dmenu/patches/reject-no-match/) |      | [x-resources](https://tools.suckless.org/dmenu/patches/xresources/) |      |
+| [numbers](https://tools.suckless.org/dmenu/patches/numbers/) | ✔️    | [prefix completition](https://tools.suckless.org/dmenu/patches/prefix-completion/) |      | [high-priority](https://tools.suckless.org/dmenu/patches/highpriority/) |      |
+| [password](https://tools.suckless.org/dmenu/patches/password/) | ✔️    | [instant](https://tools.suckless.org/dmenu/patches/instant/) |      | [highlight](https://tools.suckless.org/dmenu/patches/highlight/) |      |
+| [incremental](https://tools.suckless.org/dmenu/patches/incremental/) |      | [mouse support](https://tools.suckless.org/dmenu/patches/mouse-support/) |      |                                                              |      |
 
-
+### Coming...
 
 |                                                              | Scripts                                                      |                                                          |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | -------------------------------------------------------- |
@@ -32,7 +32,6 @@ This distribution aims to solve the patches integration problem, as well as the 
 | [via](https://github.com/xalexalex/via)                      | [dmenu-run](https://tools.suckless.org/dmenu/scripts/dmenu_run_with_command_history/) |                                                          |
 | [dmenu-run-i](https://tools.suckless.org/dmenu/scripts/dmenu_run_i) | [dmenu-websearch](https://efe.kim/files/scripts/dmenu_websearch) |                                                          |
 | [dmenu-launch](https://github.com/fsilveir/dmenu-launch)     | [mpdmenu](https://github.com/cdown/mpdmenu/blob/master/mpdmenu) |                                                          |
-
 
 
 
