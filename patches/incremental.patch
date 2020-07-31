@@ -1,0 +1,70 @@
+diff --git a/config.def.h b/config.def.h
+index 721f9c0..f25a31a 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -46,5 +46,5 @@ static const char worddelimiters[] = " ";
+ // <<<<<<<<<<<<<<<<<<<< grid
+ 
+ // >>>>>>>>>>>>>>>>>>>> incremental
+-// ==================== incremental
++static int incremental = 0;                 /* -r  option; if 1, outputs text each time a key is pressed */
+ // <<<<<<<<<<<<<<<<<<<< incremental
+diff --git a/dmenu.1 b/dmenu.1
+index b23abab..d5c8ecd 100644
+--- a/dmenu.1
++++ b/dmenu.1
+@@ -23,7 +23,7 @@ dmenu \- dynamic menu
+ \" ==================== password
+ \" <<<<<<<<<<<<<<<<<<<< password
+ \" >>>>>>>>>>>>>>>>>>>> incremental
+-\" ==================== incremental
++.RB [ \-r ]
+ \" <<<<<<<<<<<<<<<<<<<< incremental
+ .RB [ \-m
+ .IR monitor ]
+@@ -99,7 +99,9 @@ prints version information to stdout, then exits.
+ \" ==================== password
+ \" <<<<<<<<<<<<<<<<<<<< password
+ \" >>>>>>>>>>>>>>>>>>>> incremental
+-\" ==================== incremental
++.B \-r
++dmenu outputs text each time a key is pressed.
++.TP
+ \" <<<<<<<<<<<<<<<<<<<< incremental
+ .BI \-m " monitor"
+ dmenu is displayed on the monitor number supplied. Monitor numbers are starting
+diff --git a/dmenu.c b/dmenu.c
+index 36727c6..5f4e883 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -587,7 +587,10 @@ insert:
+ 	}
+ 
+   // >>>>>>>>>>>>>>>>>>>> incremental
+-  // ==================== incremental
++  if (incremental) {
++    puts(text);
++    fflush(stdout);
++  }
+   // <<<<<<<<<<<<<<<<<<<< incremental
+ 
+ draw:
+@@ -847,7 +850,7 @@ usage(void)
+     // ==================== password
+     // <<<<<<<<<<<<<<<<<<<< password
+     // >>>>>>>>>>>>>>>>>>>> incremental
+-    // ==================== incremental
++    "[-r]"
+     // <<<<<<<<<<<<<<<<<<<< incremental
+     "\n\t\t"
+     "[-m monitor]"
+@@ -910,7 +913,8 @@ main(int argc, char *argv[])
+     // ==================== password
+     // <<<<<<<<<<<<<<<<<<<< password
+     // >>>>>>>>>>>>>>>>>>>> incremental
+-    // ==================== incremental
++    else if (!strcmp(argv[i], "-r"))   /* incremental */
++      incremental = 1;
+     // <<<<<<<<<<<<<<<<<<<< incremental
+ 		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
+ 			fstrncmp = strncasecmp;
