@@ -23,4 +23,5 @@ Patches:
   numbers             Adds text which displays the number of matched and total items in the top right corner of dmenu.
   password            Makes dmenu replace the keyboard input with dots
   incremental         Makes dmenu to print out the current text each time a key is pressed 
+  preselect           This patch adds an option to preselect an item by providing a number
 
