@@ -1,0 +1,84 @@
+diff --git a/config.def.h b/config.def.h
+index 31e1558..72fe406 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -50,5 +50,6 @@ static const char worddelimiters[] = " ";
+ // <<<<<<<<<<<<<<<<<<<< incremental
+ 
+ // >>>>>>>>>>>>>>>>>>>> preselect
+-// ==================== preselect
++/* -n option; preselected item starting from 0 */
++static unsigned int preselected = 0;
+ // <<<<<<<<<<<<<<<<<<<< preselect
+diff --git a/dmenu.1 b/dmenu.1
+index b1d8316..8310432 100644
+--- a/dmenu.1
++++ b/dmenu.1
+@@ -45,7 +45,8 @@ dmenu \- dynamic menu
+ \" ==================== grid
+ \" <<<<<<<<<<<<<<<<<<<< grid
+ \" >>>>>>>>>>>>>>>>>>>> preselect
+-\" ==================== preselect
++.RB [ \-n
++.IR number ]
+ \" <<<<<<<<<<<<<<<<<<<< preselect
+ .RB [ \-nb
+ .IR color ]
+@@ -129,7 +130,9 @@ defines the prompt to be displayed to the left of the input field.
+ \" ==================== grid
+ \" <<<<<<<<<<<<<<<<<<<< grid
+ \" >>>>>>>>>>>>>>>>>>>> preselect
+-\" ==================== preselect
++.TP
++.BI \-n " number"
++preseslected item starting from 0.
+ \" <<<<<<<<<<<<<<<<<<<< preselect
+ .BI \-nb " color"
+ defines the normal background color.
+diff --git a/dmenu.c b/dmenu.c
+index a613b02..dd6cee9 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -656,12 +656,21 @@ run(void)
+ {
+ 	XEvent ev;
+   // >>>>>>>>>>>>>>>>>>>> preselect
+-  // ==================== preselect
++  int i;
+   // <<<<<<<<<<<<<<<<<<<< preselect
+ 
+ 	while (!XNextEvent(dpy, &ev)) {
+     // >>>>>>>>>>>>>>>>>>>> preselect
+-    // ==================== preselect
++    if (preselected) {
++      for (i = 0; i < preselected; i++) {
++        if (sel && sel->right && (sel = sel->right) == next) {
++          curr = next;
++          calcoffsets();
++        }
++      }
++      drawmenu();
++      preselected = 0;
++    }
+     // <<<<<<<<<<<<<<<<<<<< preselect
+ 		if (XFilterEvent(&ev, win))
+ 			continue;
+@@ -875,7 +884,7 @@ usage(void)
+     // ==================== grid
+     // <<<<<<<<<<<<<<<<<<<< grid
+     // >>>>>>>>>>>>>>>>>>>> preselect
+-    // ==================== preselect
++    "[-n number]"
+     // <<<<<<<<<<<<<<<<<<<< preselect
+     "\n\t\t"
+     "[-nb color]"
+@@ -964,7 +973,8 @@ main(int argc, char *argv[])
+     // ==================== xyw
+     // <<<<<<<<<<<<<<<<<<<< xyw
+     // >>>>>>>>>>>>>>>>>>>> preselect
+-    // ==================== preselect
++    else if (!strcmp(argv[i], "-n"))   /* preselected item */
++      preselected = atoi(argv[++i]);
+     // <<<<<<<<<<<<<<<<<<<< preselect
+ 		else
+ 			usage();

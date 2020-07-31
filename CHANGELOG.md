@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.16.0] - 2020-07-31
+
+### Added
+
+- Add the preselect-patch
+- Add support for the preselect-patch in handle utility
+
+### Changed
+
+- Prepare the preselect-patch integration
+- Update README
+
 ## [0.15.0] - 2020-07-30
 
 ### Added
