@@ -22,4 +22,5 @@ Patches:
   xyw                 The patch adds options for setting window position and width. Uncompatible with center.
   numbers             Adds text which displays the number of matched and total items in the top right corner of dmenu.
   password            Makes dmenu replace the keyboard input with dots
+  incremental         Makes dmenu to print out the current text each time a key is pressed 
 

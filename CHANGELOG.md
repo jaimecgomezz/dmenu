@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.15.0] - 2020-07-30
+
+### Added
+
+- Add the incremental-patch
+- Add support for the incremental-patch in handle utility
+
+### Changed
+
+- Prepare the incremental-patch integration
+- Update README
+
 ## [0.14.0] - 2020-07-30
 
 ### Added
