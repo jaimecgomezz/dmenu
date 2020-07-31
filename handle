@@ -85,6 +85,7 @@ case "$patch" in
     |xyw\
     |numbers\
     |password\
+    |incremental\
     |center)
     shift
   ;;
