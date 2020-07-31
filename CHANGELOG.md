@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.17.0] - 2020-07-31
+
+### Added
+
+- Add the scroll-patch
+- Add support for the scroll-patch in handle utility
+
+### Changed
+
+- Make password-patch compatible with scroll-patch
+- Prepare the scroll-patch integration
+- Update README
+- Improve handle-usage
+
 ## [0.16.0] - 2020-07-31
 
 ### Added

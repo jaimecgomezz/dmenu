@@ -87,6 +87,7 @@ case "$patch" in
     |password\
     |incremental\
     |preselect\
+    |scroll\
     |center)
     shift
   ;;

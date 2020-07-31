@@ -179,7 +179,10 @@ drawitem(struct item *item, int x, int y, int w)
 static void
 drawmenu(void)
 {
-	unsigned int curpos;
+  // >>>>>>>>>>>>>>>>>>>> scroll
+  // ==================== scroll
+  unsigned int curpos;
+  // <<<<<<<<<<<<<<<<<<<< scroll
 	struct item *item;
 	int x = 0, y = 0, w;
   // >>>>>>>>>>>>>>>>>>>> password
@@ -195,17 +198,23 @@ drawmenu(void)
 	}
 	/* draw input field */
 	w = (lines > 0 || !matches) ? mw - x : inputw;
-	drw_setscheme(drw, scheme[SchemeNorm]);
-  // >>>>>>>>>>>>>>>>>>>> password
-  // ==================== password
+  // >>>>>>>>>>>>>>>>>>>> scroll
+  // ==================== scroll
+  drw_setscheme(drw, scheme[SchemeNorm]);
+  // <<<<<<<<<<<<<<<<<<<< scroll
+  // >>>>>>>>>>>>>>>>>>>> password-scroll
+  // ==================== password-scroll
   drw_text(drw, x, 0, w, bh, lrpad / 2, text, 0);
-  // <<<<<<<<<<<<<<<<<<<< password
+  // <<<<<<<<<<<<<<<<<<<< password-scroll
 
+  // >>>>>>>>>>>>>>>>>>>> scroll
+  // ==================== scroll
 	curpos = TEXTW(text) - TEXTW(&text[cursor]);
 	if ((curpos += lrpad / 2 - 1) < w) {
 		drw_setscheme(drw, scheme[SchemeNorm]);
 		drw_rect(drw, x + curpos, 2, 2, bh - 4, 1, 0);
 	}
+  // <<<<<<<<<<<<<<<<<<<< scroll
 
   // >>>>>>>>>>>>>>>>>>>> numbers
   // ==================== numbers
