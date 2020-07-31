@@ -655,8 +655,14 @@ static void
 run(void)
 {
 	XEvent ev;
+  // >>>>>>>>>>>>>>>>>>>> preselect
+  // ==================== preselect
+  // <<<<<<<<<<<<<<<<<<<< preselect
 
 	while (!XNextEvent(dpy, &ev)) {
+    // >>>>>>>>>>>>>>>>>>>> preselect
+    // ==================== preselect
+    // <<<<<<<<<<<<<<<<<<<< preselect
 		if (XFilterEvent(&ev, win))
 			continue;
 		switch(ev.type) {
@@ -868,6 +874,9 @@ usage(void)
     // >>>>>>>>>>>>>>>>>>>> grid
     // ==================== grid
     // <<<<<<<<<<<<<<<<<<<< grid
+    // >>>>>>>>>>>>>>>>>>>> preselect
+    // ==================== preselect
+    // <<<<<<<<<<<<<<<<<<<< preselect
     "\n\t\t"
     "[-nb color]"
     "[-nf color]"
@@ -954,6 +963,9 @@ main(int argc, char *argv[])
     // >>>>>>>>>>>>>>>>>>>> xyw
     // ==================== xyw
     // <<<<<<<<<<<<<<<<<<<< xyw
+    // >>>>>>>>>>>>>>>>>>>> preselect
+    // ==================== preselect
+    // <<<<<<<<<<<<<<<<<<<< preselect
 		else
 			usage();
 
