@@ -1,0 +1,50 @@
+diff --git a/dmenu.1 b/dmenu.1
+index 74d037a..fd1f850 100644
+--- a/dmenu.1
++++ b/dmenu.1
+@@ -48,7 +48,9 @@ dmenu \- dynamic menu
+ \" ==================== preselect
+ \" <<<<<<<<<<<<<<<<<<<< preselect
+ \" >>>>>>>>>>>>>>>>>>>> initial-text
+-\" ==================== initial-text
++.TP
++.BI \-it " text".
++start with initial text input.
+ \" <<<<<<<<<<<<<<<<<<<< initial-text
+ .RB [ \-nb
+ .IR color ]
+@@ -135,7 +137,8 @@ defines the prompt to be displayed to the left of the input field.
+ \" ==================== preselect
+ \" <<<<<<<<<<<<<<<<<<<< preselect
+ \" >>>>>>>>>>>>>>>>>>>> initial-text
+-\" ==================== initial-text
++.RB [ \-it
++.IR text ]
+ \" <<<<<<<<<<<<<<<<<<<< initial-text
+ .BI \-nb " color"
+ defines the normal background color.
+diff --git a/dmenu.c b/dmenu.c
+index edb874e..49f63b7 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -887,7 +887,7 @@ usage(void)
+     // ==================== preselect
+     // <<<<<<<<<<<<<<<<<<<< preselect
+     // >>>>>>>>>>>>>>>>>>>> initial-text
+-    // ==================== initial-text
++    "[-it text]"
+     // <<<<<<<<<<<<<<<<<<<< initial-text
+     "\n\t\t"
+     "[-nb color]"
+@@ -979,7 +979,10 @@ main(int argc, char *argv[])
+     // ==================== preselect
+     // <<<<<<<<<<<<<<<<<<<< preselect
+     // >>>>>>>>>>>>>>>>>>>> initial-text
+-    // ==================== initial-text
++    else if (!strcmp(argv[i], "-it")) {   /* embedding window id */
++      const char * text = argv[++i];
++      insert(text, strlen(text));
++    }
+     // <<<<<<<<<<<<<<<<<<<< initial-text
+ 		else
+ 			usage();
