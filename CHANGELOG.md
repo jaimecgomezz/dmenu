@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.18.0] - 2020-08-01
+
+### Added
+
+- Add the test-patch utility
+
+### Changed
+
+- Improve handle utility by simplifying it
+- Make handle utility quiet by default
+- Include test-patch utility in README and improve README
+
 ## [0.17.0] - 2020-07-31
 
 ### Added

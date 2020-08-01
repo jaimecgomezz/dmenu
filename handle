@@ -8,7 +8,9 @@
 # dmenu distribution
 ##############################
 
-should_build=0
+set -e
+
+handle_std="0"
 handler="patch -p1"
 applied_file="applied"
 
@@ -26,99 +28,43 @@ contains() {
   if test "${str#*$substr}" != "$str"; then return 0; fi
   return 1
 }
-check_applied() {
-  if cat $applied_file | grep -q "$1"; then
-    echo 1
-  else
-    echo 0
-  fi
-}
 check_dependency() {
   if ! ( command -v "$1" ) > /dev/null ;then
     missing_dependency "$1"
     exit 1
   fi
 }
+redirect_output() { eval "$@ > /dev/null 2>&1" ; }
 print_usage() { cat handle-usage ; exit 1 ; }
-pdr() { echo "===================================" ; }
 missing_dependency() { echo "[!] ( $1 ) missing, please install" ; }
 
+
+# DEPENDENCIES-CHECK
 check_dependency "patch"
 
-# Handle uncompatible syntax
+# HANDLE-SYNTAX
 [ "$#" -lt 2 ] && print_usage
 
-# Define arguments
-action="$1"; patch="$2"
+# HANDLE-ARGUMENTS
+action="$1"; patch="$2"; shift; shift
+contains "$@" "-d" && handle_std="1"
+if [ "$action" = "depatch" ]; then options="-R"; fi
 
-# Test action
-case "$action" in
-  diff)
-    shift
-  ;;
-  patch)
-    should_build=1
-    shift
-  ;;
-  stash)
-    options="-R"
-    shift
-  ;;
-  depatch)
-    options="-R"
-    should_build=1
-    shift
-  ;;
-  *)
-    print_usage
-  ;;
-esac
+patches="$( ls patches/*patch | sed -E 's/(^.*\/)(.*)(\..*)/\2/g' )"
+if ! echo "$patches" | grep -q "$patch"; then print_usage; fi
 
-# Test patch
-case "$patch" in
-  border\
-    |case-insensitive\
-    |dynamic-options\
-    |fuzzymatch\
-    |fuzzyhighlight\
-    |grid\
-    |xyw\
-    |numbers\
-    |password\
-    |incremental\
-    |preselect\
-    |scroll\
-    |center)
-    shift
-  ;;
-  * )
-    print_usage 
-  ;;
-esac
+if cat "$applied_file" | grep -q "$patch"; then
+  [ "$action" = "depatch" ] || patch_applied "$patch"
+else
+  [ "$action" = "patch" ] || patch_unapplied "$patch"
+fi
 
-# Check if patch is applied
-applied="$( check_applied "$patch" )"
+apply_patch="$handler $options < patches/${patch}.patch"
+build_dmenu="sudo make install clean"
 
-[ "$applied" = "1" ] \
-  && contains " diff patch " " $action " \
-    && patch_applied "$patch" \
+[ "$handle_std" = "0" ] && redirect_output "$apply_patch" || eval "$apply_patch"
+[ "$handle_std" = "0" ] && redirect_output "$build_dmenu" || eval "$build_dmenu"
 
-[ "$applied" = "0" ] \
-  && contains " stash depatch " " $action " \
-    && patch_unapplied "$patch" \
-
-contains "$@" "-q" && handle_std="> /dev/null 2>&1"
-
-set -e
-
-pdr; echo "${action}ing ${patch}..."; pdr
-eval "( $handler $options < patches/${patch}.patch ) $handle_std"
-
-[ "$should_build" -eq 1 ] \
-  && pdr; echo "building dmenu..."; pdr \
-  && eval "sudo make install clean $handle_std" \
-  && pdr; echo "${action}ing $patch done!"; pdr
-
-contains " diff patch " " $action " && echo "$patch" >> "$applied_file"
-contains " stash depatch " " $action " && sed -i "/^${patch}$/d" "$applied_file"
+[ "$action" = "patch" ] || sed -i "/^${patch}$/d" "$applied_file"
+[ "$action" = "depatch" ] || echo "$patch" >> "$applied_file"
 
