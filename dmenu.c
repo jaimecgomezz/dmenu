@@ -886,6 +886,9 @@ usage(void)
     // >>>>>>>>>>>>>>>>>>>> preselect
     // ==================== preselect
     // <<<<<<<<<<<<<<<<<<<< preselect
+    // >>>>>>>>>>>>>>>>>>>> initial-text
+    // ==================== initial-text
+    // <<<<<<<<<<<<<<<<<<<< initial-text
     "\n\t\t"
     "[-nb color]"
     "[-nf color]"
@@ -975,6 +978,9 @@ main(int argc, char *argv[])
     // >>>>>>>>>>>>>>>>>>>> preselect
     // ==================== preselect
     // <<<<<<<<<<<<<<<<<<<< preselect
+    // >>>>>>>>>>>>>>>>>>>> initial-text
+    // ==================== initial-text
+    // <<<<<<<<<<<<<<<<<<<< initial-text
 		else
 			usage();
 
