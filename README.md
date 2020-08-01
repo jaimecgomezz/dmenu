@@ -1,8 +1,8 @@
 # dmenu
 
-[dmenu](https://tools.suckless.org/dmenu/) is dynamic menu for X. It manages large numbers of user-defined menu items efficiently.
+[dmenu](https://tools.suckless.org/dmenu/) is a dynamic menu for X. It manages large numbers of user-defined menu items efficiently.
 
-This distribution aims to solve the patches integration problem, as well as the available scripts implementation. Is meant to be driven by the community and well documented, allowing to make `suckless for everybody`.
+This distribution aims to solve the patches integration problem. Is meant to be driven by the community, allowing to make `suckless software for everybody`.
 
 
 
@@ -22,17 +22,6 @@ This distribution aims to solve the patches integration problem, as well as the 
 | [password](https://tools.suckless.org/dmenu/patches/password/) | ✔️    | [instant](https://tools.suckless.org/dmenu/patches/instant/) |      | [highlight](https://tools.suckless.org/dmenu/patches/highlight/) |      |
 | [incremental](https://tools.suckless.org/dmenu/patches/incremental/) | ✔️    | [mouse support](https://tools.suckless.org/dmenu/patches/mouse-support/) |      |                                                              |      |
 
-### Coming...
-
-|                                                              | Scripts                                                      |                                                          |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | -------------------------------------------------------- |
-| [passmenu](https://git.zx2c4.com/password-store/tree/contrib/dmenu/passmenu) | [dbrowse](https://github.com/clamiax/scripts/blob/master/src/dbrowse) | [dbdb](https://tools.suckless.org/dmenu/scripts/dbdb.sh) |
-| [passmenu2](https://tools.suckless.org/dmenu/scripts/passmenu2) | [dmenu-pass](https://efe.kim/files/scripts/dmenu_pass)       | [clipmenu](https://github.com/cdown/clipmenu)            |
-| [todo](https://tools.suckless.org/dmenu/scripts/todo)        | [dmenu-path](https://github.com/ema/dotfiles/blob/master/bin/dmenu_path) |                                                          |
-| [via](https://github.com/xalexalex/via)                      | [dmenu-run](https://tools.suckless.org/dmenu/scripts/dmenu_run_with_command_history/) |                                                          |
-| [dmenu-run-i](https://tools.suckless.org/dmenu/scripts/dmenu_run_i) | [dmenu-websearch](https://efe.kim/files/scripts/dmenu_websearch) |                                                          |
-| [dmenu-launch](https://github.com/fsilveir/dmenu-launch)     | [mpdmenu](https://github.com/cdown/mpdmenu/blob/master/mpdmenu) |                                                          |
-
 
 
 ## Installation
@@ -41,11 +30,9 @@ Currently there’s no package available, so a manual installation is required.
 
 ### Requirements
 
-- [Xlib header files](https://tronche.com/gui/x/xlib/introduction/header.html)
+[Xlib header files](https://tronche.com/gui/x/xlib/introduction/header.html), [make](https://www.gnu.org/software/make/), [patch](https://man7.org/linux/man-pages/man1/patch.1.html)
 
-- [make](https://www.gnu.org/software/make/)
-
-  
+### Steps
 
 
 1. Download the source code
@@ -67,7 +54,7 @@ Currently there’s no package available, so a manual installation is required.
 This [dmenu](https://tools.suckless.org/dmenu/) distribution comes with [handle](https://github.com/jaimecgomezz/dmenu/blob/master/handle), a utility that will take care of patches for you, just run:
 
 ```sh
-# Usage: ./handle [ACTION] [PATCH] [OPTION]
+# Usage: ./handle ACTION PATCH [OPTIONS]
 
 # Installing the border patch
 ./handle patch border
@@ -81,6 +68,30 @@ The rest of ACTIONS, PATCHES and OPTIONS currently available can be found runnin
 ```sh
 ./handle
 ```
+
+
+
+## Testing patches
+
+For those willing to support the project, here’s a handy utility, the [test-patch](https://github.com/jaimecgomezz/dmenu/blob/master/test-patch) script. It is meant to test the integration of a given patch with all the other patches available, so whenever you need know if the patch you’ve been working on its ready, use it.
+
+`````sh
+# Usage: ./test-patch PATCH
+
+# Testing the patch center
+./test-patch center
+...
+border			Ok		# Means both patches can be used simultaneously
+xyw				Failed!	# This not necessary means the patch is wrong, it might just be that both patches modify dmenu in a similar way so they can be used simultaneously
+...
+`````
+
+When the tests are finished, [test-patch](https://github.com/jaimecgomezz/dmenu/blob/master/test-patch) will report the results. If a patch fails you can:
+
+- Make the older patch compatible with the new one
+- Warn about the incompatibility of both patches, in the [handle-usage](https://github.com/jaimecgomezz/dmenu/blob/master/handle-usage) doc
+
+WARNING: This utility DO NOT test the patch functionality (if it does whats it’s suppose to do), it only makes you aware of any patch that might have troubles integrating with it.
 
 
 
@@ -99,4 +110,4 @@ You can read the `CONTRIBUTING` and make a `PR` whenever you’re ready, they ar
 
 ## License
 
- [Jaime Castro](https://github.com/jaimecgomezz), 2020. Code released under the MIT license.
+ Code released under the MIT license.
