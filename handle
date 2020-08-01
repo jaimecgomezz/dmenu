@@ -88,6 +88,7 @@ case "$patch" in
     |incremental\
     |preselect\
     |scroll\
+    |initial-text\
     |center)
     shift
   ;;
