@@ -111,14 +111,9 @@ contains "$@" "-q" && handle_std="> /dev/null 2>&1"
 
 set -e
 
-pdr; echo "${action}ing ${patch}..."; pdr
 eval "( $handler $options < patches/${patch}.patch ) $handle_std"
+[ "$should_build" -eq 1 ] && eval "sudo make install clean $handle_std"
 
-[ "$should_build" -eq 1 ] \
-  && pdr; echo "building dmenu..."; pdr \
-  && eval "sudo make install clean $handle_std" \
-  && pdr; echo "${action}ing $patch done!"; pdr
-
-contains " diff patch " " $action " && echo "$patch" >> "$applied_file"
-contains " stash depatch " " $action " && sed -i "/^${patch}$/d" "$applied_file"
+contains " diff patch " " $action " || sed -i "/^${patch}$/d" "$applied_file"
+contains " stash depatch " " $action " || echo "$patch" >> "$applied_file"
 
