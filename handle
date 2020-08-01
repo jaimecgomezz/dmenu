@@ -10,7 +10,7 @@
 
 set -e
 
-should_build=0
+handle_std="0"
 handler="patch -p1"
 applied_file="applied"
 
@@ -47,7 +47,7 @@ check_dependency "patch"
 
 # HANDLE-ARGUMENTS
 action="$1"; patch="$2"; shift; shift
-contains "$@" "-q" && handle_std="1"
+contains "$@" "-d" && handle_std="1"
 if [ "$action" = "depatch" ]; then options="-R"; fi
 
 patches="$( ls patches/*patch | sed -E 's/(^.*\/)(.*)(\..*)/\2/g' )"
@@ -62,8 +62,8 @@ fi
 apply_patch="$handler $options < patches/${patch}.patch"
 build_dmenu="sudo make install clean"
 
-[ "$handle_std" = "1" ] && redirect_output "$apply_patch" || eval "$apply_patch"
-[ "$handle_std" = "1" ] && redirect_output "$build_dmenu" || eval "$build_dmenu"
+[ "$handle_std" = "0" ] && redirect_output "$apply_patch" || eval "$apply_patch"
+[ "$handle_std" = "0" ] && redirect_output "$build_dmenu" || eval "$build_dmenu"
 
 [ "$action" = "patch" ] || sed -i "/^${patch}$/d" "$applied_file"
 [ "$action" = "depatch" ] || echo "$patch" >> "$applied_file"

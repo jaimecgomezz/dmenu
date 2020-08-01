@@ -3,7 +3,7 @@ usage: handle ACTION PATCH [OPTIONS]
 A truly modular implementation of dmenu
 
 Options:
-  -q                  Quiet, prevents compiler output
+  -d                  By default the compiler output is redirected, this option prevents this. Useful for debugging
 
 Actions:
   patch               Apply the PATCH and rebuild
