@@ -1013,15 +1013,15 @@ main(int argc, char *argv[])
 
 	if (fast && !isatty(0)) {
 		grabkeyboard();
-    // >>>>>>>>>>>>>>>>>>>> dynamic-options
-    // ==================== dynamic-options
+    // >>>>>>>>>>>>>>>>>>>> dynamic-options-json
+    // ==================== dynamic-options-json
 		readstdin();
-    // <<<<<<<<<<<<<<<<<<<< dynamic-options
+    // <<<<<<<<<<<<<<<<<<<< dynamic-options-json
 	} else {
-    // >>>>>>>>>>>>>>>>>>>> dynamic-options
-    // ==================== dynamic-options
+    // >>>>>>>>>>>>>>>>>>>> dynamic-options-json
+    // ==================== dynamic-options-json
 		readstdin();
-    // <<<<<<<<<<<<<<<<<<<< dynamic-options
+    // <<<<<<<<<<<<<<<<<<<< dynamic-options-json
 		grabkeyboard();
 	}
 	setup();
