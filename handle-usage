@@ -18,6 +18,7 @@ Patches:
   incremental         Makes dmenu to print out the current text each time a key is pressed 
   preselect           This patch adds an option to preselect an item by providing a number
   initial-text        Adds an option to provide preselected text
+  pipeout             This patch allows the selected text to be piped back out with dmenu
   center              Makes dmenu appear centered on the screen
                         Not compatible with the xyw patch
   xyw                 The patch adds options for setting window position and width
