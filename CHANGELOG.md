@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.19.0] - 2020-08-01
+
+### Added
+
+- Add the initial-text-patch
+
+### Changed
+
+- Prepare the initial-text-patch integration
+- Update README
+
 ## [0.18.0] - 2020-08-01
 
 ### Added
