@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.20.0] - 2020-08-01
+
+### Changed
+
+- Prepare the pipeout-patch integration
+
+### Added
+
+- Add the pipeout-patch
+- Add the pipeout-patch into teh docs
+
 ## [0.19.0] - 2020-08-01
 
 ### Added
