@@ -1,0 +1,85 @@
+diff --git a/dmenu.1 b/dmenu.1
+index 92b7bc5..62f6efc 100644
+--- a/dmenu.1
++++ b/dmenu.1
+@@ -26,7 +26,9 @@ dmenu \- dynamic menu
+ \" ==================== incremental
+ \" <<<<<<<<<<<<<<<<<<<< incremental
+ \" >>>>>>>>>>>>>>>>>>>> managed
+-\" ==================== managed
++.TP
++.BI \-wm
++Display as a managed WM window (e.g. don't set overide_redirect flag)
+ \" <<<<<<<<<<<<<<<<<<<< managed
+ .RB [ \-m
+ .IR monitor ]
+@@ -114,7 +116,7 @@ prints version information to stdout, then exits.
+ \" ==================== incremental
+ \" <<<<<<<<<<<<<<<<<<<< incremental
+ \" >>>>>>>>>>>>>>>>>>>> managed
+-\" ==================== managed
++.RB [ \-wm ]
+ \" <<<<<<<<<<<<<<<<<<<< managed
+ .BI \-m " monitor"
+ dmenu is displayed on the monitor number supplied. Monitor numbers are starting
+diff --git a/dmenu.c b/dmenu.c
+index 02d2324..772ba67 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -89,7 +89,7 @@ static int mon = -1, screen;
+ // ==================== multi-selection
+ // <<<<<<<<<<<<<<<<<<<< multi-selection
+ // >>>>>>>>>>>>>>>>>>>> managed
+-// ==================== managed
++static int managed = 0;
+ // <<<<<<<<<<<<<<<<<<<< managed
+ 
+ static Atom clip, utf8;
+@@ -314,8 +314,7 @@ grabkeyboard(void)
+ 	int i;
+ 
+   // >>>>>>>>>>>>>>>>>>>> managed
+-  // ==================== managed
+-	if (embed)
++  if (embed || managed)
+   // <<<<<<<<<<<<<<<<<<<< managed
+ 		return;
+ 	/* try to grab keyboard, we may have to wait for another process to ungrab */
+@@ -870,8 +869,7 @@ setup(void)
+ 
+ 	/* create menu window */
+   // >>>>>>>>>>>>>>>>>>>> managed
+-  // ==================== managed
+-  swa.override_redirect = True;
++  swa.override_redirect = managed ? False : True;
+   // <<<<<<<<<<<<<<<<<<<< managed
+ 	swa.background_pixel = scheme[SchemeNorm][ColBg].pixel;
+ 	swa.event_mask = ExposureMask | KeyPressMask | VisibilityChangeMask;
+@@ -909,7 +907,16 @@ setup(void)
+ 
+ 	XMapRaised(dpy, win);
+   // >>>>>>>>>>>>>>>>>>>> managed
+-  // ==================== managed
++  if (managed) {
++    XTextProperty prop;
++    char *windowtitle = prompt != NULL ? prompt : "dmenu";
++    Xutf8TextListToTextProperty(dpy, &windowtitle, 1, XUTF8StringStyle, &prop);
++    XSetWMName(dpy, win, &prop);
++    XSetTextProperty(dpy, win, &prop, XInternAtom(dpy, "_NET_WM_NAME", False));
++    XFree(prop.value);
++  } else {
++    XSetInputFocus(dpy, win, RevertToParent, CurrentTime);
++  }
+   // <<<<<<<<<<<<<<<<<<<< managed
+ 	if (embed) {
+ 		XSelectInput(dpy, parentwin, FocusChangeMask | SubstructureNotifyMask);
+@@ -1022,7 +1029,8 @@ main(int argc, char *argv[])
+     // ==================== incremental
+     // <<<<<<<<<<<<<<<<<<<< incremental
+     // >>>>>>>>>>>>>>>>>>>> managed
+-    // ==================== managed
++    else if (!strcmp(argv[i], "-wm")) /* display as managed wm window */
++      managed = 1;
+     // <<<<<<<<<<<<<<<<<<<< managed
+ 		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
+ 			fstrncmp = strncasecmp;
