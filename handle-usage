@@ -17,6 +17,7 @@ Patches:
   preselect           This patch adds an option to preselect an item by providing a number
   initial-text        Adds an option to provide preselected text
   fuzzyhighlight      This patch make it so that fuzzy matches gets highlighted and is therefore meant to be used together with fuzzymatch
+  managed             Makes dmenu a window rather than an overlay
   fuzzymatch          Allows the users to type non-consecutive portions of the string to be matched
                         Not compatible with:
                           json
