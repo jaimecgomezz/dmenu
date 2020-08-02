@@ -566,10 +566,10 @@ insert:
 		break;
 	case XK_Return:
 	case XK_KP_Enter:
-    // >>>>>>>>>>>>>>>>>>>> pipeout
-    // ==================== pipeout
+    // >>>>>>>>>>>>>>>>>>>> pipeout-json
+    // ==================== pipeout-json
     puts((sel && !(ev->state & ShiftMask)) ? sel->text : text);
-    // <<<<<<<<<<<<<<<<<<<< pipeout
+    // <<<<<<<<<<<<<<<<<<<< pipeout-json
 		if (!(ev->state & ControlMask)) {
 			cleanup();
 			exit(0);
