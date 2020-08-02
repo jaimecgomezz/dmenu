@@ -583,10 +583,10 @@ insert:
 		break;
 	case XK_Return:
 	case XK_KP_Enter:
-    // >>>>>>>>>>>>>>>>>>>> pipeout-json
-    // ==================== pipeout-json
+    // >>>>>>>>>>>>>>>>>>>> pipeout-json-multi-selection
+    // ==================== pipeout-json-multi-selection
     puts((sel && !(ev->state & ShiftMask)) ? sel->text : text);
-    // <<<<<<<<<<<<<<<<<<<< pipeout-json
+    // <<<<<<<<<<<<<<<<<<<< pipeout-json-multi-selection
 		if (!(ev->state & ControlMask)) {
 			cleanup();
 			exit(0);
@@ -683,10 +683,10 @@ readstdin(void)
     if (!(items[i].text = strdup(buf)))
     // <<<<<<<<<<<<<<<<<<<< json
 			die("cannot strdup %u bytes:", strlen(buf) + 1);
-    // >>>>>>>>>>>>>>>>>>>> json
-    // ==================== json
+    // >>>>>>>>>>>>>>>>>>>> json-multi-selection
+    // ==================== json-multi-selection
     items[i].out = 0;
-    // <<<<<<<<<<<<<<<<<<<< json
+    // <<<<<<<<<<<<<<<<<<<< json-multi-selection
 		drw_font_getexts(drw->fonts, buf, strlen(buf), &tmpmax, NULL);
 		if (tmpmax > inputw) {
 			inputw = tmpmax;
