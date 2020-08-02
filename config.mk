@@ -20,10 +20,10 @@ FREETYPEINC = /usr/include/freetype2
 
 # includes and libs
 INCS = -I$(X11INC) -I$(FREETYPEINC)
-# >>>>>>>>>>>>>>>>>>>> fuzzymatch
-# ==================== fuzzymatch
+# >>>>>>>>>>>>>>>>>>>> fuzzymatch-json
+# ==================== fuzzymatch-json
 LIBS = -L$(X11LIB) -lX11 $(XINERAMALIBS) $(FREETYPELIBS)
-# <<<<<<<<<<<<<<<<<<<< fuzzymatch
+# <<<<<<<<<<<<<<<<<<<< fuzzymatch-json
 
 # flags
 CPPFLAGS = -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_XOPEN_SOURCE=700 -D_POSIX_C_SOURCE=200809L -DVERSION=\"$(VERSION)\" $(XINERAMAFLAGS)

@@ -15,11 +15,11 @@ index 9c710e6..75264eb 100644
 +++ b/config.mk
 @@ -22,7 +22,7 @@ FREETYPEINC = /usr/include/freetype2
  INCS = -I$(X11INC) -I$(FREETYPEINC)
- # >>>>>>>>>>>>>>>>>>>> fuzzymatch
- # ==================== fuzzymatch
+ # >>>>>>>>>>>>>>>>>>>> fuzzymatch-json
+ # ==================== fuzzymatch-json
 -LIBS = -L$(X11LIB) -lX11 $(XINERAMALIBS) $(FREETYPELIBS)
 +LIBS = -L$(X11LIB) -lX11 $(XINERAMALIBS) $(FREETYPELIBS) -lm
- # <<<<<<<<<<<<<<<<<<<< fuzzymatch
+ # <<<<<<<<<<<<<<<<<<<< fuzzymatch-json
  
  # flags
 diff --git a/dmenu.1 b/dmenu.1
