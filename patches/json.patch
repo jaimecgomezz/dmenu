@@ -1,0 +1,268 @@
+diff --git a/config.mk b/config.mk
+index d8d0129..249ec56 100644
+--- a/config.mk
++++ b/config.mk
+@@ -20,19 +20,16 @@ FREETYPEINC = /usr/include/freetype2
+ 
+ # includes and libs
+ # >>>>>>>>>>>>>>>>>>>> json
+-# ==================== json
+-INCS = -I$(X11INC) -I$(FREETYPEINC)
++INCS = -I$(X11INC) -I$(FREETYPEINC) $(JANSSONINC)
+ # <<<<<<<<<<<<<<<<<<<< json
+ # >>>>>>>>>>>>>>>>>>>> fuzzymatch-json
+-# ==================== fuzzymatch-json
+-LIBS = -L$(X11LIB) -lX11 $(XINERAMALIBS) $(FREETYPELIBS)
++LIBS = -L$(X11LIB) -lX11 $(XINERAMALIBS) $(FREETYPELIBS) $(JANSSONLIBS)
+ # <<<<<<<<<<<<<<<<<<<< fuzzymatch-json
+ 
+ # flags
+ # >>>>>>>>>>>>>>>>>>>> json
+-# ==================== json
+-CPPFLAGS = -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_XOPEN_SOURCE=700 -D_POSIX_C_SOURCE=200809L -DVERSION=\"$(VERSION)\" $(XINERAMAFLAGS)
+-CFLAGS   = -std=c99 -pedantic -Wall -Os $(INCS) $(CPPFLAGS)
++CPPFLAGS = -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_XOPEN_SOURCE=700 -D_POSIX_C_SOURCE=200809L -DVERSION=\"$(VERSION)\" $(XINERAMAFLAGS) $(EXTRAFLAGS)
++CFLAGS  = -std=c99 -pedantic -Wall -Os $(INCS) $(CPPFLAGS)
+ # <<<<<<<<<<<<<<<<<<<< json
+ LDFLAGS  = $(LIBS)
+ 
+@@ -40,5 +37,9 @@ LDFLAGS  = $(LIBS)
+ CC = cc
+ 
+ # >>>>>>>>>>>>>>>>>>>> json
+-# ==================== json
++# jansson
++JANSSONINC = `pkg-config --cflags jansson`
++JANSSONLIBS = `pkg-config --libs jansson`
++# uncomment on RHEL for strcasecmp
++EXTRAFLAGS=-D_GNU_SOURCE
+ # <<<<<<<<<<<<<<<<<<<< json
+diff --git a/dmenu.c b/dmenu.c
+index d94b1ea..384a7bd 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -19,7 +19,7 @@
+ #endif
+ #include <X11/Xft/Xft.h>
+ // >>>>>>>>>>>>>>>>>>>> json
+-// ==================== json
++#include <jansson.h>
+ // <<<<<<<<<<<<<<<<<<<< json
+ 
+ #include "drw.h"
+@@ -53,7 +53,7 @@ struct item {
+   // ==================== fuzzymatch
+   // <<<<<<<<<<<<<<<<<<<< fuzzymatch
+   // >>>>>>>>>>>>>>>>>>>> json
+-  // ==================== json
++  json_t *json;
+   // <<<<<<<<<<<<<<<<<<<< json
+ };
+ 
+@@ -80,7 +80,8 @@ static int mon = -1, screen;
+ // ==================== pipeout
+ // <<<<<<<<<<<<<<<<<<<< pipeout
+ // >>>>>>>>>>>>>>>>>>>> json
+-// ==================== json
++static size_t items_sz = 0;
++static size_t items_ln = 0;
+ // <<<<<<<<<<<<<<<<<<<< json
+ 
+ static Atom clip, utf8;
+@@ -100,7 +101,17 @@ static char *(*fstrstr)(const char *, const char *) = strstr;
+ // <<<<<<<<<<<<<<<<<<<< case-insensitive
+ 
+ // >>>>>>>>>>>>>>>>>>>> json
+-// ==================== json
++static void listjson(json_t *obj);
++static json_t *json = NULL;
++
++static struct item *
++itemnew(void)
++{
++  if (items_ln + 1 >= (items_sz / sizeof *items))
++    if (!(items = realloc(items, (items_sz += BUFSIZ))))
++      die("cannot realloc %u bytes:", items_sz);
++  return &items[items_ln++];
++}
+ // <<<<<<<<<<<<<<<<<<<< json
+ 
+ static void
+@@ -334,7 +345,8 @@ match(void)
+ 	struct item *item, *lprefix, *lsubstr, *prefixend, *substrend;
+ 
+   // >>>>>>>>>>>>>>>>>>>> json
+-  // ==================== json
++  if (json)
++    fstrstr = strcasestr;
+   // <<<<<<<<<<<<<<<<<<<< json
+ 
+ 	strcpy(buf, text);
+@@ -584,8 +596,19 @@ insert:
+ 	case XK_Return:
+ 	case XK_KP_Enter:
+     // >>>>>>>>>>>>>>>>>>>> pipeout-json
+-    // ==================== pipeout-json
+-    puts((sel && !(ev->state & ShiftMask)) ? sel->text : text);
++    if (sel && sel->json) {
++      if (json_is_object(sel->json)) {
++        listjson(sel->json);
++        text[0] = '\0';
++        match();
++        drawmenu();
++        break;
++      } else {
++        puts(json_string_value(sel->json));
++      }
++    } else {
++      puts((sel && !(ev->state & ShiftMask)) ? sel->text : text);
++    }
+     // <<<<<<<<<<<<<<<<<<<< pipeout-json
+ 		if (!(ev->state & ControlMask)) {
+ 			cleanup();
+@@ -645,7 +668,43 @@ paste(void)
+ }
+ 
+ // >>>>>>>>>>>>>>>>>>>> json
+-// ==================== json
++ static void
++readjson(const char *path)
++{
++  json_error_t jerr;
++
++  if (!(json = json_load_file(path, 0, &jerr)))
++    die("%s @ line: %i - %s", jerr.text, jerr.line, path);
++}
++
++static void
++listjson(json_t *obj)
++{
++  void *iter;
++  unsigned imax = 0;
++  unsigned tmpmax = 0;
++  struct item *item;
++
++  items_ln = 0;
++  iter = json_object_iter(obj);
++  while (iter) {
++    item = itemnew();
++    item->text = (char*) json_object_iter_key(iter);
++    item->json = json_object_iter_value(iter);
++    item->out = 0;
++    drw_font_getexts(drw->fonts, item->text, strlen(item->text),
++         &tmpmax, NULL);
++    if (tmpmax > inputw) {
++      inputw = tmpmax;
++      imax = items_ln - 1;
++    }
++    iter = json_object_iter_next(obj, iter);
++  }
++  if (items)
++    items[items_ln].text = NULL;
++  inputw = items ? TEXTW(items[imax].text) : 0;
++  lines = MIN(lines, items_ln - 1);
++}
+ // <<<<<<<<<<<<<<<<<<<< json
+ 
+ static void
+@@ -656,8 +715,9 @@ readstdin(void)
+ {
+ 	char buf[sizeof text], *p;
+   // >>>>>>>>>>>>>>>>>>>> json
+-  // ==================== json
+-  size_t i, imax = 0, size = 0;
++  size_t i;
++  unsigned int imax = 0;
++  struct item *item;
+   // <<<<<<<<<<<<<<<<<<<< json
+ 	unsigned int tmpmax = 0;
+ 
+@@ -671,40 +731,33 @@ readstdin(void)
+ 	for (i = 0; fgets(buf, sizeof buf, stdin); i++) {
+   // <<<<<<<<<<<<<<<<<<<< dynamic-options
+     // >>>>>>>>>>>>>>>>>>>> json
+-    // ==================== json
+-		if (i + 1 >= size / sizeof *items)
+-			if (!(items = realloc(items, (size += BUFSIZ))))
+-				die("cannot realloc %u bytes:", size);
++    item = itemnew();
+     // <<<<<<<<<<<<<<<<<<<< json
+ 		if ((p = strchr(buf, '\n')))
+ 			*p = '\0';
+     // >>>>>>>>>>>>>>>>>>>> json
+-    // ==================== json
+-    if (!(items[i].text = strdup(buf)))
++    if (!(item->text = strdup(buf)))
+     // <<<<<<<<<<<<<<<<<<<< json
+ 			die("cannot strdup %u bytes:", strlen(buf) + 1);
+     // >>>>>>>>>>>>>>>>>>>> json
+-    // ==================== json
+-    items[i].out = 0;
++    item->json = NULL;
++    item->out = 0;
+     // <<<<<<<<<<<<<<<<<<<< json
+ 		drw_font_getexts(drw->fonts, buf, strlen(buf), &tmpmax, NULL);
+ 		if (tmpmax > inputw) {
+ 			inputw = tmpmax;
+       // >>>>>>>>>>>>>>>>>>>> json
+-      // ==================== json
+-      imax = i;
++      imax = items_ln - 1;
+       // <<<<<<<<<<<<<<<<<<<< json
+ 		}
+ 	}
+ 	if (items)
+     // >>>>>>>>>>>>>>>>>>>> json
+-    // ==================== json
+-    items[i].text = NULL;
++    items[items_ln].text = NULL;
+     // <<<<<<<<<<<<<<<<<<<< json
+ 	inputw = items ? TEXTW(items[imax].text) : 0;
+   // >>>>>>>>>>>>>>>>>>>> json
+-  // ==================== json
+-  lines = MIN(lines, i);
++  lines = MIN(lines, items_ln);
+   // <<<<<<<<<<<<<<<<<<<< json
+ }
+ 
+@@ -938,7 +991,7 @@ usage(void)
+     // ==================== initial-text
+     // <<<<<<<<<<<<<<<<<<<< initial-text
+     // >>>>>>>>>>>>>>>>>>>> json
+-    // ==================== json
++    "[-j json-file]"
+     // <<<<<<<<<<<<<<<<<<<< json
+     "\n\t\t"
+     "[-nb color]"
+@@ -1033,7 +1086,8 @@ main(int argc, char *argv[])
+     // ==================== initial-text
+     // <<<<<<<<<<<<<<<<<<<< initial-text
+     // >>>>>>>>>>>>>>>>>>>> json
+-    // ==================== json
++    else if (!strcmp(argv[i], "-j"))
++      readjson(argv[++i]);
+     // <<<<<<<<<<<<<<<<<<<< json
+ 		else
+ 			usage();
+@@ -1062,13 +1116,17 @@ main(int argc, char *argv[])
+ 	if (fast && !isatty(0)) {
+ 		grabkeyboard();
+     // >>>>>>>>>>>>>>>>>>>> dynamic-options-json
+-    // ==================== dynamic-options-json
+-		readstdin();
++    if (json)
++      listjson(json);
++    else
++      readstdin();
+     // <<<<<<<<<<<<<<<<<<<< dynamic-options-json
+ 	} else {
+     // >>>>>>>>>>>>>>>>>>>> dynamic-options-json
+-    // ==================== dynamic-options-json
+-		readstdin();
++    if (json)
++      listjson(json);
++    else
++      readstdin();
+     // <<<<<<<<<<<<<<<<<<<< dynamic-options-json
+ 		grabkeyboard();
+ 	}
