@@ -18,6 +18,9 @@
 #include <X11/extensions/Xinerama.h>
 #endif
 #include <X11/Xft/Xft.h>
+// >>>>>>>>>>>>>>>>>>>> json
+// ==================== json
+// <<<<<<<<<<<<<<<<<<<< json
 
 #include "drw.h"
 #include "util.h"
@@ -49,6 +52,9 @@ struct item {
   // >>>>>>>>>>>>>>>>>>>> fuzzymatch
   // ==================== fuzzymatch
   // <<<<<<<<<<<<<<<<<<<< fuzzymatch
+  // >>>>>>>>>>>>>>>>>>>> json
+  // ==================== json
+  // <<<<<<<<<<<<<<<<<<<< json
 };
 
 static char text[BUFSIZ] = "";
@@ -73,6 +79,9 @@ static int mon = -1, screen;
 // >>>>>>>>>>>>>>>>>>>> pipeout
 // ==================== pipeout
 // <<<<<<<<<<<<<<<<<<<< pipeout
+// >>>>>>>>>>>>>>>>>>>> json
+// ==================== json
+// <<<<<<<<<<<<<<<<<<<< json
 
 static Atom clip, utf8;
 static Display *dpy;
@@ -89,6 +98,10 @@ static Clr *scheme[SchemeLast];
 static int (*fstrncmp)(const char *, const char *, size_t) = strncmp;
 static char *(*fstrstr)(const char *, const char *) = strstr;
 // <<<<<<<<<<<<<<<<<<<< case-insensitive
+
+// >>>>>>>>>>>>>>>>>>>> json
+// ==================== json
+// <<<<<<<<<<<<<<<<<<<< json
 
 static void
 appenditem(struct item *item, struct item **list, struct item **last)
@@ -319,6 +332,10 @@ match(void)
 	int i, tokc = 0;
 	size_t len, textsize;
 	struct item *item, *lprefix, *lsubstr, *prefixend, *substrend;
+
+  // >>>>>>>>>>>>>>>>>>>> json
+  // ==================== json
+  // <<<<<<<<<<<<<<<<<<<< json
 
 	strcpy(buf, text);
 	/* separate input text into tokens to be matched individually */
@@ -627,6 +644,10 @@ paste(void)
 	drawmenu();
 }
 
+// >>>>>>>>>>>>>>>>>>>> json
+// ==================== json
+// <<<<<<<<<<<<<<<<<<<< json
+
 static void
 // >>>>>>>>>>>>>>>>>>>> dynamic-options
 // ==================== dynamic-options
@@ -634,7 +655,10 @@ readstdin(void)
 // <<<<<<<<<<<<<<<<<<<< dynamic-options
 {
 	char buf[sizeof text], *p;
-	size_t i, imax = 0, size = 0;
+  // >>>>>>>>>>>>>>>>>>>> json
+  // ==================== json
+  size_t i, imax = 0, size = 0;
+  // <<<<<<<<<<<<<<<<<<<< json
 	unsigned int tmpmax = 0;
 
   // >>>>>>>>>>>>>>>>>>>> password
@@ -646,24 +670,42 @@ readstdin(void)
   // ==================== dynamic-options
 	for (i = 0; fgets(buf, sizeof buf, stdin); i++) {
   // <<<<<<<<<<<<<<<<<<<< dynamic-options
+    // >>>>>>>>>>>>>>>>>>>> json
+    // ==================== json
 		if (i + 1 >= size / sizeof *items)
 			if (!(items = realloc(items, (size += BUFSIZ))))
 				die("cannot realloc %u bytes:", size);
+    // <<<<<<<<<<<<<<<<<<<< json
 		if ((p = strchr(buf, '\n')))
 			*p = '\0';
-		if (!(items[i].text = strdup(buf)))
+    // >>>>>>>>>>>>>>>>>>>> json
+    // ==================== json
+    if (!(items[i].text = strdup(buf)))
+    // <<<<<<<<<<<<<<<<<<<< json
 			die("cannot strdup %u bytes:", strlen(buf) + 1);
-		items[i].out = 0;
+    // >>>>>>>>>>>>>>>>>>>> json
+    // ==================== json
+    items[i].out = 0;
+    // <<<<<<<<<<<<<<<<<<<< json
 		drw_font_getexts(drw->fonts, buf, strlen(buf), &tmpmax, NULL);
 		if (tmpmax > inputw) {
 			inputw = tmpmax;
-			imax = i;
+      // >>>>>>>>>>>>>>>>>>>> json
+      // ==================== json
+      imax = i;
+      // <<<<<<<<<<<<<<<<<<<< json
 		}
 	}
 	if (items)
-		items[i].text = NULL;
+    // >>>>>>>>>>>>>>>>>>>> json
+    // ==================== json
+    items[i].text = NULL;
+    // <<<<<<<<<<<<<<<<<<<< json
 	inputw = items ? TEXTW(items[imax].text) : 0;
-	lines = MIN(lines, i);
+  // >>>>>>>>>>>>>>>>>>>> json
+  // ==================== json
+  lines = MIN(lines, i);
+  // <<<<<<<<<<<<<<<<<<<< json
 }
 
 static void
@@ -895,6 +937,9 @@ usage(void)
     // >>>>>>>>>>>>>>>>>>>> initial-text
     // ==================== initial-text
     // <<<<<<<<<<<<<<<<<<<< initial-text
+    // >>>>>>>>>>>>>>>>>>>> json
+    // ==================== json
+    // <<<<<<<<<<<<<<<<<<<< json
     "\n\t\t"
     "[-nb color]"
     "[-nf color]"
@@ -987,6 +1032,9 @@ main(int argc, char *argv[])
     // >>>>>>>>>>>>>>>>>>>> initial-text
     // ==================== initial-text
     // <<<<<<<<<<<<<<<<<<<< initial-text
+    // >>>>>>>>>>>>>>>>>>>> json
+    // ==================== json
+    // <<<<<<<<<<<<<<<<<<<< json
 		else
 			usage();
 
