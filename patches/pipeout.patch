@@ -1,0 +1,47 @@
+diff --git a/config.def.h b/config.def.h
+index 7f8d7f7..6e4c7c7 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -54,5 +54,5 @@ static const char worddelimiters[] = " ";
+ // <<<<<<<<<<<<<<<<<<<< preselect
+ 
+ // >>>>>>>>>>>>>>>>>>>> pipeout
+-// ==================== pipeout
++static const char startpipe[] = "#";
+ // <<<<<<<<<<<<<<<<<<<< pipeout
+diff --git a/dmenu.c b/dmenu.c
+index 9fd99c1..14c42d0 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -71,7 +71,7 @@ static int mon = -1, screen;
+ // ==================== numbers
+ // <<<<<<<<<<<<<<<<<<<< numbers
+ // >>>>>>>>>>>>>>>>>>>> pipeout
+-// ==================== pipeout
++static char pipeout[8] = " | dmenu";
+ // <<<<<<<<<<<<<<<<<<<< pipeout
+ 
+ static Atom clip, utf8;
+@@ -567,8 +567,20 @@ insert:
+ 	case XK_Return:
+ 	case XK_KP_Enter:
+     // >>>>>>>>>>>>>>>>>>>> pipeout
+-    // ==================== pipeout
+-    puts((sel && !(ev->state & ShiftMask)) ? sel->text : text);
++    if ((sel && !(ev->state & ShiftMask))) {
++      if (sel->text[0] == startpipe[0]) {
++        strncpy(sel->text + strlen(sel->text),pipeout,8);
++        puts(sel->text+1);
++      }
++        puts(sel->text);
++    }
++    else {
++      if (text[0] == startpipe[0]) {
++        strncpy(text + strlen(text),pipeout,8);
++        puts(text+1);
++      }
++        puts(text);
++    }
+     // <<<<<<<<<<<<<<<<<<<< pipeout
+ 		if (!(ev->state & ControlMask)) {
+ 			cleanup();
