@@ -70,6 +70,9 @@ static int mon = -1, screen;
 // >>>>>>>>>>>>>>>>>>>> numbers
 // ==================== numbers
 // <<<<<<<<<<<<<<<<<<<< numbers
+// >>>>>>>>>>>>>>>>>>>> pipeout
+// ==================== pipeout
+// <<<<<<<<<<<<<<<<<<<< pipeout
 
 static Atom clip, utf8;
 static Display *dpy;
@@ -563,7 +566,10 @@ insert:
 		break;
 	case XK_Return:
 	case XK_KP_Enter:
-		puts((sel && !(ev->state & ShiftMask)) ? sel->text : text);
+    // >>>>>>>>>>>>>>>>>>>> pipeout
+    // ==================== pipeout
+    puts((sel && !(ev->state & ShiftMask)) ? sel->text : text);
+    // <<<<<<<<<<<<<<<<<<<< pipeout
 		if (!(ev->state & ControlMask)) {
 			cleanup();
 			exit(0);

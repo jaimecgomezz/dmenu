@@ -52,3 +52,7 @@ static const char worddelimiters[] = " ";
 // >>>>>>>>>>>>>>>>>>>> preselect
 // ==================== preselect
 // <<<<<<<<<<<<<<<<<<<< preselect
+
+// >>>>>>>>>>>>>>>>>>>> pipeout
+// ==================== pipeout
+// <<<<<<<<<<<<<<<<<<<< pipeout
