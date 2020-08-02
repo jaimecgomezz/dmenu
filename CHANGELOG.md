@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.22.0] - 2020-08-02
+
+### Changed
+
+- Make previous patches compatible with multi-selection-patch
+- Prepare the multi-selection-patch integration
+
+### Added
+
+- Add the multi-selection-patch
+- Add the multi-selection-patch to docs
+
 ## [0.21.0] - 2020-08-02
 
 ### Changed

@@ -1,0 +1,119 @@
+diff --git a/dmenu.c b/dmenu.c
+index 047472f..aee0df2 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -49,8 +49,7 @@ struct item {
+ 	char *text;
+ 	struct item *left, *right;
+   // >>>>>>>>>>>>>>>>>>>> multi-selection
+-  // ==================== multi-selection
+-	int out;
++  int id; /* for multiselect */
+   // <<<<<<<<<<<<<<<<<<<< multi-selection
+   // >>>>>>>>>>>>>>>>>>>> fuzzymatch
+   // ==================== fuzzymatch
+@@ -86,7 +85,8 @@ static int mon = -1, screen;
+ // ==================== json
+ // <<<<<<<<<<<<<<<<<<<< json
+ // >>>>>>>>>>>>>>>>>>>> multi-selection
+-// ==================== multi-selection
++static int *selid = NULL;
++static unsigned int selidsize = 0;
+ // <<<<<<<<<<<<<<<<<<<< multi-selection
+ 
+ static Atom clip, utf8;
+@@ -110,7 +110,14 @@ static char *(*fstrstr)(const char *, const char *) = strstr;
+ // <<<<<<<<<<<<<<<<<<<< json
+ 
+ // >>>>>>>>>>>>>>>>>>>> multi-selection
+-// ==================== multi-selection
++static int
++issel(size_t id)
++{
++  for (int i = 0;i < selidsize;i++)
++    if (selid[i] == id)
++      return 1;
++  return 0;
++}
+ // <<<<<<<<<<<<<<<<<<<< multi-selection
+ 
+ static void
+@@ -163,7 +170,7 @@ cleanup(void)
+ 	XSync(dpy, False);
+ 	XCloseDisplay(dpy);
+   // >>>>>>>>>>>>>>>>>>>> multi-selection
+-  // ==================== multi-selection
++  free(selid);
+   // <<<<<<<<<<<<<<<<<<<< multi-selection
+ }
+ 
+@@ -191,8 +198,7 @@ drawitem(struct item *item, int x, int y, int w)
+ 	if (item == sel)
+ 		drw_setscheme(drw, scheme[SchemeSel]);
+   // >>>>>>>>>>>>>>>>>>>> multi-selection
+-  // ==================== multi-selection
+-  else if (item->out)
++  else if (issel(item->id))
+   // <<<<<<<<<<<<<<<<<<<< multi-selection
+ 		drw_setscheme(drw, scheme[SchemeOut]);
+ 	else
+@@ -503,7 +509,20 @@ keypress(XKeyEvent *ev)
+ 		case XK_Return:
+ 		case XK_KP_Enter:
+       // >>>>>>>>>>>>>>>>>>>> multi-selection
+-      // ==================== multi-selection
++      if (sel && issel(sel->id)) {
++        for (int i = 0;i < selidsize;i++)
++          if (selid[i] == sel->id)
++            selid[i] = -1;
++      } else {
++        for (int i = 0;i < selidsize;i++)
++          if (selid[i] == -1) {
++            selid[i] = sel->id;
++            return;
++          }
++        selidsize++;
++        selid = realloc(selid, (selidsize + 1) * sizeof(int));
++        selid[selidsize - 1] = sel->id;
++      }
+       // <<<<<<<<<<<<<<<<<<<< multi-selection
+ 			break;
+ 		case XK_bracketleft:
+@@ -603,20 +622,21 @@ insert:
+ 	case XK_Return:
+ 	case XK_KP_Enter:
+     // >>>>>>>>>>>>>>>>>>>> pipeout-json-multi-selection
+-    // ==================== pipeout-json-multi-selection
+-    puts((sel && !(ev->state & ShiftMask)) ? sel->text : text);
+     // <<<<<<<<<<<<<<<<<<<< pipeout-json-multi-selection
+ 		if (!(ev->state & ControlMask)) {
+       // >>>>>>>>>>>>>>>>>>>> multi-selection
+-      // ==================== multi-selection
++      for (int i = 0;i < selidsize;i++)
++        if (selid[i] != -1 && (!sel || sel->id != selid[i]))
++          puts(items[selid[i]].text);
++      if (sel && !(ev->state & ShiftMask))
++        puts(sel->text);
++      else
++        puts(text);
+       // <<<<<<<<<<<<<<<<<<<< multi-selection
+ 			cleanup();
+ 			exit(0);
+ 		}
+     // >>>>>>>>>>>>>>>>>>>> multi-selection
+-    // ==================== multi-selection
+-		if (sel)
+-			sel->out = 1;
+     // <<<<<<<<<<<<<<<<<<<< multi-selection
+ 		break;
+ 	case XK_Right:
+@@ -709,8 +729,7 @@ readstdin(void)
+     // <<<<<<<<<<<<<<<<<<<< json
+ 			die("cannot strdup %u bytes:", strlen(buf) + 1);
+     // >>>>>>>>>>>>>>>>>>>> json-multi-selection
+-    // ==================== json-multi-selection
+-    items[i].out = 0;
++    items[i].id = i; /* for multiselect */
+     // <<<<<<<<<<<<<<<<<<<< json-multi-selection
+ 		drw_font_getexts(drw->fonts, buf, strlen(buf), &tmpmax, NULL);
+ 		if (tmpmax > inputw) {

@@ -48,4 +48,8 @@ Patches:
                           pipeout
                           fuzzymatch
                           dynamic-options
-
+  multi-selection     Makes dmenu output your selections only on exit
+                        Use <Ctrl-Enter> to select, and <Enter> to exit
+                        Not compatible with:
+                          pipeout
+                          json

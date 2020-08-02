@@ -101,8 +101,8 @@ index d94b1ea..384a7bd 100644
 @@ -584,8 +596,19 @@ insert:
  	case XK_Return:
  	case XK_KP_Enter:
-     // >>>>>>>>>>>>>>>>>>>> pipeout-json
--    // ==================== pipeout-json
+     // >>>>>>>>>>>>>>>>>>>> pipeout-json-multi-selection
+-    // ==================== pipeout-json-multi-selection
 -    puts((sel && !(ev->state & ShiftMask)) ? sel->text : text);
 +    if (sel && sel->json) {
 +      if (json_is_object(sel->json)) {
@@ -117,7 +117,7 @@ index d94b1ea..384a7bd 100644
 +    } else {
 +      puts((sel && !(ev->state & ShiftMask)) ? sel->text : text);
 +    }
-     // <<<<<<<<<<<<<<<<<<<< pipeout-json
+     // <<<<<<<<<<<<<<<<<<<< pipeout-json-multi-selection
  		if (!(ev->state & ControlMask)) {
  			cleanup();
 @@ -645,7 +668,43 @@ paste(void)
@@ -195,12 +195,12 @@ index d94b1ea..384a7bd 100644
 +    if (!(item->text = strdup(buf)))
      // <<<<<<<<<<<<<<<<<<<< json
  			die("cannot strdup %u bytes:", strlen(buf) + 1);
-     // >>>>>>>>>>>>>>>>>>>> json
--    // ==================== json
+     // >>>>>>>>>>>>>>>>>>>> json-multi-selection
+-    // ==================== json-multi-selection
 -    items[i].out = 0;
 +    item->json = NULL;
 +    item->out = 0;
-     // <<<<<<<<<<<<<<<<<<<< json
+     // <<<<<<<<<<<<<<<<<<<< json-multi-selection
  		drw_font_getexts(drw->fonts, buf, strlen(buf), &tmpmax, NULL);
  		if (tmpmax > inputw) {
  			inputw = tmpmax;
