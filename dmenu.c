@@ -88,6 +88,9 @@ static int mon = -1, screen;
 // >>>>>>>>>>>>>>>>>>>> multi-selection
 // ==================== multi-selection
 // <<<<<<<<<<<<<<<<<<<< multi-selection
+// >>>>>>>>>>>>>>>>>>>> managed
+// ==================== managed
+// <<<<<<<<<<<<<<<<<<<< managed
 
 static Atom clip, utf8;
 static Display *dpy;
@@ -310,7 +313,10 @@ grabkeyboard(void)
 	struct timespec ts = { .tv_sec = 0, .tv_nsec = 1000000  };
 	int i;
 
+  // >>>>>>>>>>>>>>>>>>>> managed
+  // ==================== managed
 	if (embed)
+  // <<<<<<<<<<<<<<<<<<<< managed
 		return;
 	/* try to grab keyboard, we may have to wait for another process to ungrab */
 	for (i = 0; i < 1000; i++) {
@@ -863,7 +869,10 @@ setup(void)
 	match();
 
 	/* create menu window */
-	swa.override_redirect = True;
+  // >>>>>>>>>>>>>>>>>>>> managed
+  // ==================== managed
+  swa.override_redirect = True;
+  // <<<<<<<<<<<<<<<<<<<< managed
 	swa.background_pixel = scheme[SchemeNorm][ColBg].pixel;
 	swa.event_mask = ExposureMask | KeyPressMask | VisibilityChangeMask;
 
@@ -899,6 +908,9 @@ setup(void)
 	                XNClientWindow, win, XNFocusWindow, win, NULL);
 
 	XMapRaised(dpy, win);
+  // >>>>>>>>>>>>>>>>>>>> managed
+  // ==================== managed
+  // <<<<<<<<<<<<<<<<<<<< managed
 	if (embed) {
 		XSelectInput(dpy, parentwin, FocusChangeMask | SubstructureNotifyMask);
 		if (XQueryTree(dpy, parentwin, &dw, &w, &dws, &du) && dws) {
@@ -1009,6 +1021,9 @@ main(int argc, char *argv[])
     // >>>>>>>>>>>>>>>>>>>> incremental
     // ==================== incremental
     // <<<<<<<<<<<<<<<<<<<< incremental
+    // >>>>>>>>>>>>>>>>>>>> managed
+    // ==================== managed
+    // <<<<<<<<<<<<<<<<<<<< managed
 		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
 			fstrncmp = strncasecmp;
 			fstrstr = cistrstr;
