@@ -48,7 +48,10 @@ enum {
 struct item {
 	char *text;
 	struct item *left, *right;
+  // >>>>>>>>>>>>>>>>>>>> multi-selection
+  // ==================== multi-selection
 	int out;
+  // <<<<<<<<<<<<<<<<<<<< multi-selection
   // >>>>>>>>>>>>>>>>>>>> fuzzymatch
   // ==================== fuzzymatch
   // <<<<<<<<<<<<<<<<<<<< fuzzymatch
@@ -82,6 +85,9 @@ static int mon = -1, screen;
 // >>>>>>>>>>>>>>>>>>>> json
 // ==================== json
 // <<<<<<<<<<<<<<<<<<<< json
+// >>>>>>>>>>>>>>>>>>>> multi-selection
+// ==================== multi-selection
+// <<<<<<<<<<<<<<<<<<<< multi-selection
 
 static Atom clip, utf8;
 static Display *dpy;
@@ -102,6 +108,10 @@ static char *(*fstrstr)(const char *, const char *) = strstr;
 // >>>>>>>>>>>>>>>>>>>> json
 // ==================== json
 // <<<<<<<<<<<<<<<<<<<< json
+
+// >>>>>>>>>>>>>>>>>>>> multi-selection
+// ==================== multi-selection
+// <<<<<<<<<<<<<<<<<<<< multi-selection
 
 static void
 appenditem(struct item *item, struct item **list, struct item **last)
@@ -152,6 +162,9 @@ cleanup(void)
 	drw_free(drw);
 	XSync(dpy, False);
 	XCloseDisplay(dpy);
+  // >>>>>>>>>>>>>>>>>>>> multi-selection
+  // ==================== multi-selection
+  // <<<<<<<<<<<<<<<<<<<< multi-selection
 }
 
 static char *
@@ -177,7 +190,10 @@ drawitem(struct item *item, int x, int y, int w)
   // <<<<<<<<<<<<<<<<<<<< fuzzyhighlight
 	if (item == sel)
 		drw_setscheme(drw, scheme[SchemeSel]);
-	else if (item->out)
+  // >>>>>>>>>>>>>>>>>>>> multi-selection
+  // ==================== multi-selection
+  else if (item->out)
+  // <<<<<<<<<<<<<<<<<<<< multi-selection
 		drw_setscheme(drw, scheme[SchemeOut]);
 	else
 		drw_setscheme(drw, scheme[SchemeNorm]);
@@ -486,6 +502,9 @@ keypress(XKeyEvent *ev)
 			goto draw;
 		case XK_Return:
 		case XK_KP_Enter:
+      // >>>>>>>>>>>>>>>>>>>> multi-selection
+      // ==================== multi-selection
+      // <<<<<<<<<<<<<<<<<<<< multi-selection
 			break;
 		case XK_bracketleft:
 			cleanup();
@@ -588,11 +607,17 @@ insert:
     puts((sel && !(ev->state & ShiftMask)) ? sel->text : text);
     // <<<<<<<<<<<<<<<<<<<< pipeout-json-multi-selection
 		if (!(ev->state & ControlMask)) {
+      // >>>>>>>>>>>>>>>>>>>> multi-selection
+      // ==================== multi-selection
+      // <<<<<<<<<<<<<<<<<<<< multi-selection
 			cleanup();
 			exit(0);
 		}
+    // >>>>>>>>>>>>>>>>>>>> multi-selection
+    // ==================== multi-selection
 		if (sel)
 			sel->out = 1;
+    // <<<<<<<<<<<<<<<<<<<< multi-selection
 		break;
 	case XK_Right:
 		if (text[cursor] != '\0') {
