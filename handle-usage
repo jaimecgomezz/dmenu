@@ -12,23 +12,40 @@ Actions:
 Patches:
   border              Allows borders in the dmenu window
   case-insensitive    Makes dmenu case insensitive
-  fuzzymatch          Allows the users to type non-consecutive portions of the string to be matched
-  fuzzyhighlight      This patch make it so that fuzzy matches gets highlighted and is therefore meant to be used together with the patch fuzzymatch
   numbers             Adds text which displays the number of matched and total items in the top right corner of dmenu
   incremental         Makes dmenu to print out the current text each time a key is pressed 
   preselect           This patch adds an option to preselect an item by providing a number
   initial-text        Adds an option to provide preselected text
+  fuzzyhighlight      This patch make it so that fuzzy matches gets highlighted and is therefore meant to be used together with fuzzymatch
+  fuzzymatch          Allows the users to type non-consecutive portions of the string to be matched
+                        Not compatible with:
+                          json
   pipeout             This patch allows the selected text to be piped back out with dmenu
+                        Not compatible with:
+                          json
   center              Makes dmenu appear centered on the screen
-                        Not compatible with the xyw patch
+                        Not compatible with:
+                          xyw
   xyw                 The patch adds options for setting window position and width
-                        Not compatible with center patch
+                        Not compatible with:
+                          center
   dynamic-options     Makes dmenu run the command given to it whenever input is changed with the current input as the last argument and update the option list according to the output of that command
-                        Not compatible with the grid patch
+                        Not compatible with:
+                          grid
+                          json
   grid                Allows you to render dmenu's entries in a grid
-                        Not compatible with the dynamic-options patch
+                        Not compatible with:
+                          dynamic-options
   password            Makes dmenu replace the keyboard input with dots
-                        Not compatible with scroll patch
+                        Not compatible with:
+                          scroll
   scroll              This patch adds support for text scrolling, it doesn't append '...' for long input anymore as it can handle long text now
-                        Not compatible with password patch
+                        Not compatible with:
+                          password
+  json                Adds support for json-files
+                        Only use object and strings
+                        Not compatible with:
+                          pipeout
+                          fuzzymatch
+                          dynamic-options
 

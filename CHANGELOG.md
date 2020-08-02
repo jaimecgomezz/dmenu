@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.21.0] - 2020-08-02
+
+### Changed
+
+- Prepare the json-patch integration
+- Improve the handle-usage doc
+- Update README
+
+### Added
+
+- Add the json-patch
+- Include the json-patch in the docs
+
 ## [0.20.0] - 2020-08-01
 
 ### Changed
@@ -16,7 +29,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 - Add the pipeout-patch
-- Add the pipeout-patch into teh docs
+- Add the pipeout-patch into the docs
 
 ## [0.19.0] - 2020-08-01
 

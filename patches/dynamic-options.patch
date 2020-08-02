@@ -138,18 +138,18 @@ index 9592307..ef105a2 100644
 @@ -861,13 +879,13 @@ main(int argc, char *argv[])
  	if (fast && !isatty(0)) {
  		grabkeyboard();
-     // >>>>>>>>>>>>>>>>>>>> dynamic-options
--    // ==================== dynamic-options
+     // >>>>>>>>>>>>>>>>>>>> dynamic-options-json
+-    // ==================== dynamic-options-json
 -		readstdin();
 +    if(!(dynamic && *dynamic))
 +      readstdin(stdin);
-     // <<<<<<<<<<<<<<<<<<<< dynamic-options
+     // <<<<<<<<<<<<<<<<<<<< dynamic-options-json
  	} else {
-     // >>>>>>>>>>>>>>>>>>>> dynamic-options
--    // ==================== dynamic-options
+     // >>>>>>>>>>>>>>>>>>>> dynamic-options-json
+-    // ==================== dynamic-options-json
 -		readstdin();
 +    if(!(dynamic && *dynamic))
 +      readstdin(stdin);
-     // <<<<<<<<<<<<<<<<<<<< dynamic-options
+     // <<<<<<<<<<<<<<<<<<<< dynamic-options-json
  		grabkeyboard();
  	}
