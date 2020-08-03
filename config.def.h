@@ -68,3 +68,7 @@ static const char worddelimiters[] = " ";
 // >>>>>>>>>>>>>>>>>>>> symbols
 // ==================== symbols
 // <<<<<<<<<<<<<<<<<<<< symbols
+
+// >>>>>>>>>>>>>>>>>>>> navhistory
+// ==================== navhistory
+// <<<<<<<<<<<<<<<<<<<< navhistory
