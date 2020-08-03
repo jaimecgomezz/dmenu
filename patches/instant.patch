@@ -1,0 +1,71 @@
+diff --git a/config.def.h b/config.def.h
+index b364ad1..f2b921e 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -62,5 +62,5 @@ static const char worddelimiters[] = " ";
+ // <<<<<<<<<<<<<<<<<<<< prefix-completition
+ 
+ // >>>>>>>>>>>>>>>>>>>> instant
+-// ==================== instant
++static int instant = 0;
+ // <<<<<<<<<<<<<<<<<<<< instant
+diff --git a/dmenu.1 b/dmenu.1
+index dd53810..7ded1db 100644
+--- a/dmenu.1
++++ b/dmenu.1
+@@ -35,7 +35,7 @@ dmenu \- dynamic menu
+ \" ==================== prefix-completition
+ \" <<<<<<<<<<<<<<<<<<<< prefix-completition
+ \" >>>>>>>>>>>>>>>>>>>> instant
+-\" ==================== instant
++.RB [ \-it ]
+ \" <<<<<<<<<<<<<<<<<<<< instant
+ .RB [ \-m
+ .IR monitor ]
+@@ -132,7 +132,9 @@ prints version information to stdout, then exits.
+ \" ==================== prefix-completition
+ \" <<<<<<<<<<<<<<<<<<<< prefix-completition
+ \" >>>>>>>>>>>>>>>>>>>> instant
+-\" ==================== instant
++.B \-it
++dmenu instantly selects if only one match.
++.TP
+ \" <<<<<<<<<<<<<<<<<<<< instant
+ .BI \-m " monitor"
+ dmenu is displayed on the monitor number supplied. Monitor numbers are starting
+diff --git a/dmenu.c b/dmenu.c
+index 5ade51f..2f97033 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -416,7 +416,11 @@ match(void)
+ 	curr = sel = matches;
+ 
+   // >>>>>>>>>>>>>>>>>>>> instant
+-  // ==================== instant
++  if(instant && matches && matches==matchend && !lsubstr) {
++    puts(matches->text);
++    cleanup();
++    exit(0);
++  }
+   // <<<<<<<<<<<<<<<<<<<< instant
+ 
+ 	calcoffsets();
+@@ -991,7 +995,7 @@ usage(void)
+     // ==================== prefix-completition
+     // <<<<<<<<<<<<<<<<<<<< prefix-completition
+     // >>>>>>>>>>>>>>>>>>>> instant
+-    // ==================== instant
++    "[-it]"
+     // <<<<<<<<<<<<<<<<<<<< instant
+     "\n\t\t"
+     "[-m monitor]"
+@@ -1075,7 +1079,8 @@ main(int argc, char *argv[])
+     // ==================== prefix-completition
+     // <<<<<<<<<<<<<<<<<<<< prefix-completition
+     // >>>>>>>>>>>>>>>>>>>> instant
+-    // ==================== instant
++    else if (!strcmp(argv[i], "-it")) /* instant select only match */
++      instant = 1;
+     // <<<<<<<<<<<<<<<<<<<< instant
+ 		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
+ 			fstrncmp = strncasecmp;
