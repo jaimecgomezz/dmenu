@@ -414,6 +414,11 @@ match(void)
 		matchend = substrend;
 	}
 	curr = sel = matches;
+
+  // >>>>>>>>>>>>>>>>>>>> instant
+  // ==================== instant
+  // <<<<<<<<<<<<<<<<<<<< instant
+
 	calcoffsets();
 }
 
@@ -985,6 +990,9 @@ usage(void)
     // >>>>>>>>>>>>>>>>>>>> prefix-completition
     // ==================== prefix-completition
     // <<<<<<<<<<<<<<<<<<<< prefix-completition
+    // >>>>>>>>>>>>>>>>>>>> instant
+    // ==================== instant
+    // <<<<<<<<<<<<<<<<<<<< instant
     "\n\t\t"
     "[-m monitor]"
     "[-w windowid]"
@@ -1066,6 +1074,9 @@ main(int argc, char *argv[])
     // >>>>>>>>>>>>>>>>>>>> prefix-completition
     // ==================== prefix-completition
     // <<<<<<<<<<<<<<<<<<<< prefix-completition
+    // >>>>>>>>>>>>>>>>>>>> instant
+    // ==================== instant
+    // <<<<<<<<<<<<<<<<<<<< instant
 		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
 			fstrncmp = strncasecmp;
 			fstrstr = cistrstr;
