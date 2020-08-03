@@ -274,17 +274,17 @@ drawmenu(void)
 		}
 		x += w;
 		for (item = curr; item != next; item = item->right)
-      // >>>>>>>>>>>>>>>>>>>> numbers
-      // ==================== numbers
+      // >>>>>>>>>>>>>>>>>>>> numbers-symbols
+      // ==================== numbers-symbols
       x = drawitem(item, x, 0, MIN(TEXTW(item->text), mw - x - TEXTW(">")));
-      // <<<<<<<<<<<<<<<<<<<< numbers
+      // <<<<<<<<<<<<<<<<<<<< numbers-symbols
 		if (next) {
 			w = TEXTW(">");
 			drw_setscheme(drw, scheme[SchemeNorm]);
-      // >>>>>>>>>>>>>>>>>>>> numbers
-      // ==================== numbers
+      // >>>>>>>>>>>>>>>>>>>> numbers-symbols
+      // ==================== numbers-symbols
       drw_text(drw, mw - w, 0, w, bh, lrpad / 2, ">", 0);
-      // <<<<<<<<<<<<<<<<<<<< numbers
+      // <<<<<<<<<<<<<<<<<<<< numbers-symbols
 		}
 	}
   // >>>>>>>>>>>>>>>>>>>> numbers
