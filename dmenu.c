@@ -94,6 +94,9 @@ static int mon = -1, screen;
 // >>>>>>>>>>>>>>>>>>>> reject-no-match
 // ==================== reject-no-match
 // <<<<<<<<<<<<<<<<<<<< reject-no-match
+// >>>>>>>>>>>>>>>>>>>> navhistory
+// ==================== navhistory
+// <<<<<<<<<<<<<<<<<<<< navhistory
 
 static Atom clip, utf8;
 static Display *dpy;
@@ -484,6 +487,10 @@ movewordedge(int dir)
 	}
 }
 
+// >>>>>>>>>>>>>>>>>>>> navhistory
+// ==================== navhistory
+// <<<<<<<<<<<<<<<<<<<< navhistory
+
 static void
 keypress(XKeyEvent *ev)
 {
@@ -494,6 +501,9 @@ keypress(XKeyEvent *ev)
   // >>>>>>>>>>>>>>>>>>>> prefix-completition
   // ==================== prefix-completition
   // <<<<<<<<<<<<<<<<<<<< prefix-completition
+  // >>>>>>>>>>>>>>>>>>>> navhistory
+  // ==================== navhistory
+  // <<<<<<<<<<<<<<<<<<<< navhistory
 
 	len = XmbLookupString(xic, ev, buf, sizeof buf, &ksym, &status);
 	switch (status) {
@@ -542,6 +552,9 @@ keypress(XKeyEvent *ev)
 			XConvertSelection(dpy, (ev->state & ShiftMask) ? clip : XA_PRIMARY,
 			                  utf8, utf8, win, CurrentTime);
 			return;
+    // >>>>>>>>>>>>>>>>>>>> navhistory
+    // ==================== navhistory
+    // <<<<<<<<<<<<<<<<<<<< navhistory
 		case XK_Left:
 			movewordedge(-1);
 			goto draw;
@@ -574,6 +587,9 @@ keypress(XKeyEvent *ev)
 		case XK_j: ksym = XK_Next;  break;
 		case XK_k: ksym = XK_Prior; break;
 		case XK_l: ksym = XK_Down;  break;
+    // >>>>>>>>>>>>>>>>>>>> navhistory
+    // ==================== navhistory
+    // <<<<<<<<<<<<<<<<<<<< navhistory
 		default:
 			return;
 		}
@@ -658,6 +674,9 @@ insert:
       // >>>>>>>>>>>>>>>>>>>> multi-selection
       // ==================== multi-selection
       // <<<<<<<<<<<<<<<<<<<< multi-selection
+      // >>>>>>>>>>>>>>>>>>>> navhistory
+      // ==================== navhistory
+      // <<<<<<<<<<<<<<<<<<<< navhistory
 			cleanup();
 			exit(0);
 		}
@@ -1044,6 +1063,9 @@ usage(void)
     // >>>>>>>>>>>>>>>>>>>> json
     // ==================== json
     // <<<<<<<<<<<<<<<<<<<< json
+    // >>>>>>>>>>>>>>>>>>>> navhistory
+    // ==================== navhistory
+    // <<<<<<<<<<<<<<<<<<<< navhistory
     "\n\t\t"
     "[-nb color]"
     "[-nf color]"
@@ -1151,6 +1173,9 @@ main(int argc, char *argv[])
     // >>>>>>>>>>>>>>>>>>>> json
     // ==================== json
     // <<<<<<<<<<<<<<<<<<<< json
+    // >>>>>>>>>>>>>>>>>>>> navhistory
+    // ==================== navhistory
+    // <<<<<<<<<<<<<<<<<<<< navhistory
 		else
 			usage();
 
@@ -1174,6 +1199,10 @@ main(int argc, char *argv[])
 	if (pledge("stdio rpath", NULL) == -1)
 		die("pledge");
 #endif
+
+  // >>>>>>>>>>>>>>>>>>>> navhistory
+  // ==================== navhistory
+  // <<<<<<<<<<<<<<<<<<<< navhistory
 
 	if (fast && !isatty(0)) {
 		grabkeyboard();

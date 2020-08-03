@@ -1,2 +1,5 @@
 #!/bin/sh
+# >>>>>>>>>>>>>>>>>>>> navhistory
+# ==================== navhistory
 dmenu_path | dmenu "$@" | ${SHELL:-"/bin/sh"} &
+# <<<<<<<<<<<<<<<<<<<< navhistory

@@ -81,3 +81,11 @@ Patches:
   vertfull            Prevents dmenu from indenting items at the same level as the prompt
                       length
                         - Not compatible with: grid
+  navhistory          This patch provides dmenu the ability for history navigation similar
+                      to that of bash
+                        - Press alt+p for the previous history and alt+n for the next
+                        - Set the maximum number of histories with a new variable 'maxhist' in config.def.h
+                        - By default, it only records a new history if it is not the same as the last one.
+                          To change this behaviour, set 'histnodup' to 0 in config.def.h
+                        - Press ctrl-r, like in bash or ksh, and the suggestions will be replaced with the
+                          history. Press ctrl-r again to revert

@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.30.0] - 2020-08-03
+
+### Changed
+
+- Prepare the navhistory-patch integration
+- Make multi-selection comaptible with navhistory
+
+### Added
+
+- Add the navhistory-patch
+- Add the navhistory-patch to docs
+
+
 ## [0.29.0] - 2020-08-03
 
 ### Changed
