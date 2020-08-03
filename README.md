@@ -10,7 +10,7 @@ This distribution aims to solve the patches integration problem. Is meant to be 
 
 |                                                              |      | Patches                                                      |      |                                                              |      |
 | ------------------------------------------------------------ | ---- | ------------------------------------------------------------ | ---- | ------------------------------------------------------------ | ---- |
-| [border](https://tools.suckless.org/dmenu/patches/border/)   | ✔️    | [preselect](https://tools.suckless.org/dmenu/patches/preselect/) | ✔️    | [symbols](https://tools.suckless.org/dmenu/patches/symbols/) |      |
+| [border](https://tools.suckless.org/dmenu/patches/border/)   | ✔️    | [preselect](https://tools.suckless.org/dmenu/patches/preselect/) | ✔️    | [symbols](https://tools.suckless.org/dmenu/patches/symbols/) | ✔️    |
 | [case insensitive](https://tools.suckless.org/dmenu/patches/case-insensitive/) | ✔️    | [scroll](https://tools.suckless.org/dmenu/patches/scroll/)   | ✔️    | [vertfull](https://tools.suckless.org/dmenu/patches/vertfull/) |      |
 | [center](https://tools.suckless.org/dmenu/patches/center/)   | ✔️    | [initial-text](https://tools.suckless.org/dmenu/patches/initialtext/) | ✔️    | [nav-history](https://tools.suckless.org/dmenu/patches/navhistory/) |      |
 | [dynamic options](https://tools.suckless.org/dmenu/patches/dynamicoptions/) | ✔️    | [pipe-out](https://tools.suckless.org/dmenu/patches/pipeout/) | ✔️    | [non blocking stdin](https://tools.suckless.org/dmenu/patches/non_blocking_stdin/) |      |

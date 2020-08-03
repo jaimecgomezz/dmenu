@@ -143,7 +143,10 @@ calcoffsets(void)
     n = lines * bh;
     // <<<<<<<<<<<<<<<<<<<< grid
 	else
+    // >>>>>>>>>>>>>>>>>>>> symbols
+    // ==================== symbols
 		n = mw - (promptw + inputw + TEXTW("<") + TEXTW(">"));
+    // <<<<<<<<<<<<<<<<<<<< symbols
 	/* calculate which items will begin the next page and previous page */
 	for (i = 0, next = curr; next; next = next->right)
 		if ((i += (lines > 0) ? bh : MIN(TEXTW(next->text), n)) > n)
@@ -267,24 +270,34 @@ drawmenu(void)
 	} else if (matches) {
 		/* draw horizontal list */
 		x += inputw;
+    // >>>>>>>>>>>>>>>>>>>> symbols
+    // ==================== symbols
 		w = TEXTW("<");
+    // <<<<<<<<<<<<<<<<<<<< symbols
 		if (curr->left) {
 			drw_setscheme(drw, scheme[SchemeNorm]);
-			drw_text(drw, x, 0, w, bh, lrpad / 2, "<", 0);
+      // >>>>>>>>>>>>>>>>>>>> symbols
+      // ==================== symbols
+      w = TEXTW("<");
+      drw_text(drw, x, 0, w, bh, lrpad / 2, "<", 0);
+      // <<<<<<<<<<<<<<<<<<<< symbols
 		}
 		x += w;
 		for (item = curr; item != next; item = item->right)
-      // >>>>>>>>>>>>>>>>>>>> numbers
-      // ==================== numbers
+      // >>>>>>>>>>>>>>>>>>>> numbers-symbols
+      // ==================== numbers-symbols
       x = drawitem(item, x, 0, MIN(TEXTW(item->text), mw - x - TEXTW(">")));
-      // <<<<<<<<<<<<<<<<<<<< numbers
+      // <<<<<<<<<<<<<<<<<<<< numbers-symbols
 		if (next) {
+      // >>>>>>>>>>>>>>>>>>>> symbols
+      // ==================== symbols
 			w = TEXTW(">");
+      // <<<<<<<<<<<<<<<<<<<< symbols
 			drw_setscheme(drw, scheme[SchemeNorm]);
-      // >>>>>>>>>>>>>>>>>>>> numbers
-      // ==================== numbers
+      // >>>>>>>>>>>>>>>>>>>> numbers-symbols
+      // ==================== numbers-symbols
       drw_text(drw, mw - w, 0, w, bh, lrpad / 2, ">", 0);
-      // <<<<<<<<<<<<<<<<<<<< numbers
+      // <<<<<<<<<<<<<<<<<<<< numbers-symbols
 		}
 	}
   // >>>>>>>>>>>>>>>>>>>> numbers

@@ -1,0 +1,65 @@
+diff --git a/config.def.h b/config.def.h
+index 2fd965c..2a5ba3f 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -66,5 +66,6 @@ static const char worddelimiters[] = " ";
+ // <<<<<<<<<<<<<<<<<<<< instant
+ 
+ // >>>>>>>>>>>>>>>>>>>> symbols
+-// ==================== symbols
++static const char *symbol_1 = "<";
++static const char *symbol_2 = ">";
+ // <<<<<<<<<<<<<<<<<<<< symbols
+diff --git a/dmenu.c b/dmenu.c
+index 7a3eb88..45b43fb 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -144,8 +144,7 @@ calcoffsets(void)
+     // <<<<<<<<<<<<<<<<<<<< grid
+ 	else
+     // >>>>>>>>>>>>>>>>>>>> symbols
+-    // ==================== symbols
+-		n = mw - (promptw + inputw + TEXTW("<") + TEXTW(">"));
++    n = mw - (promptw + inputw + TEXTW(symbol_1) + TEXTW(symbol_2));
+     // <<<<<<<<<<<<<<<<<<<< symbols
+ 	/* calculate which items will begin the next page and previous page */
+ 	for (i = 0, next = curr; next; next = next->right)
+@@ -271,32 +270,27 @@ drawmenu(void)
+ 		/* draw horizontal list */
+ 		x += inputw;
+     // >>>>>>>>>>>>>>>>>>>> symbols
+-    // ==================== symbols
+-		w = TEXTW("<");
++		w = TEXTW(symbol_1);
+     // <<<<<<<<<<<<<<<<<<<< symbols
+ 		if (curr->left) {
+ 			drw_setscheme(drw, scheme[SchemeNorm]);
+       // >>>>>>>>>>>>>>>>>>>> symbols
+-      // ==================== symbols
+-      w = TEXTW("<");
+-      drw_text(drw, x, 0, w, bh, lrpad / 2, "<", 0);
++      w = TEXTW(symbol_1);
++      drw_text(drw, x, 0, w, bh, lrpad / 2, symbol_1, 0);
+       // <<<<<<<<<<<<<<<<<<<< symbols
+ 		}
+ 		x += w;
+ 		for (item = curr; item != next; item = item->right)
+       // >>>>>>>>>>>>>>>>>>>> numbers-symbols
+-      // ==================== numbers-symbols
+-      x = drawitem(item, x, 0, MIN(TEXTW(item->text), mw - x - TEXTW(">")));
++      x = drawitem(item, x, 0, MIN(TEXTW(item->text), mw - x - TEXTW(symbol_2)));
+       // <<<<<<<<<<<<<<<<<<<< numbers-symbols
+ 		if (next) {
+       // >>>>>>>>>>>>>>>>>>>> symbols
+-      // ==================== symbols
+-			w = TEXTW(">");
++			w = TEXTW(symbol_2);
+       // <<<<<<<<<<<<<<<<<<<< symbols
+ 			drw_setscheme(drw, scheme[SchemeNorm]);
+       // >>>>>>>>>>>>>>>>>>>> numbers-symbols
+-      // ==================== numbers-symbols
+-      drw_text(drw, mw - w, 0, w, bh, lrpad / 2, ">", 0);
++      drw_text(drw, mw - w, 0, w, bh, lrpad / 2, symbol_2, 0);
+       // <<<<<<<<<<<<<<<<<<<< numbers-symbols
+ 		}
+ 	}
