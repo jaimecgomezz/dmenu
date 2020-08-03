@@ -48,9 +48,9 @@ enum {
 struct item {
 	char *text;
 	struct item *left, *right;
+  int out;
   // >>>>>>>>>>>>>>>>>>>> multi-selection
   // ==================== multi-selection
-	int out;
   // <<<<<<<<<<<<<<<<<<<< multi-selection
   // >>>>>>>>>>>>>>>>>>>> fuzzymatch
   // ==================== fuzzymatch
