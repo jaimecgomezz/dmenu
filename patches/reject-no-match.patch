@@ -1,0 +1,83 @@
+diff --git a/dmenu.1 b/dmenu.1
+index 045bb40..365fdf1 100644
+--- a/dmenu.1
++++ b/dmenu.1
+@@ -29,7 +29,7 @@ dmenu \- dynamic menu
+ \" ==================== managed
+ \" <<<<<<<<<<<<<<<<<<<< managed
+ \" >>>>>>>>>>>>>>>>>>>> reject-no-match
+-\" ==================== reject-no-match
++.RB [ \-rnm ]
+ \" <<<<<<<<<<<<<<<<<<<< reject-no-match
+ .RB [ \-m
+ .IR monitor ]
+@@ -120,7 +120,9 @@ prints version information to stdout, then exits.
+ \" ==================== managed
+ \" <<<<<<<<<<<<<<<<<<<< managed
+ \" >>>>>>>>>>>>>>>>>>>> reject-no-match
+-\" ==================== reject-no-match
++.B \-r
++dmenu will reject any input which would result in no matching option left.
++.TP
+ \" <<<<<<<<<<<<<<<<<<<< reject-no-match
+ .BI \-m " monitor"
+ dmenu is displayed on the monitor number supplied. Monitor numbers are starting
+diff --git a/dmenu.c b/dmenu.c
+index 0ca7267..335a9c0 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -92,7 +92,7 @@ static int mon = -1, screen;
+ // ==================== managed
+ // <<<<<<<<<<<<<<<<<<<< managed
+ // >>>>>>>>>>>>>>>>>>>> reject-no-match
+-// ==================== reject-no-match
++static int reject_no_match = 0;
+ // <<<<<<<<<<<<<<<<<<<< reject-no-match
+ 
+ static Atom clip, utf8;
+@@ -415,7 +415,11 @@ insert(const char *str, ssize_t n)
+ 		return;
+ 
+   // >>>>>>>>>>>>>>>>>>>> reject-no-match
+-  // ==================== reject-no-match
++  static char last[BUFSIZ] = "";
++  if(reject_no_match) {
++    /* store last text value in case we need to revert it */
++    memcpy(last, text, BUFSIZ);
++  }
+   // <<<<<<<<<<<<<<<<<<<< reject-no-match
+ 
+ 	/* move existing text out of the way, insert new text, and update cursor */
+@@ -426,7 +430,12 @@ insert(const char *str, ssize_t n)
+ 	match();
+ 
+   // >>>>>>>>>>>>>>>>>>>> reject-no-match
+-  // ==================== reject-no-match
++  if(!matches && reject_no_match) {
++    /* revert to last text value if theres no match */
++    memcpy(text, last, BUFSIZ);
++    cursor -= n;
++    match();
++  }
+   // <<<<<<<<<<<<<<<<<<<< reject-no-match
+ }
+ 
+@@ -962,7 +971,7 @@ usage(void)
+     // ==================== incremental
+     // <<<<<<<<<<<<<<<<<<<< incremental
+     // >>>>>>>>>>>>>>>>>>>> reject-no-match
+-    // ==================== reject-no-match
++    "[-rnm]"
+     // <<<<<<<<<<<<<<<<<<<< reject-no-match
+     "\n\t\t"
+     "[-m monitor]"
+@@ -1040,7 +1049,8 @@ main(int argc, char *argv[])
+     // ==================== managed
+     // <<<<<<<<<<<<<<<<<<<< managed
+     // >>>>>>>>>>>>>>>>>>>> reject-no-match
+-    // ==================== reject-no-match
++    else if (!strcmp(argv[i], "-rnm")) /* reject input which results in no match */
++      reject_no_match = 1;
+     // <<<<<<<<<<<<<<<<<<<< reject-no-match
+ 		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
+ 			fstrncmp = strncasecmp;
