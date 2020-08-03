@@ -22,6 +22,8 @@ Patches:
   managed             Makes dmenu a window rather than an overlay
   reject-no-match     Adds a new flag to dmenu with which text input will be rejected if
                       it would result in no matching item
+  instant             Adds an flag which will cause dmenu to select an item immediately if
+                      theres one matching option left
   fuzzymatch          Allows the users to type non-consecutive portions of the string to
                       be matched
                         - Not compatible with: json
