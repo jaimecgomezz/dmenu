@@ -56,3 +56,7 @@ static const char worddelimiters[] = " ";
 // >>>>>>>>>>>>>>>>>>>> pipeout
 // ==================== pipeout
 // <<<<<<<<<<<<<<<<<<<< pipeout
+
+// >>>>>>>>>>>>>>>>>>>> prefix-completition
+// ==================== prefix-completition
+// <<<<<<<<<<<<<<<<<<<< prefix-completition

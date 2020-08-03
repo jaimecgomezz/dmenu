@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.25.0] - 2020-08-02
+
+### Changed
+
+- Prepare the prefix-completition-patch integration
+
+### Added
+
+- Add the prefix-completition-patch
+- Add the prefix-completition-patch to docs
+
 ## [0.24.0] - 2020-08-02
 
 ### Changed
