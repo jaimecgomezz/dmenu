@@ -12,8 +12,6 @@ Actions:
 Patches:
   border              Allows borders in the dmenu window
   case-insensitive    Makes dmenu case insensitive
-  numbers             Adds text which displays the number of matched and total items in
-                      the top right corner of dmenu
   incremental         Makes dmenu to print out the current text each time a key is pressed
   preselect           This patch adds an option to preselect an item by providing a number
   initial-text        Adds an option to provide preselected text
@@ -24,6 +22,9 @@ Patches:
                       it would result in no matching item
   instant             Adds an flag which will cause dmenu to select an item immediately if
                       theres one matching option left
+  numbers             Adds text which displays the number of matched and total items in
+                      the top right corner of dmenu
+                        - Not compatible with: symbols
   fuzzymatch          Allows the users to type non-consecutive portions of the string to
                       be matched
                         - Not compatible with: json
@@ -38,7 +39,7 @@ Patches:
                       list according to the output of that command
                         - Not compatible with: grid, json
   grid                Allows you to render dmenu's entries in a grid
-                        - Not compatible with: dynamic-options
+                        - Not compatible with: dynamic-options, vertfull
   password            Makes dmenu replace the keyboard input with dots
                         - Not compatible with: scroll
   scroll              This patch adds support for text scrolling, it doesn't append '...'
@@ -77,3 +78,6 @@ Patches:
                       indicate that either the input is too long or there are too many
                       options to be shown in dmenu in one line
                         - Not compatible with: numbers
+  vertfull            Prevents dmenu from indenting items at the same level as the prompt
+                      length
+                        - Not compatible with: grid

@@ -1,0 +1,16 @@
+diff --git a/dmenu.c b/dmenu.c
+index 47c61e1..6f4f289 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -262,10 +262,9 @@ drawmenu(void)
+   // <<<<<<<<<<<<<<<<<<<< numbers
+ 	if (lines > 0) {
+     // >>>>>>>>>>>>>>>>>>>> grid-vertfull
+-    // ==================== grid-vertfull
+ 		/* draw vertical list */
+ 		for (item = curr; item != next; item = item->right)
+-			drawitem(item, x, y += bh, mw - x);
++			drawitem(item, 0, y += bh, mw - x);
+     // <<<<<<<<<<<<<<<<<<<< grid-vertfull
+ 	} else if (matches) {
+ 		/* draw horizontal list */

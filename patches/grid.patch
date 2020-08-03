@@ -52,8 +52,8 @@ index 01300e7..6c447c5 100644
 @@ -187,10 +186,15 @@ drawmenu(void)
  
  	if (lines > 0) {
-     // >>>>>>>>>>>>>>>>>>>> grid
--    // ==================== grid
+     // >>>>>>>>>>>>>>>>>>>> grid-vertfull
+-    // ==================== grid-vertfull
 -		/* draw vertical list */
 -		for (item = curr; item != next; item = item->right)
 -			drawitem(item, x, y += bh, mw - x);
@@ -66,7 +66,7 @@ index 01300e7..6c447c5 100644
 +        y + (((i % lines) + 1) * bh),
 +        (mw - x) / columns
 +      );
-     // <<<<<<<<<<<<<<<<<<<< grid
+     // <<<<<<<<<<<<<<<<<<<< grid-vertfull
  	} else if (matches) {
  		/* draw horizontal list */
 @@ -815,7 +819,7 @@ usage(void)
