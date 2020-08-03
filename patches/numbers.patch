@@ -1,8 +1,8 @@
 diff --git a/dmenu.c b/dmenu.c
-index 2f2d331..2740fa9 100644
+index 47c61e1..b1ce26e 100644
 --- a/dmenu.c
 +++ b/dmenu.c
-@@ -28,7 +28,8 @@
+@@ -31,7 +31,8 @@
  #define LENGTH(X)             (sizeof X / sizeof X[0])
  #define TEXTW(X)              (drw_fontset_getwidth(drw, (X)) + lrpad)
  // >>>>>>>>>>>>>>>>>>>> numbers
@@ -12,16 +12,16 @@ index 2f2d331..2740fa9 100644
  // <<<<<<<<<<<<<<<<<<<< numbers
  
  /* enums */
-@@ -65,7 +66,7 @@ static int mon = -1, screen;
+@@ -77,7 +78,7 @@ static int mon = -1, screen;
  // ==================== xyw
  // <<<<<<<<<<<<<<<<<<<< xyw
  // >>>>>>>>>>>>>>>>>>>> numbers
 -// ==================== numbers
 +static char numbers[NUMBERSBUFSIZE] = "";
  // <<<<<<<<<<<<<<<<<<<< numbers
- 
- static Atom clip, utf8;
-@@ -170,7 +171,20 @@ drawitem(struct item *item, int x, int y, int w)
+ // >>>>>>>>>>>>>>>>>>>> pipeout
+ // ==================== pipeout
+@@ -214,7 +215,20 @@ drawitem(struct item *item, int x, int y, int w)
  }
  
  // >>>>>>>>>>>>>>>>>>>> numbers
@@ -43,16 +43,16 @@ index 2f2d331..2740fa9 100644
  // <<<<<<<<<<<<<<<<<<<< numbers
  
  static void
-@@ -199,7 +213,7 @@ drawmenu(void)
- 	}
+@@ -258,7 +272,7 @@ drawmenu(void)
+   // <<<<<<<<<<<<<<<<<<<< scroll
  
    // >>>>>>>>>>>>>>>>>>>> numbers
 -  // ==================== numbers
 +  recalculatenumbers();
    // <<<<<<<<<<<<<<<<<<<< numbers
  	if (lines > 0) {
-     // >>>>>>>>>>>>>>>>>>>> grid
-@@ -219,20 +233,19 @@ drawmenu(void)
+     // >>>>>>>>>>>>>>>>>>>> grid-vertfull
+@@ -285,8 +299,7 @@ drawmenu(void)
  		x += w;
  		for (item = curr; item != next; item = item->right)
        // >>>>>>>>>>>>>>>>>>>> numbers-symbols
@@ -61,7 +61,9 @@ index 2f2d331..2740fa9 100644
 +      x = drawitem(item, x, 0, MIN(TEXTW(item->text), mw - x - TEXTW(">") - TEXTW(numbers)));
        // <<<<<<<<<<<<<<<<<<<< numbers-symbols
  		if (next) {
- 			w = TEXTW(">");
+       // >>>>>>>>>>>>>>>>>>>> symbols
+@@ -295,13 +308,13 @@ drawmenu(void)
+       // <<<<<<<<<<<<<<<<<<<< symbols
  			drw_setscheme(drw, scheme[SchemeNorm]);
        // >>>>>>>>>>>>>>>>>>>> numbers-symbols
 -      // ==================== numbers-symbols
