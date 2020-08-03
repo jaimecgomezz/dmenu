@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.26.0] - 2020-08-02
+
+### Changed
+
+- Prepare the instant-patch integration
+
+### Added
+
+- Add the instant-patch
+- Add the instant-patch to docs
+
 ## [0.25.0] - 2020-08-02
 
 ### Changed
