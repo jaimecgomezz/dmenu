@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.28.0] - 2020-08-03
+
+### Changed
+
+- Adapt numbers compatible with symbols
+- Prepare the symbols-patch integration
+
+### Added
+
+- Add the symbols-patch
+- Add the symbols-patch to docs
+
 ## [0.27.0] - 2020-08-03
 
 ### Changed
