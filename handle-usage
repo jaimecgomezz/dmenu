@@ -22,6 +22,8 @@ Patches:
                       it would result in no matching item
   instant             Adds an flag which will cause dmenu to select an item immediately if
                       theres one matching option left
+  more-color          This patch creates an additional color scheme, for use with the entries adjacent to
+                      the selection. This is nice if you want to add some more color to your dmenu
   numbers             Adds text which displays the number of matched and total items in
                       the top right corner of dmenu
                         - Not compatible with: symbols
