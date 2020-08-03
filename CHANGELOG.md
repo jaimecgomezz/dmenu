@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.29.0] - 2020-08-03
+
+### Changed
+
+- Make grid comaptible with vertfull
+
+### Added
+
+- Add the vertfull-patch
+- Add the vertfull-patch to docs
+
 ## [0.28.0] - 2020-08-03
 
 ### Changed
