@@ -64,3 +64,7 @@ static const char worddelimiters[] = " ";
 // >>>>>>>>>>>>>>>>>>>> instant
 // ==================== instant
 // <<<<<<<<<<<<<<<<<<<< instant
+
+// >>>>>>>>>>>>>>>>>>>> symbols
+// ==================== symbols
+// <<<<<<<<<<<<<<<<<<<< symbols
