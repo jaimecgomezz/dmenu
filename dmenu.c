@@ -91,6 +91,9 @@ static int mon = -1, screen;
 // >>>>>>>>>>>>>>>>>>>> managed
 // ==================== managed
 // <<<<<<<<<<<<<<<<<<<< managed
+// >>>>>>>>>>>>>>>>>>>> reject-no-match
+// ==================== reject-no-match
+// <<<<<<<<<<<<<<<<<<<< reject-no-match
 
 static Atom clip, utf8;
 static Display *dpy;
@@ -410,12 +413,21 @@ insert(const char *str, ssize_t n)
 {
 	if (strlen(text) + n > sizeof text - 1)
 		return;
+
+  // >>>>>>>>>>>>>>>>>>>> reject-no-match
+  // ==================== reject-no-match
+  // <<<<<<<<<<<<<<<<<<<< reject-no-match
+
 	/* move existing text out of the way, insert new text, and update cursor */
 	memmove(&text[cursor + n], &text[cursor], sizeof text - cursor - MAX(n, 0));
 	if (n > 0)
 		memcpy(&text[cursor], str, n);
 	cursor += n;
 	match();
+
+  // >>>>>>>>>>>>>>>>>>>> reject-no-match
+  // ==================== reject-no-match
+  // <<<<<<<<<<<<<<<<<<<< reject-no-match
 }
 
 static size_t
@@ -949,6 +961,9 @@ usage(void)
     // >>>>>>>>>>>>>>>>>>>> incremental
     // ==================== incremental
     // <<<<<<<<<<<<<<<<<<<< incremental
+    // >>>>>>>>>>>>>>>>>>>> reject-no-match
+    // ==================== reject-no-match
+    // <<<<<<<<<<<<<<<<<<<< reject-no-match
     "\n\t\t"
     "[-m monitor]"
     "[-w windowid]"
@@ -1024,6 +1039,9 @@ main(int argc, char *argv[])
     // >>>>>>>>>>>>>>>>>>>> managed
     // ==================== managed
     // <<<<<<<<<<<<<<<<<<<< managed
+    // >>>>>>>>>>>>>>>>>>>> reject-no-match
+    // ==================== reject-no-match
+    // <<<<<<<<<<<<<<<<<<<< reject-no-match
 		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
 			fstrncmp = strncasecmp;
 			fstrstr = cistrstr;
