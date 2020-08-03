@@ -60,3 +60,7 @@ static const char worddelimiters[] = " ";
 // >>>>>>>>>>>>>>>>>>>> prefix-completition
 // ==================== prefix-completition
 // <<<<<<<<<<<<<<<<<<<< prefix-completition
+
+// >>>>>>>>>>>>>>>>>>>> instant
+// ==================== instant
+// <<<<<<<<<<<<<<<<<<<< instant
