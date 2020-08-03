@@ -1,0 +1,134 @@
+diff --git a/config.def.h b/config.def.h
+index a0abe36..24335db 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -58,5 +58,8 @@ static const char worddelimiters[] = " ";
+ // <<<<<<<<<<<<<<<<<<<< pipeout
+ 
+ // >>>>>>>>>>>>>>>>>>>> prefix-completition
+-// ==================== prefix-completition
++/*
++ * Use prefix matching by default; can be inverted with the -pc flag.
++ */
++static int use_prefix = 1;
+ // <<<<<<<<<<<<<<<<<<<< prefix-completition
+diff --git a/dmenu.1 b/dmenu.1
+index 5827f4f..b24a3aa 100644
+--- a/dmenu.1
++++ b/dmenu.1
+@@ -32,7 +32,7 @@ dmenu \- dynamic menu
+ \" ==================== reject-no-match
+ \" <<<<<<<<<<<<<<<<<<<< reject-no-match
+ \" >>>>>>>>>>>>>>>>>>>> prefix-completition
+-\" ==================== prefix-completition
++.RB [ \-pc ]
+ \" <<<<<<<<<<<<<<<<<<<< prefix-completition
+ .RB [ \-m
+ .IR monitor ]
+@@ -126,7 +126,9 @@ prints version information to stdout, then exits.
+ \" ==================== reject-no-match
+ \" <<<<<<<<<<<<<<<<<<<< reject-no-match
+ \" >>>>>>>>>>>>>>>>>>>> prefix-completition
+-\" ==================== prefix-completition
++.B \-pc
++Invert prefix matching setting.
++.TP
+ \" <<<<<<<<<<<<<<<<<<<< prefix-completition
+ .BI \-m " monitor"
+ dmenu is displayed on the monitor number supplied. Monitor numbers are starting
+diff --git a/dmenu.c b/dmenu.c
+index 40727d5..94d377a 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -370,9 +370,13 @@ match(void)
+ 	len = tokc ? strlen(tokv[0]) : 0;
+ 
+   // >>>>>>>>>>>>>>>>>>>> prefix-completition
+-  // ==================== prefix-completition
+-	matches = lprefix = lsubstr = matchend = prefixend = substrend = NULL;
+-	textsize = strlen(text) + 1;
++  if (use_prefix) {
++    matches = lprefix = matchend = prefixend = NULL;
++    textsize = strlen(text);
++  } else {
++    matches = lprefix = lsubstr = matchend = prefixend = substrend = NULL;
++    textsize = strlen(text) + 1;
++  }
+   // <<<<<<<<<<<<<<<<<<<< prefix-completition
+ 	for (item = items; item && item->text; item++) {
+ 		for (i = 0; i < tokc; i++)
+@@ -389,8 +393,7 @@ match(void)
+ 		else if (!fstrncmp(tokv[0], item->text, len))
+ 			appenditem(item, &lprefix, &prefixend);
+     // >>>>>>>>>>>>>>>>>>>> prefix-completition
+-    // ==================== prefix-completition
+-    else
++    else if (!use_prefix)
+     // <<<<<<<<<<<<<<<<<<<< prefix-completition
+ 			appenditem(item, &lsubstr, &substrend);
+ 	}
+@@ -403,8 +406,7 @@ match(void)
+ 		matchend = prefixend;
+ 	}
+   // >>>>>>>>>>>>>>>>>>>> prefix-completition
+-  // ==================== prefix-completition
+-  if (lsubstr) {
++  if (!use_prefix && lsubstr) {
+   // <<<<<<<<<<<<<<<<<<<< prefix-completition
+ 		if (matches) {
+ 			matchend->right = lsubstr;
+@@ -474,7 +476,7 @@ keypress(XKeyEvent *ev)
+ 	KeySym ksym;
+ 	Status status;
+   // >>>>>>>>>>>>>>>>>>>> prefix-completition
+-  // ==================== prefix-completition
++  struct item * item;
+   // <<<<<<<<<<<<<<<<<<<< prefix-completition
+ 
+ 	len = XmbLookupString(xic, ev, buf, sizeof buf, &ksym, &status);
+@@ -665,16 +667,19 @@ insert:
+ 		break;
+ 	case XK_Tab:
+     // >>>>>>>>>>>>>>>>>>>> prefix-completition
+-    // ==================== prefix-completition
+-		if (!sel)
+-			return;
+-		strncpy(text, sel->text, sizeof text - 1);
++    if (!matches) break; /* cannot complete no matches */
++    strncpy(text, matches->text, sizeof text - 1);
+     // <<<<<<<<<<<<<<<<<<<< prefix-completition
+ 		text[sizeof text - 1] = '\0';
+     // >>>>>>>>>>>>>>>>>>>> prefix-completition
+-    // ==================== prefix-completition
+-		cursor = strlen(text);
+-		match();
++    len = cursor = strlen(text); /* length of longest common prefix */
++    for (item = matches; item && item->text; item = item->right) {
++      cursor = 0;
++      while (cursor < len && text[cursor] == item->text[cursor])
++        cursor++;
++      len = cursor;
++    }
++    memset(text + len, '\0', strlen(text) - len);
+     // <<<<<<<<<<<<<<<<<<<< prefix-completition
+ 		break;
+ 	}
+@@ -983,7 +988,7 @@ usage(void)
+     // ==================== reject-no-match
+     // <<<<<<<<<<<<<<<<<<<< reject-no-match
+     // >>>>>>>>>>>>>>>>>>>> prefix-completition
+-    // ==================== prefix-completition
++    "[-pc]"
+     // <<<<<<<<<<<<<<<<<<<< prefix-completition
+     "\n\t\t"
+     "[-m monitor]"
+@@ -1064,7 +1069,8 @@ main(int argc, char *argv[])
+     // ==================== reject-no-match
+     // <<<<<<<<<<<<<<<<<<<< reject-no-match
+     // >>>>>>>>>>>>>>>>>>>> prefix-completition
+-    // ==================== prefix-completition
++    else if (!strcmp(argv[i], "-pc"))   /* invert use_prefix */
++      use_prefix = !use_prefix;
+     // <<<<<<<<<<<<<<<<<<<< prefix-completition
+ 		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
+ 			fstrncmp = strncasecmp;
