@@ -369,8 +369,11 @@ match(void)
 			die("cannot realloc %u bytes:", tokn * sizeof *tokv);
 	len = tokc ? strlen(tokv[0]) : 0;
 
+  // >>>>>>>>>>>>>>>>>>>> prefix-completition
+  // ==================== prefix-completition
 	matches = lprefix = lsubstr = matchend = prefixend = substrend = NULL;
 	textsize = strlen(text) + 1;
+  // <<<<<<<<<<<<<<<<<<<< prefix-completition
 	for (item = items; item && item->text; item++) {
 		for (i = 0; i < tokc; i++)
 			if (!fstrstr(item->text, tokv[i]))
@@ -385,7 +388,10 @@ match(void)
 			appenditem(item, &matches, &matchend);
 		else if (!fstrncmp(tokv[0], item->text, len))
 			appenditem(item, &lprefix, &prefixend);
-		else
+    // >>>>>>>>>>>>>>>>>>>> prefix-completition
+    // ==================== prefix-completition
+    else
+    // <<<<<<<<<<<<<<<<<<<< prefix-completition
 			appenditem(item, &lsubstr, &substrend);
 	}
 	if (lprefix) {
@@ -396,7 +402,10 @@ match(void)
 			matches = lprefix;
 		matchend = prefixend;
 	}
-	if (lsubstr) {
+  // >>>>>>>>>>>>>>>>>>>> prefix-completition
+  // ==================== prefix-completition
+  if (lsubstr) {
+  // <<<<<<<<<<<<<<<<<<<< prefix-completition
 		if (matches) {
 			matchend->right = lsubstr;
 			lsubstr->left = matchend;
@@ -464,6 +473,9 @@ keypress(XKeyEvent *ev)
 	int len;
 	KeySym ksym;
 	Status status;
+  // >>>>>>>>>>>>>>>>>>>> prefix-completition
+  // ==================== prefix-completition
+  // <<<<<<<<<<<<<<<<<<<< prefix-completition
 
 	len = XmbLookupString(xic, ev, buf, sizeof buf, &ksym, &status);
 	switch (status) {
@@ -652,12 +664,18 @@ insert:
 		}
 		break;
 	case XK_Tab:
+    // >>>>>>>>>>>>>>>>>>>> prefix-completition
+    // ==================== prefix-completition
 		if (!sel)
 			return;
 		strncpy(text, sel->text, sizeof text - 1);
+    // <<<<<<<<<<<<<<<<<<<< prefix-completition
 		text[sizeof text - 1] = '\0';
+    // >>>>>>>>>>>>>>>>>>>> prefix-completition
+    // ==================== prefix-completition
 		cursor = strlen(text);
 		match();
+    // <<<<<<<<<<<<<<<<<<<< prefix-completition
 		break;
 	}
 
@@ -964,6 +982,9 @@ usage(void)
     // >>>>>>>>>>>>>>>>>>>> reject-no-match
     // ==================== reject-no-match
     // <<<<<<<<<<<<<<<<<<<< reject-no-match
+    // >>>>>>>>>>>>>>>>>>>> prefix-completition
+    // ==================== prefix-completition
+    // <<<<<<<<<<<<<<<<<<<< prefix-completition
     "\n\t\t"
     "[-m monitor]"
     "[-w windowid]"
@@ -1042,6 +1063,9 @@ main(int argc, char *argv[])
     // >>>>>>>>>>>>>>>>>>>> reject-no-match
     // ==================== reject-no-match
     // <<<<<<<<<<<<<<<<<<<< reject-no-match
+    // >>>>>>>>>>>>>>>>>>>> prefix-completition
+    // ==================== prefix-completition
+    // <<<<<<<<<<<<<<<<<<<< prefix-completition
 		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
 			fstrncmp = strncasecmp;
 			fstrstr = cistrstr;
