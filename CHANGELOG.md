@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.27.0] - 2020-08-03
+
+### Changed
+
+- Prepare the mouse-support-patch integration
+- Modify multi-selection-patch integration
+- Adapt multi-selection to support mouse-support
+
+### Added
+
+- Add the mouse-support-patch
+- Add the mouse-support-patch to docs
+
 ## [0.26.0] - 2020-08-02
 
 ### Changed

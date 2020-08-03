@@ -48,9 +48,9 @@ enum {
 struct item {
 	char *text;
 	struct item *left, *right;
+  int out;
   // >>>>>>>>>>>>>>>>>>>> multi-selection
   // ==================== multi-selection
-	int out;
   // <<<<<<<<<<<<<<<<<<<< multi-selection
   // >>>>>>>>>>>>>>>>>>>> fuzzymatch
   // ==================== fuzzymatch
@@ -692,6 +692,10 @@ draw:
 	drawmenu();
 }
 
+// >>>>>>>>>>>>>>>>>>>> mouse-support
+// ==================== mouse-support
+// <<<<<<<<<<<<<<<<<<<< mouse-support
+
 static void
 paste(void)
 {
@@ -789,6 +793,9 @@ run(void)
 		if (XFilterEvent(&ev, win))
 			continue;
 		switch(ev.type) {
+    // >>>>>>>>>>>>>>>>>>>> mouse-support
+    // ==================== mouse-support
+    // <<<<<<<<<<<<<<<<<<<< mouse-support
 		case DestroyNotify:
 			if (ev.xdestroywindow.window != win)
 				break;
@@ -909,7 +916,10 @@ setup(void)
   swa.override_redirect = True;
   // <<<<<<<<<<<<<<<<<<<< managed
 	swa.background_pixel = scheme[SchemeNorm][ColBg].pixel;
-	swa.event_mask = ExposureMask | KeyPressMask | VisibilityChangeMask;
+  // >>>>>>>>>>>>>>>>>>>> mouse-support
+  // ==================== mouse-support
+  swa.event_mask = ExposureMask | KeyPressMask | VisibilityChangeMask;
+  // <<<<<<<<<<<<<<<<<<<< mouse-support
 
 	win = XCreateWindow(
     dpy,
