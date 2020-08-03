@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.24.0] - 2020-08-02
+
+### Changed
+
+- Prepare the reject-no-match-patch integration
+
+### Added
+
+- Add the reject-no-match-patch
+- Add the reject-no-match-patch to docs
+
 ## [0.23.0] - 2020-08-02
 
 ### Changed
