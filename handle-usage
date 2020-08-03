@@ -76,3 +76,4 @@ Patches:
                       These enable to define the symbols which are printed in dmenu to
                       indicate that either the input is too long or there are too many
                       options to be shown in dmenu in one line
+                        - Not compatible with: numbers
