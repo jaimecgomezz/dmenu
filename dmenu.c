@@ -261,12 +261,12 @@ drawmenu(void)
   // ==================== numbers
   // <<<<<<<<<<<<<<<<<<<< numbers
 	if (lines > 0) {
-    // >>>>>>>>>>>>>>>>>>>> grid
-    // ==================== grid
+    // >>>>>>>>>>>>>>>>>>>> grid-vertfull
+    // ==================== grid-vertfull
 		/* draw vertical list */
 		for (item = curr; item != next; item = item->right)
 			drawitem(item, x, y += bh, mw - x);
-    // <<<<<<<<<<<<<<<<<<<< grid
+    // <<<<<<<<<<<<<<<<<<<< grid-vertfull
 	} else if (matches) {
 		/* draw horizontal list */
 		x += inputw;
