@@ -39,6 +39,9 @@ enum {
   // >>>>>>>>>>>>>>>>>>>> fuzzyhighlight
   // ==================== fuzzyhighlight
   // <<<<<<<<<<<<<<<<<<<< fuzzyhighlight
+  // >>>>>>>>>>>>>>>>>>>> more-color
+  // ==================== more-color
+  // <<<<<<<<<<<<<<<<<<<< more-color
   SchemeNorm,
   SchemeSel,
   SchemeOut,
@@ -207,6 +210,9 @@ drawitem(struct item *item, int x, int y, int w)
   else if (item->out)
   // <<<<<<<<<<<<<<<<<<<< multi-selection
 		drw_setscheme(drw, scheme[SchemeOut]);
+  // >>>>>>>>>>>>>>>>>>>> more-color
+  // ==================== more-color
+  // <<<<<<<<<<<<<<<<<<<< more-color
 	else
 		drw_setscheme(drw, scheme[SchemeNorm]);
 
