@@ -99,3 +99,10 @@ Patches:
                       input text to stdout. The flag basically swaps the functions of Return and Shift+Return
                       hotkeys
                         - Not compatible with: pipeout, json, multi-selection
+  xresources          This patch adds the ability to configure dmenu via Xresources. At startup, dmenu will
+                      read and apply the change to the applicable resource. Resources that can be changed:
+                        - dmenu.font : font or font set
+                        - dmenu.background : normal background color
+                        - dmenu.foreground : normal foreground color
+                        - dmenu.selbackground : selected background color
+                        - dmenu.selforeground : selected foreground color
