@@ -106,3 +106,8 @@ Patches:
                         - dmenu.foreground : normal foreground color
                         - dmenu.selbackground : selected background color
                         - dmenu.selforeground : selected foreground color
+  high-priority       This patch will automatically sort the search result so that high priority items are shown
+                      first. Adds the option [SchemeHp] to colors in config.def.h and the flags hb, hf, and hp.
+                        - hb: Background color of the high priority items
+                        - hf: Foreground color of the high priority items
+                        - hp: A CSV (comma-seperated list) of high priority items
