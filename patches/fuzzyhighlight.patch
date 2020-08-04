@@ -122,13 +122,13 @@ index 2f808ff..d9d7bc5 100644
 @@ -152,8 +189,9 @@ drawitem(struct item *item, int x, int y, int w)
  		drw_setscheme(drw, scheme[SchemeNorm]);
  
-   // >>>>>>>>>>>>>>>>>>>> fuzzyhighlight
--  // ==================== fuzzyhighlight
+   // >>>>>>>>>>>>>>>>>>>> fuzzyhighlight-highlight
+-  // ==================== fuzzyhighlight-highlight
 -	return drw_text(drw, x, y, w, bh, lrpad / 2, item->text, 0);
 +  r = drw_text(drw, x, y, w, bh, lrpad / 2, item->text, 0);
 +  drawhighlights(item, x, y, w);
 +  return r;
-   // <<<<<<<<<<<<<<<<<<<< fuzzyhighlight
+   // <<<<<<<<<<<<<<<<<<<< fuzzyhighlight-highlight
  }
  
 @@ -814,7 +852,10 @@ usage(void)

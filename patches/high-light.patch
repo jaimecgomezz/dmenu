@@ -1,0 +1,84 @@
+diff --git a/config.def.h b/config.def.h
+index e7b1e50..6ddf89a 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -22,7 +22,8 @@ static const char *colors[SchemeLast][2] = {
+   // ==================== high-priority
+   // <<<<<<<<<<<<<<<<<<<< high-priority
+   // >>>>>>>>>>>>>>>>>>>> highlight
+-  // ==================== highlight
++  [SchemeSelHighlight] = { "#ffc978", "#005577" },
++  [SchemeNormHighlight] = { "#ffc978", "#222222" },
+   // <<<<<<<<<<<<<<<<<<<< highlight
+ };
+ /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
+diff --git a/dmenu.c b/dmenu.c
+index ea6d3de..2dad809 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -49,7 +49,8 @@ enum {
+   // ==================== high-priority
+   // <<<<<<<<<<<<<<<<<<<< high-priority
+   // >>>>>>>>>>>>>>>>>>>> highlight
+-  // ==================== highlight
++  SchemeSelHighlight,
++  SchemeNormHighlight,
+   // <<<<<<<<<<<<<<<<<<<< highlight
+   SchemeNorm,
+   SchemeSel,
+@@ -223,7 +224,42 @@ cistrstr(const char *s, const char *sub)
+ // <<<<<<<<<<<<<<<<<<<< fuzzyhighlight
+ 
+ // >>>>>>>>>>>>>>>>>>>> highlight
+-// ==================== highlight
++static void
++drawhighlights(struct item *item, int x, int y, int maxw)
++{
++  char restorechar, tokens[sizeof text], *highlight,  *token;
++  int indentx, highlightlen;
++
++  drw_setscheme(drw, scheme[item == sel ? SchemeSelHighlight : SchemeNormHighlight]);
++  strcpy(tokens, text);
++  for (token = strtok(tokens, " "); token; token = strtok(NULL, " ")) {
++    highlight = fstrstr(item->text, token);
++    while (highlight) {
++      // Move item str end, calc width for highlight indent, & restore
++      highlightlen = highlight - item->text;
++      restorechar = *highlight;
++      item->text[highlightlen] = '\0';
++      indentx = TEXTW(item->text);
++      item->text[highlightlen] = restorechar;
++
++      // Move highlight str end, draw highlight, & restore
++      restorechar = highlight[strlen(token)];
++      highlight[strlen(token)] = '\0';
++      if (indentx - (lrpad / 2) - 1 < maxw)
++        drw_text(
++          drw,
++          x + indentx - (lrpad / 2) - 1,
++          y,
++          MIN(maxw - indentx, TEXTW(highlight) - lrpad),
++          bh, 0, highlight, 0
++        );
++      highlight[strlen(token)] = restorechar;
++
++      if (strlen(highlight) - strlen(token) < strlen(token)) break;
++      highlight = fstrstr(highlight + strlen(token), token);
++    }
++  }
++}
+ // <<<<<<<<<<<<<<<<<<<< highlight
+ 
+ static int
+@@ -249,8 +285,9 @@ drawitem(struct item *item, int x, int y, int w)
+ 		drw_setscheme(drw, scheme[SchemeNorm]);
+ 
+   // >>>>>>>>>>>>>>>>>>>> fuzzyhighlight-highlight
+-  // ==================== fuzzyhighlight-highlight
+-	return drw_text(drw, x, y, w, bh, lrpad / 2, item->text, 0);
++  int r = drw_text(drw, x, y, w, bh, lrpad / 2, item->text, 0);
++  drawhighlights(item, x, y, w);
++  return r;
+   // <<<<<<<<<<<<<<<<<<<< fuzzyhighlight-highlight
+ }
+ 
