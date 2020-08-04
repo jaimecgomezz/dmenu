@@ -37,6 +37,9 @@ dmenu \- dynamic menu
 \" >>>>>>>>>>>>>>>>>>>> instant
 \" ==================== instant
 \" <<<<<<<<<<<<<<<<<<<< instant
+\" >>>>>>>>>>>>>>>>>>>> print-input-text
+\" ==================== print-input-text
+\" <<<<<<<<<<<<<<<<<<<< print-input-text
 .RB [ \-m
 .IR monitor ]
 .RB [ \-w
@@ -140,6 +143,9 @@ prints version information to stdout, then exits.
 \" >>>>>>>>>>>>>>>>>>>> instant
 \" ==================== instant
 \" <<<<<<<<<<<<<<<<<<<< instant
+\" >>>>>>>>>>>>>>>>>>>> print-input-text
+\" ==================== print-input-text
+\" <<<<<<<<<<<<<<<<<<<< print-input-text
 .BI \-m " monitor"
 dmenu is displayed on the monitor number supplied. Monitor numbers are starting
 from 0.
@@ -206,13 +212,19 @@ Copy the selected item to the input field.
 .TP
 .B Return
 Confirm selection.  Prints the selected item to stdout and exits, returning
+\" >>>>>>>>>>>>>>>>>>>> print-input-text
+\" ==================== print-input-text
 success.
+\" <<<<<<<<<<<<<<<<<<<< print-input-text
 .TP
 .B Ctrl-Return
 Confirm selection.  Prints the selected item to stdout and continues.
 .TP
 .B Shift\-Return
 Confirm input.  Prints the input text to stdout and exits, returning success.
+\" >>>>>>>>>>>>>>>>>>>> print-input-text
+\" ==================== print-input-text
+\" <<<<<<<<<<<<<<<<<<<< print-input-text
 .TP
 .B Escape
 Exit without selecting an item, returning failure.

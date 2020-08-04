@@ -100,6 +100,9 @@ static int mon = -1, screen;
 // >>>>>>>>>>>>>>>>>>>> navhistory
 // ==================== navhistory
 // <<<<<<<<<<<<<<<<<<<< navhistory
+// >>>>>>>>>>>>>>>>>>>> print-input-text
+// ==================== print-input-text
+// <<<<<<<<<<<<<<<<<<<< print-input-text
 
 static Atom clip, utf8;
 static Display *dpy;
@@ -1137,6 +1140,9 @@ main(int argc, char *argv[])
     // >>>>>>>>>>>>>>>>>>>> instant
     // ==================== instant
     // <<<<<<<<<<<<<<<<<<<< instant
+    // >>>>>>>>>>>>>>>>>>>> print-input-text
+    // ==================== print-input-text
+    // <<<<<<<<<<<<<<<<<<<< print-input-text
 		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
 			fstrncmp = strncasecmp;
 			fstrstr = cistrstr;
