@@ -238,6 +238,9 @@ drawmenu(void)
   // >>>>>>>>>>>>>>>>>>>> password
   // ==================== password
   // <<<<<<<<<<<<<<<<<<<< password
+  // >>>>>>>>>>>>>>>>>>>> line-height
+  // ==================== line-height
+  // <<<<<<<<<<<<<<<<<<<< line-height
 
 	drw_setscheme(drw, scheme[SchemeNorm]);
 	drw_rect(drw, 0, 0, mw, mh, 1, 1);
@@ -886,7 +889,10 @@ setup(void)
 	utf8 = XInternAtom(dpy, "UTF8_STRING", False);
 
 	/* calculate menu geometry */
+  // >>>>>>>>>>>>>>>>>>>> line-height
+  // ==================== line-height
 	bh = drw->fonts->h + 2;
+  // <<<<<<<<<<<<<<<<<<<< line-height
   // >>>>>>>>>>>>>>>>>>>> dynamic-options
   // ==================== dynamic-options
 	lines = MAX(lines, 0);
@@ -1072,6 +1078,9 @@ usage(void)
     // >>>>>>>>>>>>>>>>>>>> navhistory
     // ==================== navhistory
     // <<<<<<<<<<<<<<<<<<<< navhistory
+    // >>>>>>>>>>>>>>>>>>>> line-height
+    // ==================== line-height
+    // <<<<<<<<<<<<<<<<<<<< line-height
     "\n\t\t"
     "[-nb color]"
     "[-nf color]"
@@ -1182,6 +1191,9 @@ main(int argc, char *argv[])
     // >>>>>>>>>>>>>>>>>>>> navhistory
     // ==================== navhistory
     // <<<<<<<<<<<<<<<<<<<< navhistory
+    // >>>>>>>>>>>>>>>>>>>> line-height
+    // ==================== line-height
+    // <<<<<<<<<<<<<<<<<<<< line-height
 		else
 			usage();
 
