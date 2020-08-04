@@ -114,3 +114,5 @@ Patches:
                           - hpb: Background color of the high priority items
                           - hpf: Foreground color of the high priority items
                           - hpl: A CSV (comma-seperated list) of high priority items
+  high-light          This patch highlights the individual characters of matched text for each dmenu list entry
+                        - Not compatible with: fuzzyhighlight

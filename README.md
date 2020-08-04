@@ -18,7 +18,7 @@ This distribution aims to solve the patches integration problem. Is meant to be 
 | [fuzzy-match](https://tools.suckless.org/dmenu/patches/fuzzymatch/) | ✔️    | [multi selection](https://tools.suckless.org/dmenu/patches/multi-selection/) | ✔️    | [print-input-text](https://tools.suckless.org/dmenu/patches/printinputtext/) | ✔️    |
 | [grid](https://tools.suckless.org/dmenu/patches/grid/)       | ✔️    | [managed](https://tools.suckless.org/dmenu/patches/managed/) | ✔️    | [x-resources](https://tools.suckless.org/dmenu/patches/xresources/) | ✔️    |
 | [xyw](https://tools.suckless.org/dmenu/patches/xyw/)         | ✔️    | [reject no match](https://tools.suckless.org/dmenu/patches/reject-no-match/) | ✔️    | [high-priority](https://tools.suckless.org/dmenu/patches/highpriority/) | ✔️    |
-| [numbers](https://tools.suckless.org/dmenu/patches/numbers/) | ✔️    | [prefix completition](https://tools.suckless.org/dmenu/patches/prefix-completion/) | ✔️    | [highlight](https://tools.suckless.org/dmenu/patches/highlight/) |      |
+| [numbers](https://tools.suckless.org/dmenu/patches/numbers/) | ✔️    | [prefix completition](https://tools.suckless.org/dmenu/patches/prefix-completion/) | ✔️    | [highlight](https://tools.suckless.org/dmenu/patches/highlight/) | ✔️    |
 | [password](https://tools.suckless.org/dmenu/patches/password/) | ✔️    | [instant](https://tools.suckless.org/dmenu/patches/instant/) | ✔️    | [non blocking stdin](https://tools.suckless.org/dmenu/patches/non_blocking_stdin/) |      |
 | [incremental](https://tools.suckless.org/dmenu/patches/incremental/) | ✔️    | [mouse support](https://tools.suckless.org/dmenu/patches/mouse-support/) | ✔️    |                                                              |      |
 
