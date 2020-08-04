@@ -18,6 +18,9 @@ static const char *colors[SchemeLast][2] = {
   // >>>>>>>>>>>>>>>>>>>> more-color
   // ==================== more-color
   // <<<<<<<<<<<<<<<<<<<< more-color
+  // >>>>>>>>>>>>>>>>>>>> high-priority
+  // ==================== high-priority
+  // <<<<<<<<<<<<<<<<<<<< high-priority
 };
 /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
 static unsigned int lines      = 0;
