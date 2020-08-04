@@ -58,6 +58,7 @@ Patches:
                         - Use <Ctrl-Enter> to select, and <Enter> to exit
                         - Not compatible with: pipeout, json, print-input-text
   prefix-completition Changes the behaviour of the matched items and the Tab key:
+                        - Not compatible with: high-priority
                         - Only items prefixed by the written text will match
                         - The Tab key will replace the current query with the longest common
                           prefix of all matches
@@ -107,7 +108,9 @@ Patches:
                         - dmenu.selbackground : selected background color
                         - dmenu.selforeground : selected foreground color
   high-priority       This patch will automatically sort the search result so that high priority items are shown
-                      first. Adds the option [SchemeHp] to colors in config.def.h and the flags hb, hf, and hp.
-                        - hb: Background color of the high priority items
-                        - hf: Foreground color of the high priority items
-                        - hp: A CSV (comma-seperated list) of high priority items
+                      first. Adds the option [SchemeHp] to colors in config.def.h and the flags hpb, hpf, and hpl.
+                        - Not compatible with: prefix-completition
+                        - The options available are:
+                          - hpb: Background color of the high priority items
+                          - hpf: Foreground color of the high priority items
+                          - hpl: A CSV (comma-seperated list) of high priority items
