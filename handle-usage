@@ -36,7 +36,7 @@ Patches:
                       be matched
                         - Not compatible with: json
   pipeout             This patch allows the selected text to be piped back out with dmenu
-                        - Not compatible with: json, print-input-text
+                        - Not compatible with: json, print-input-text, pipeout
   center              Makes dmenu appear centered on the screen
                         - Not compatible with: xyw
   xyw                 The patch adds options for setting window position and width
@@ -44,9 +44,9 @@ Patches:
   dynamic-options     Makes dmenu run the command given to it whenever input is changed
                       with the current input as the last argument and update the option
                       list according to the output of that command
-                        - Not compatible with: grid, json
+                        - Not compatible with: json
   grid                Allows you to render dmenu's entries in a grid
-                        - Not compatible with: dynamic-options, vertfull
+                        - Not compatible with: vertfull
   password            Makes dmenu replace the keyboard input with dots
                         - Not compatible with: scroll
   scroll              This patch adds support for text scrolling, it doesn't append '...'
@@ -54,7 +54,8 @@ Patches:
                         - Not compatible with: password, line-height
   json                Adds support for json-files
                         - Only use object and strings
-                        - Not compatible with: pipeout, fuzzymatch, dynamic-options, print-input-text
+                        - Not compatible with: pipeout, fuzzymatch, dynamic-options, print-input-text,
+                          multi-selection
   multi-selection     Makes dmenu output your selections only on exit
                         - Use <Ctrl-Enter> to select, and <Enter> to exit
                         - Not compatible with: pipeout, json, print-input-text
