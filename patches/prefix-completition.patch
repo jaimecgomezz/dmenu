@@ -43,8 +43,8 @@ index 40727d5..94d377a 100644
 @@ -370,9 +370,13 @@ match(void)
  	len = tokc ? strlen(tokv[0]) : 0;
  
-   // >>>>>>>>>>>>>>>>>>>> prefix-completition
--  // ==================== prefix-completition
+   // >>>>>>>>>>>>>>>>>>>> prefix-completition-high-priority
+-  // ==================== prefix-completition-high-priority
 -	matches = lprefix = lsubstr = matchend = prefixend = substrend = NULL;
 -	textsize = strlen(text) + 1;
 +  if (use_prefix) {
@@ -54,7 +54,7 @@ index 40727d5..94d377a 100644
 +    matches = lprefix = lsubstr = matchend = prefixend = substrend = NULL;
 +    textsize = strlen(text) + 1;
 +  }
-   // <<<<<<<<<<<<<<<<<<<< prefix-completition
+   // <<<<<<<<<<<<<<<<<<<< prefix-completition-high-priority
  	for (item = items; item && item->text; item++) {
  		for (i = 0; i < tokc; i++)
 @@ -389,8 +393,7 @@ match(void)

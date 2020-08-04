@@ -403,11 +403,11 @@ match(void)
 			die("cannot realloc %u bytes:", tokn * sizeof *tokv);
 	len = tokc ? strlen(tokv[0]) : 0;
 
-  // >>>>>>>>>>>>>>>>>>>> prefix-completition
-  // ==================== prefix-completition
+  // >>>>>>>>>>>>>>>>>>>> prefix-completition-high-priority
+  // ==================== prefix-completition-high-priority
 	matches = lprefix = lsubstr = matchend = prefixend = substrend = NULL;
 	textsize = strlen(text) + 1;
-  // <<<<<<<<<<<<<<<<<<<< prefix-completition
+  // <<<<<<<<<<<<<<<<<<<< prefix-completition-high-priority
 	for (item = items; item && item->text; item++) {
 		for (i = 0; i < tokc; i++)
 			if (!fstrstr(item->text, tokv[i]))
