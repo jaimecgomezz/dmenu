@@ -241,10 +241,10 @@ drawitem(struct item *item, int x, int y, int w)
 	else
 		drw_setscheme(drw, scheme[SchemeNorm]);
 
-  // >>>>>>>>>>>>>>>>>>>> fuzzyhighlight
-  // ==================== fuzzyhighlight
+  // >>>>>>>>>>>>>>>>>>>> fuzzyhighlight-highlight
+  // ==================== fuzzyhighlight-highlight
 	return drw_text(drw, x, y, w, bh, lrpad / 2, item->text, 0);
-  // <<<<<<<<<<<<<<<<<<<< fuzzyhighlight
+  // <<<<<<<<<<<<<<<<<<<< fuzzyhighlight-highlight
 }
 
 // >>>>>>>>>>>>>>>>>>>> numbers
