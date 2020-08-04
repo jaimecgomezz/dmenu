@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.36.0] - 2020-08-04
+
+### Changed
+
+- Make fuzzyhighlight compatible with high-light
+- Prepare the high-light patch integration
+
+### Added
+
+- Add the high-light patch
+- Add the high-light patch to docs
+
 ## [0.35.0] - 2020-08-03
 
 ### Changed
