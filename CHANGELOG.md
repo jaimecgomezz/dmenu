@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.34.0] - 2020-08-03
+
+### Changed
+
+- Prepare the xresources-patch integration
+
+### Added
+
+- Add the xresources-patch
+- Add the xresources-patch to docs
+
 ## [0.33.0] - 2020-08-03
 
 ### Changed
