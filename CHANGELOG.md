@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.31.0] - 2020-08-03
+
+### Changed
+
+- Prepare the more-color-patch integration
+
+### Added
+
+- Add the more-color-patch
+- Add the more-color-patch to docs
+
 ## [0.30.0] - 2020-08-03
 
 ### Changed
@@ -18,7 +29,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Add the navhistory-patch
 - Add the navhistory-patch to docs
-
 
 ## [0.29.0] - 2020-08-03
 

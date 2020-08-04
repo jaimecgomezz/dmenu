@@ -1,0 +1,36 @@
+diff --git a/config.def.h b/config.def.h
+index 487bab5..51f0a5d 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -16,7 +16,7 @@ static const char *colors[SchemeLast][2] = {
+   // ==================== fuzzyhighlight
+   // <<<<<<<<<<<<<<<<<<<< fuzzyhighlight
+   // >>>>>>>>>>>>>>>>>>>> more-color
+-  // ==================== more-color
++  [SchemeMid] = { "#000000", "#d2d4de" },
+   // <<<<<<<<<<<<<<<<<<<< more-color
+ };
+ /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
+diff --git a/dmenu.c b/dmenu.c
+index 47b8fd3..0003159 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -40,7 +40,7 @@ enum {
+   // ==================== fuzzyhighlight
+   // <<<<<<<<<<<<<<<<<<<< fuzzyhighlight
+   // >>>>>>>>>>>>>>>>>>>> more-color
+-  // ==================== more-color
++  SchemeMid,
+   // <<<<<<<<<<<<<<<<<<<< more-color
+   SchemeNorm,
+   SchemeSel,
+@@ -211,7 +211,8 @@ drawitem(struct item *item, int x, int y, int w)
+   // <<<<<<<<<<<<<<<<<<<< multi-selection
+ 		drw_setscheme(drw, scheme[SchemeOut]);
+   // >>>>>>>>>>>>>>>>>>>> more-color
+-  // ==================== more-color
++  else if (item->left == sel || item->right == sel)
++    drw_setscheme(drw, scheme[SchemeMid]);
+   // <<<<<<<<<<<<<<<<<<<< more-color
+ 	else
+ 		drw_setscheme(drw, scheme[SchemeNorm]);
