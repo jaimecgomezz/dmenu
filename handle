@@ -10,61 +10,68 @@
 
 set -e
 
-handle_std="0"
+handle_std="0"        # Quiet by default
 handler="patch -p1"
-applied_file="applied"
+# handler="git apply" # Can be used as well, but I recommend the default
 
-patch_applied() {
-  echo "[!] ( $1 ) has already been applied, remove the patch name from the file '$applied_file' if mistaken" ;
-  exit 1
-}
-patch_unapplied() {
-  echo "[!] ( $1 ) hasn't been applied yet, add the patch to the file '$applied_file' if mistaken" ;
-  exit 1
-}
+PATCH_ACTION="patch"
+DEPATCH_ACTION="depatch"
+TRACK_FILE="applied"
+USAGE_FILE="handle-usage"
+
+print_usage() { cat "$USAGE_FILE" ; exit 1 ; }
+redirect_output() { eval "$@ > /dev/null 2>&1" ; }
 contains() {
-  str="$1"
-  substr="$2"
+  str="$1"; substr="$2"
   if test "${str#*$substr}" != "$str"; then return 0; fi
   return 1
 }
-check_dependency() {
-  if ! ( command -v "$1" ) > /dev/null ;then
-    missing_dependency "$1"
-    exit 1
-  fi
+report_unapplied() {
+  echo "[!] ( $1 ) hasn't been applied yet, add the patch to the file '$TRACK_FILE' if mistaken" ;
+  exit 1
 }
-redirect_output() { eval "$@ > /dev/null 2>&1" ; }
-print_usage() { cat handle-usage ; exit 1 ; }
-missing_dependency() { echo "[!] ( $1 ) missing, please install" ; }
+report_applied() {
+  echo "[!] ( $1 ) has already been applied, remove the patch name from the file '$TRACK_FILE' if mistaken" ;
+  exit 1
+}
 
 
-# DEPENDENCIES-CHECK
-check_dependency "patch"
-
-# HANDLE-SYNTAX
+# Test args syntax
 [ "$#" -lt 2 ] && print_usage
-
-# HANDLE-ARGUMENTS
 action="$1"; patch="$2"; shift; shift
 contains "$@" "-d" && handle_std="1"
-if [ "$action" = "depatch" ]; then options="-R"; fi
 
+case "$action" in
+  patch)
+  ;;
+  depatch)
+    options="-R"
+  ;;
+  *)
+    print_usage
+  ;;
+esac
+
+# Verify patch exists
 patches="$( ls patches/*patch | sed -E 's/(^.*\/)(.*)(\..*)/\2/g' )"
 if ! echo "$patches" | grep -q "$patch"; then print_usage; fi
 
-if cat "$applied_file" | grep -q "$patch"; then
-  [ "$action" = "depatch" ] || patch_applied "$patch"
+# Verify patch status, patched or not
+if cat "$TRACK_FILE" | grep -q "$patch"; then
+  [ "$action" = "$DEPATCH_ACTION" ] || report_applied "$patch"
 else
-  [ "$action" = "patch" ] || patch_unapplied "$patch"
+  [ "$action" = "$PATCH_ACTION" ] || report_unapplied "$patch"
 fi
 
+# Patch handlers definition
 apply_patch="$handler $options < patches/${patch}.patch"
 build_dmenu="sudo make install clean"
 
+# Patch and build quietly by default, unless -d used
 [ "$handle_std" = "0" ] && redirect_output "$apply_patch" || eval "$apply_patch"
 [ "$handle_std" = "0" ] && redirect_output "$build_dmenu" || eval "$build_dmenu"
 
-[ "$action" = "patch" ] || sed -i "/^${patch}$/d" "$applied_file"
-[ "$action" = "depatch" ] || echo "$patch" >> "$applied_file"
+# Keep track of applied patches
+[ "$action" = "$PATCH_ACTION" ] || sed -i "/^${patch}$/d" "$TRACK_FILE" # If depatch, remove it from track file
+[ "$action" = "$DEPATCH_ACTION" ] || echo "$patch" >> "$TRACK_FILE"     # If patch, add it to the trask file
 
