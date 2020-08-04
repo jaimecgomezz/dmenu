@@ -38,7 +38,7 @@ index d8d0129..249ec56 100644
 +EXTRAFLAGS=-D_GNU_SOURCE
  # <<<<<<<<<<<<<<<<<<<< json
 diff --git a/dmenu.c b/dmenu.c
-index d94b1ea..384a7bd 100644
+index d11a468..2bcd4db 100644
 --- a/dmenu.c
 +++ b/dmenu.c
 @@ -19,7 +19,7 @@
@@ -48,18 +48,18 @@ index d94b1ea..384a7bd 100644
 -// ==================== json
 +#include <jansson.h>
  // <<<<<<<<<<<<<<<<<<<< json
- 
- #include "drw.h"
-@@ -53,7 +53,7 @@ struct item {
+ // >>>>>>>>>>>>>>>>>>>> xresources
+ // ==================== xresources
+@@ -65,7 +65,7 @@ struct item {
    // ==================== fuzzymatch
    // <<<<<<<<<<<<<<<<<<<< fuzzymatch
    // >>>>>>>>>>>>>>>>>>>> json
 -  // ==================== json
 +  json_t *json;
    // <<<<<<<<<<<<<<<<<<<< json
- };
- 
-@@ -80,7 +80,8 @@ static int mon = -1, screen;
+   // >>>>>>>>>>>>>>>>>>>> high-priority
+   // ==================== high-priority
+@@ -95,7 +95,8 @@ static int mon = -1, screen;
  // ==================== pipeout
  // <<<<<<<<<<<<<<<<<<<< pipeout
  // >>>>>>>>>>>>>>>>>>>> json
@@ -67,9 +67,9 @@ index d94b1ea..384a7bd 100644
 +static size_t items_sz = 0;
 +static size_t items_ln = 0;
  // <<<<<<<<<<<<<<<<<<<< json
- 
- static Atom clip, utf8;
-@@ -100,7 +101,17 @@ static char *(*fstrstr)(const char *, const char *) = strstr;
+ // >>>>>>>>>>>>>>>>>>>> multi-selection
+ // ==================== multi-selection
+@@ -136,7 +137,17 @@ static char *(*fstrstr)(const char *, const char *) = strstr;
  // <<<<<<<<<<<<<<<<<<<< case-insensitive
  
  // >>>>>>>>>>>>>>>>>>>> json
@@ -87,9 +87,9 @@ index d94b1ea..384a7bd 100644
 +}
  // <<<<<<<<<<<<<<<<<<<< json
  
- static void
-@@ -334,7 +345,8 @@ match(void)
- 	struct item *item, *lprefix, *lsubstr, *prefixend, *substrend;
+ // >>>>>>>>>>>>>>>>>>>> multi-selection
+@@ -412,7 +423,8 @@ match(void)
+   // <<<<<<<<<<<<<<<<<<<< high-priority
  
    // >>>>>>>>>>>>>>>>>>>> json
 -  // ==================== json
@@ -98,7 +98,7 @@ index d94b1ea..384a7bd 100644
    // <<<<<<<<<<<<<<<<<<<< json
  
  	strcpy(buf, text);
-@@ -584,8 +596,19 @@ insert:
+@@ -715,8 +727,19 @@ insert:
  	case XK_Return:
  	case XK_KP_Enter:
      // >>>>>>>>>>>>>>>>>>>> pipeout-json-multi-selection-print-input-text
@@ -119,8 +119,8 @@ index d94b1ea..384a7bd 100644
 +    }
      // <<<<<<<<<<<<<<<<<<<< pipeout-json-multi-selection-print-input-text
  		if (!(ev->state & ControlMask)) {
- 			cleanup();
-@@ -645,7 +668,43 @@ paste(void)
+       // >>>>>>>>>>>>>>>>>>>> multi-selection
+@@ -795,7 +818,43 @@ paste(void)
  }
  
  // >>>>>>>>>>>>>>>>>>>> json
@@ -165,7 +165,7 @@ index d94b1ea..384a7bd 100644
  // <<<<<<<<<<<<<<<<<<<< json
  
  static void
-@@ -656,8 +715,9 @@ readstdin(void)
+@@ -806,8 +865,9 @@ readstdin(void)
  {
  	char buf[sizeof text], *p;
    // >>>>>>>>>>>>>>>>>>>> json
@@ -177,7 +177,7 @@ index d94b1ea..384a7bd 100644
    // <<<<<<<<<<<<<<<<<<<< json
  	unsigned int tmpmax = 0;
  
-@@ -671,40 +731,33 @@ readstdin(void)
+@@ -821,21 +881,17 @@ readstdin(void)
  	for (i = 0; fgets(buf, sizeof buf, stdin); i++) {
    // <<<<<<<<<<<<<<<<<<<< dynamic-options
      // >>>>>>>>>>>>>>>>>>>> json
@@ -201,7 +201,9 @@ index d94b1ea..384a7bd 100644
 +    item->json = NULL;
 +    item->out = 0;
      // <<<<<<<<<<<<<<<<<<<< json-multi-selection
- 		drw_font_getexts(drw->fonts, buf, strlen(buf), &tmpmax, NULL);
+     // >>>>>>>>>>>>>>>>>>>> high-priority
+     // ==================== high-priority
+@@ -844,20 +900,17 @@ readstdin(void)
  		if (tmpmax > inputw) {
  			inputw = tmpmax;
        // >>>>>>>>>>>>>>>>>>>> json
@@ -225,16 +227,16 @@ index d94b1ea..384a7bd 100644
    // <<<<<<<<<<<<<<<<<<<< json
  }
  
-@@ -938,7 +991,7 @@ usage(void)
+@@ -1118,7 +1171,7 @@ usage(void)
      // ==================== initial-text
      // <<<<<<<<<<<<<<<<<<<< initial-text
      // >>>>>>>>>>>>>>>>>>>> json
 -    // ==================== json
 +    "[-j json-file]"
      // <<<<<<<<<<<<<<<<<<<< json
-     "\n\t\t"
-     "[-nb color]"
-@@ -1033,7 +1086,8 @@ main(int argc, char *argv[])
+     // >>>>>>>>>>>>>>>>>>>> navhistory
+     // ==================== navhistory
+@@ -1256,7 +1309,8 @@ main(int argc, char *argv[])
      // ==================== initial-text
      // <<<<<<<<<<<<<<<<<<<< initial-text
      // >>>>>>>>>>>>>>>>>>>> json
@@ -242,9 +244,9 @@ index d94b1ea..384a7bd 100644
 +    else if (!strcmp(argv[i], "-j"))
 +      readjson(argv[++i]);
      // <<<<<<<<<<<<<<<<<<<< json
- 		else
- 			usage();
-@@ -1062,13 +1116,17 @@ main(int argc, char *argv[])
+     // >>>>>>>>>>>>>>>>>>>> navhistory
+     // ==================== navhistory
+@@ -1305,13 +1359,17 @@ main(int argc, char *argv[])
  	if (fast && !isatty(0)) {
  		grabkeyboard();
      // >>>>>>>>>>>>>>>>>>>> dynamic-options-json
