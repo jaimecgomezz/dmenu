@@ -1,11 +1,11 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 ##############################
 # @jaimecgomezz
-# 
+#
 # This script handles all the
-# patching related to this
-# dmenu distribution
+# actions related to patches
+# on this dmenu distribution
 ##############################
 
 set -e
