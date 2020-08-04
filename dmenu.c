@@ -21,6 +21,9 @@
 // >>>>>>>>>>>>>>>>>>>> json
 // ==================== json
 // <<<<<<<<<<<<<<<<<<<< json
+// >>>>>>>>>>>>>>>>>>>> xresources
+// ==================== xresources
+// <<<<<<<<<<<<<<<<<<<< xresources
 
 #include "drw.h"
 #include "util.h"
@@ -103,6 +106,9 @@ static int mon = -1, screen;
 // >>>>>>>>>>>>>>>>>>>> print-input-text
 // ==================== print-input-text
 // <<<<<<<<<<<<<<<<<<<< print-input-text
+// >>>>>>>>>>>>>>>>>>>> xresources
+// ==================== xresources
+// <<<<<<<<<<<<<<<<<<<< xresources
 
 static Atom clip, utf8;
 static Display *dpy;
@@ -885,8 +891,11 @@ setup(void)
 	int a, di, n, area = 0;
 #endif
 	/* init appearance */
+  // >>>>>>>>>>>>>>>>>>>> xresources
+  // ==================== xresources
 	for (j = 0; j < SchemeLast; j++)
 		scheme[j] = drw_scm_create(drw, colors[j], 2);
+  // <<<<<<<<<<<<<<<<<<<< xresources
 
 	clip = XInternAtom(dpy, "CLIPBOARD",   False);
 	utf8 = XInternAtom(dpy, "UTF8_STRING", False);
@@ -1098,6 +1107,10 @@ usage(void)
 	exit(1);
 }
 
+// >>>>>>>>>>>>>>>>>>>> xresources
+// ==================== xresources
+// <<<<<<<<<<<<<<<<<<<< xresources
+
 int
 main(int argc, char *argv[])
 {
@@ -1159,15 +1172,30 @@ main(int argc, char *argv[])
 		else if (!strcmp(argv[i], "-p"))   /* adds prompt to left of input field */
 			prompt = argv[++i];
 		else if (!strcmp(argv[i], "-fn"))  /* font or font set */
-			fonts[0] = argv[++i];
+      // >>>>>>>>>>>>>>>>>>>> xresources
+      // ==================== xresources
+      fonts[0] = argv[++i];
+      // <<<<<<<<<<<<<<<<<<<< xresources
 		else if (!strcmp(argv[i], "-nb"))  /* normal background color */
-			colors[SchemeNorm][ColBg] = argv[++i];
+      // >>>>>>>>>>>>>>>>>>>> xresources
+      // ==================== xresources
+      colors[SchemeNorm][ColBg] = argv[++i];
+      // <<<<<<<<<<<<<<<<<<<< xresources
 		else if (!strcmp(argv[i], "-nf"))  /* normal foreground color */
-			colors[SchemeNorm][ColFg] = argv[++i];
+      // >>>>>>>>>>>>>>>>>>>> xresources
+      // ==================== xresources
+      colors[SchemeNorm][ColFg] = argv[++i];
+      // <<<<<<<<<<<<<<<<<<<< xresources
 		else if (!strcmp(argv[i], "-sb"))  /* selected background color */
+      // >>>>>>>>>>>>>>>>>>>> xresources
+      // ==================== xresources
 			colors[SchemeSel][ColBg] = argv[++i];
+      // <<<<<<<<<<<<<<<<<<<< xresources
 		else if (!strcmp(argv[i], "-sf"))  /* selected foreground color */
-			colors[SchemeSel][ColFg] = argv[++i];
+      // >>>>>>>>>>>>>>>>>>>> xresources
+      // ==================== xresources
+      colors[SchemeSel][ColFg] = argv[++i];
+      // <<<<<<<<<<<<<<<<<<<< xresources
 		else if (!strcmp(argv[i], "-w"))   /* embedding window id */
 			embed = argv[++i];
     // >>>>>>>>>>>>>>>>>>>> border
@@ -1215,8 +1243,15 @@ main(int argc, char *argv[])
 		die("could not get embedding window attributes: 0x%lx",
 		    parentwin);
 	drw = drw_create(dpy, screen, root, wa.width, wa.height);
-	if (!drw_fontset_create(drw, fonts, LENGTH(fonts)))
+  // >>>>>>>>>>>>>>>>>>>> xresources
+  // ==================== xresources
+  if (!drw_fontset_create(drw, fonts, LENGTH(fonts)))
+  // <<<<<<<<<<<<<<<<<<<< xresources
 		die("no fonts could be loaded.");
+
+  // >>>>>>>>>>>>>>>>>>>> xresources
+  // ==================== xresources
+  // <<<<<<<<<<<<<<<<<<<< xresources
 	lrpad = drw->fonts->h;
 
 #ifdef __OpenBSD__
