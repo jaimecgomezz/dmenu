@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.32.0] - 2020-08-03
+
+### Changed
+
+- Make scroll compatible with line-height
+- Prepare the line-height-patch integration
+
+### Added
+
+- Add the line-height-patch
+- Add the line-height-patch to docs
+
 ## [0.31.0] - 2020-08-03
 
 ### Changed

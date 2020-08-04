@@ -1,0 +1,93 @@
+diff --git a/config.def.h b/config.def.h
+index 96303da..c9df656 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -77,5 +77,5 @@ static const char worddelimiters[] = " ";
+ // <<<<<<<<<<<<<<<<<<<< navhistory
+ 
+ // >>>>>>>>>>>>>>>>>>>> line-height
+-// ==================== line-height
++static unsigned int lineheight = 0;         /* -lh option; minimum height of a menu line     */
+ // <<<<<<<<<<<<<<<<<<<< line-height
+diff --git a/dmenu.1 b/dmenu.1
+index 23f09f3..6ffc052 100644
+--- a/dmenu.1
++++ b/dmenu.1
+@@ -69,7 +69,8 @@ dmenu \- dynamic menu
+ \" ==================== navhistory
+ \" <<<<<<<<<<<<<<<<<<<< navhistory
+ \" >>>>>>>>>>>>>>>>>>>> line-height
+-\" ==================== line-height
++.RB [ \-lh
++.IR heigh ]
+ \" <<<<<<<<<<<<<<<<<<<< line-height
+ .RB [ \-nb
+ .IR color ]
+@@ -177,7 +178,9 @@ defines the prompt to be displayed to the left of the input field.
+ \" ==================== navhistory
+ \" <<<<<<<<<<<<<<<<<<<< navhistory
+ \" >>>>>>>>>>>>>>>>>>>> line-height
+-\" ==================== line-height
++.BI \-lh " height"
++dmenu uses a menu line of at least 'height' pixels tall, but no less than 8.
++.TP
+ \" <<<<<<<<<<<<<<<<<<<< line-height
+ .BI \-nb " color"
+ defines the normal background color.
+diff --git a/dmenu.c b/dmenu.c
+index 656279f..a5cb28b 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -239,7 +239,7 @@ drawmenu(void)
+   // ==================== password
+   // <<<<<<<<<<<<<<<<<<<< password
+   // >>>>>>>>>>>>>>>>>>>> line-height
+-  // ==================== line-height
++  int fh = drw->fonts->h;
+   // <<<<<<<<<<<<<<<<<<<< line-height
+ 
+ 	drw_setscheme(drw, scheme[SchemeNorm]);
+@@ -261,11 +261,10 @@ drawmenu(void)
+   // <<<<<<<<<<<<<<<<<<<< password-scroll
+ 
+   // >>>>>>>>>>>>>>>>>>>> scroll-line-height
+-  // ==================== scroll-line-height
+ 	curpos = TEXTW(text) - TEXTW(&text[cursor]);
+ 	if ((curpos += lrpad / 2 - 1) < w) {
+ 		drw_setscheme(drw, scheme[SchemeNorm]);
+-		drw_rect(drw, x + curpos, 2, 2, bh - 4, 1, 0);
++    drw_rect(drw, x + curpos, 2 + (bh-fh)/2, 2, fh - 4, 1, 0);
+ 	}
+   // <<<<<<<<<<<<<<<<<<<< scroll-line-height
+ 
+@@ -890,8 +889,8 @@ setup(void)
+ 
+ 	/* calculate menu geometry */
+   // >>>>>>>>>>>>>>>>>>>> line-height
+-  // ==================== line-height
+ 	bh = drw->fonts->h + 2;
++  bh = MAX(bh,lineheight);	/* make a menu line AT LEAST 'lineheight' tall */
+   // <<<<<<<<<<<<<<<<<<<< line-height
+   // >>>>>>>>>>>>>>>>>>>> dynamic-options
+   // ==================== dynamic-options
+@@ -1079,7 +1078,7 @@ usage(void)
+     // ==================== navhistory
+     // <<<<<<<<<<<<<<<<<<<< navhistory
+     // >>>>>>>>>>>>>>>>>>>> line-height
+-    // ==================== line-height
++    "[-lh height]"
+     // <<<<<<<<<<<<<<<<<<<< line-height
+     "\n\t\t"
+     "[-nb color]"
+@@ -1192,7 +1191,10 @@ main(int argc, char *argv[])
+     // ==================== navhistory
+     // <<<<<<<<<<<<<<<<<<<< navhistory
+     // >>>>>>>>>>>>>>>>>>>> line-height
+-    // ==================== line-height
++    else if(!strcmp(argv[i], "-lh")) { /* minimum height of one menu line */
++      lineheight = atoi(argv[++i]);
++      lineheight = MAX(lineheight,8); /* reasonable default in case of value too small/negative */
++    }
+     // <<<<<<<<<<<<<<<<<<<< line-height
+ 		else
+ 			usage();

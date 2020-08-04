@@ -15,6 +15,10 @@ Patches:
   incremental         Makes dmenu to print out the current text each time a key is pressed
   preselect           This patch adds an option to preselect an item by providing a number
   initial-text        Adds an option to provide preselected text
+  line-height         The patch adds a '-lh' option, which sets the minimum height of a
+                      dmenu line. This helps integrate dmenu with other UI elements that
+                      require a particular vertical size
+                        - Not compatible with: scroll
   fuzzyhighlight      This patch make it so that fuzzy matches gets highlighted and is
                       therefore meant to be used together with fuzzymatch
   managed             Makes dmenu a window rather than an overlay
@@ -46,7 +50,7 @@ Patches:
                         - Not compatible with: scroll
   scroll              This patch adds support for text scrolling, it doesn't append '...'
                       for long input anymore as it can handle long text now
-                        - Not compatible with: password
+                        - Not compatible with: password, line-height
   json                Adds support for json-files
                         - Only use object and strings
                         - Not compatible with: pipeout, fuzzymatch, dynamic-options
