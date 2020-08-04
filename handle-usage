@@ -15,12 +15,6 @@ Patches:
   incremental         Makes dmenu to print out the current text each time a key is pressed
   preselect           This patch adds an option to preselect an item by providing a number
   initial-text        Adds an option to provide preselected text
-  line-height         The patch adds a '-lh' option, which sets the minimum height of a
-                      dmenu line. This helps integrate dmenu with other UI elements that
-                      require a particular vertical size
-                        - Not compatible with: scroll
-  fuzzyhighlight      This patch make it so that fuzzy matches gets highlighted and is
-                      therefore meant to be used together with fuzzymatch
   managed             Makes dmenu a window rather than an overlay
   reject-no-match     Adds a new flag to dmenu with which text input will be rejected if
                       it would result in no matching item
@@ -28,6 +22,13 @@ Patches:
                       theres one matching option left
   more-color          This patch creates an additional color scheme, for use with the entries adjacent to
                       the selection. This is nice if you want to add some more color to your dmenu
+  line-height         The patch adds a '-lh' option, which sets the minimum height of a
+                      dmenu line. This helps integrate dmenu with other UI elements that
+                      require a particular vertical size
+                        - Not compatible with: scroll
+  fuzzyhighlight      This patch make it so that fuzzy matches gets highlighted and is
+                      therefore meant to be used together with fuzzymatch
+                        - Not comaptible with: high-light
   numbers             Adds text which displays the number of matched and total items in
                       the top right corner of dmenu
                         - Not compatible with: symbols
