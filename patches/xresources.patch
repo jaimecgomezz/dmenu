@@ -1,0 +1,146 @@
+diff --git a/dmenu.c b/dmenu.c
+index 7e4fe59..eb2c74b 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -22,7 +22,7 @@
+ // ==================== json
+ // <<<<<<<<<<<<<<<<<<<< json
+ // >>>>>>>>>>>>>>>>>>>> xresources
+-// ==================== xresources
++#include <X11/Xresource.h>
+ // <<<<<<<<<<<<<<<<<<<< xresources
+ 
+ #include "drw.h"
+@@ -107,7 +107,9 @@ static int mon = -1, screen;
+ // ==================== print-input-text
+ // <<<<<<<<<<<<<<<<<<<< print-input-text
+ // >>>>>>>>>>>>>>>>>>>> xresources
+-// ==================== xresources
++/* Temporary arrays to allow overriding xresources values */
++static char *colortemp[4];
++static char *tempfonts;
+ // <<<<<<<<<<<<<<<<<<<< xresources
+ 
+ static Atom clip, utf8;
+@@ -892,9 +894,13 @@ setup(void)
+ #endif
+ 	/* init appearance */
+   // >>>>>>>>>>>>>>>>>>>> xresources
+-  // ==================== xresources
+-	for (j = 0; j < SchemeLast; j++)
+-		scheme[j] = drw_scm_create(drw, colors[j], 2);
++  for (j = 0; j < SchemeLast; j++) {
++    scheme[j] = drw_scm_create(drw, (const char**)colors[j], 2);
++  }
++  for (j = 0; j < SchemeOut; ++j) {
++    for (i = 0; i < 2; ++i)
++      free(colors[j][i]);
++  }
+   // <<<<<<<<<<<<<<<<<<<< xresources
+ 
+ 	clip = XInternAtom(dpy, "CLIPBOARD",   False);
+@@ -1108,7 +1114,40 @@ usage(void)
+ }
+ 
+ // >>>>>>>>>>>>>>>>>>>> xresources
+-// ==================== xresources
++void
++readxresources(void) {
++  XrmInitialize();
++
++  char* xrm;
++  if ((xrm = XResourceManagerString(drw->dpy))) {
++    char *type;
++    XrmDatabase xdb = XrmGetStringDatabase(xrm);
++    XrmValue xval;
++
++    if (XrmGetResource(xdb, "dmenu.font", "*", &type, &xval))
++      fonts[0] = strdup(xval.addr);
++    else
++      fonts[0] = strdup(fonts[0]);
++    if (XrmGetResource(xdb, "dmenu.background", "*", &type, &xval))
++      colors[SchemeNorm][ColBg] = strdup(xval.addr);
++    else
++      colors[SchemeNorm][ColBg] = strdup(colors[SchemeNorm][ColBg]);
++    if (XrmGetResource(xdb, "dmenu.foreground", "*", &type, &xval))
++      colors[SchemeNorm][ColFg] = strdup(xval.addr);
++    else
++      colors[SchemeNorm][ColFg] = strdup(colors[SchemeNorm][ColFg]);
++    if (XrmGetResource(xdb, "dmenu.selbackground", "*", &type, &xval))
++      colors[SchemeSel][ColBg] = strdup(xval.addr);
++    else
++      colors[SchemeSel][ColBg] = strdup(colors[SchemeSel][ColBg]);
++    if (XrmGetResource(xdb, "dmenu.selforeground", "*", &type, &xval))
++      colors[SchemeSel][ColFg] = strdup(xval.addr);
++    else
++      colors[SchemeSel][ColFg] = strdup(colors[SchemeSel][ColFg]);
++
++    XrmDestroyDatabase(xdb);
++  }
++}
+ // <<<<<<<<<<<<<<<<<<<< xresources
+ 
+ int
+@@ -1173,28 +1212,23 @@ main(int argc, char *argv[])
+ 			prompt = argv[++i];
+ 		else if (!strcmp(argv[i], "-fn"))  /* font or font set */
+       // >>>>>>>>>>>>>>>>>>>> xresources
+-      // ==================== xresources
+-      fonts[0] = argv[++i];
++      tempfonts = argv[++i];
+       // <<<<<<<<<<<<<<<<<<<< xresources
+ 		else if (!strcmp(argv[i], "-nb"))  /* normal background color */
+       // >>>>>>>>>>>>>>>>>>>> xresources
+-      // ==================== xresources
+-      colors[SchemeNorm][ColBg] = argv[++i];
++      colortemp[0] = argv[++i];
+       // <<<<<<<<<<<<<<<<<<<< xresources
+ 		else if (!strcmp(argv[i], "-nf"))  /* normal foreground color */
+       // >>>>>>>>>>>>>>>>>>>> xresources
+-      // ==================== xresources
+-      colors[SchemeNorm][ColFg] = argv[++i];
++      colortemp[1] = argv[++i];
+       // <<<<<<<<<<<<<<<<<<<< xresources
+ 		else if (!strcmp(argv[i], "-sb"))  /* selected background color */
+       // >>>>>>>>>>>>>>>>>>>> xresources
+-      // ==================== xresources
+-			colors[SchemeSel][ColBg] = argv[++i];
++      colortemp[2] = argv[++i];
+       // <<<<<<<<<<<<<<<<<<<< xresources
+ 		else if (!strcmp(argv[i], "-sf"))  /* selected foreground color */
+       // >>>>>>>>>>>>>>>>>>>> xresources
+-      // ==================== xresources
+-      colors[SchemeSel][ColFg] = argv[++i];
++      colortemp[3] = argv[++i];
+       // <<<<<<<<<<<<<<<<<<<< xresources
+ 		else if (!strcmp(argv[i], "-w"))   /* embedding window id */
+ 			embed = argv[++i];
+@@ -1244,13 +1278,25 @@ main(int argc, char *argv[])
+ 		    parentwin);
+ 	drw = drw_create(dpy, screen, root, wa.width, wa.height);
+   // >>>>>>>>>>>>>>>>>>>> xresources
+-  // ==================== xresources
+-  if (!drw_fontset_create(drw, fonts, LENGTH(fonts)))
++  readxresources();
++  /* Now we check whether to override xresources with commandline parameters */
++  if ( tempfonts )
++     fonts[0] = strdup(tempfonts);
++  if ( colortemp[0])
++     colors[SchemeNorm][ColBg] = strdup(colortemp[0]);
++  if ( colortemp[1])
++     colors[SchemeNorm][ColFg] = strdup(colortemp[1]);
++  if ( colortemp[2])
++     colors[SchemeSel][ColBg]  = strdup(colortemp[2]);
++  if ( colortemp[3])
++     colors[SchemeSel][ColFg]  = strdup(colortemp[3]);
++
++  if (!drw_fontset_create(drw, (const char**)fonts, LENGTH(fonts)))
+   // <<<<<<<<<<<<<<<<<<<< xresources
+ 		die("no fonts could be loaded.");
+ 
+   // >>>>>>>>>>>>>>>>>>>> xresources
+-  // ==================== xresources
++  free(fonts[0]);
+   // <<<<<<<<<<<<<<<<<<<< xresources
+ 	lrpad = drw->fonts->h;
+ 
