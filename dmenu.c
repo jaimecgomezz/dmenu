@@ -257,14 +257,14 @@ drawmenu(void)
   drw_text(drw, x, 0, w, bh, lrpad / 2, text, 0);
   // <<<<<<<<<<<<<<<<<<<< password-scroll
 
-  // >>>>>>>>>>>>>>>>>>>> scroll
-  // ==================== scroll
+  // >>>>>>>>>>>>>>>>>>>> scroll-line-height
+  // ==================== scroll-line-height
 	curpos = TEXTW(text) - TEXTW(&text[cursor]);
 	if ((curpos += lrpad / 2 - 1) < w) {
 		drw_setscheme(drw, scheme[SchemeNorm]);
 		drw_rect(drw, x + curpos, 2, 2, bh - 4, 1, 0);
 	}
-  // <<<<<<<<<<<<<<<<<<<< scroll
+  // <<<<<<<<<<<<<<<<<<<< scroll-line-height
 
   // >>>>>>>>>>>>>>>>>>>> numbers
   // ==================== numbers
