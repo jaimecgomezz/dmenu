@@ -10,10 +10,7 @@
 
 set -e
 
-handle_std="0"        # Quiet by default
-handler="patch -p1"
-# handler="git apply" # Can be used as well, but I recommend the default
-
+SHOULD_REDIRECT="0"        # Quiet by default
 PATCH_ACTION="patch"
 DEPATCH_ACTION="depatch"
 TRACK_FILE="applied"
@@ -26,21 +23,17 @@ contains() {
   if test "${str#*$substr}" != "$str"; then return 0; fi
   return 1
 }
-report_unapplied() {
-  echo "[!] ( $1 ) hasn't been applied yet, add the patch to the file '$TRACK_FILE' if mistaken" ;
+report_patch_conflict() {
+  echo "[!] ( $1 ) $2 been applied, $3 the patch name to file '$TRACK_FILE' if mistaken"
   exit 1
 }
-report_applied() {
-  echo "[!] ( $1 ) has already been applied, remove the patch name from the file '$TRACK_FILE' if mistaken" ;
-  exit 1
-}
+report_applied() { report_patch_conflict "$1" "has" "remove" ; }
+report_unapplied() { report_patch_conflict "$1" "hasn't" "add" ; }
 
 
 # Test args syntax
 [ "$#" -lt 2 ] && print_usage
 action="$1"; patch="$2"; shift; shift
-contains "$@" "-d" && handle_std="1"
-
 case "$action" in
   patch)
   ;;
@@ -51,6 +44,7 @@ case "$action" in
     print_usage
   ;;
 esac
+contains "$@" "-d" && SHOULD_REDIRECT="1"
 
 # Verify patch exists
 patches="$( ls patches/*patch | sed -E 's/(^.*\/)(.*)(\..*)/\2/g' )"
@@ -64,12 +58,12 @@ else
 fi
 
 # Patch handlers definition
-apply_patch="$handler $options < patches/${patch}.patch"
+apply_patch="patch -p1 $options < patches/${patch}.patch"
 build_dmenu="sudo make install clean"
 
 # Patch and build quietly by default, unless -d used
-[ "$handle_std" = "0" ] && redirect_output "$apply_patch" || eval "$apply_patch"
-[ "$handle_std" = "0" ] && redirect_output "$build_dmenu" || eval "$build_dmenu"
+[ "$SHOULD_REDIRECT" = "0" ] && redirect_output "$apply_patch" || eval "$apply_patch"
+[ "$SHOULD_REDIRECT" = "0" ] && redirect_output "$build_dmenu" || eval "$build_dmenu"
 
 # Keep track of applied patches
 [ "$action" = "$PATCH_ACTION" ] || sed -i "/^${patch}$/d" "$TRACK_FILE" # If depatch, remove it from track file
