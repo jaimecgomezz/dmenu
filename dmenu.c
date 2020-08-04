@@ -48,6 +48,9 @@ enum {
   // >>>>>>>>>>>>>>>>>>>> high-priority
   // ==================== high-priority
   // <<<<<<<<<<<<<<<<<<<< high-priority
+  // >>>>>>>>>>>>>>>>>>>> highlight
+  // ==================== highlight
+  // <<<<<<<<<<<<<<<<<<<< highlight
   SchemeNorm,
   SchemeSel,
   SchemeOut,
@@ -218,6 +221,10 @@ cistrstr(const char *s, const char *sub)
 // >>>>>>>>>>>>>>>>>>>> fuzzyhighlight
 // ==================== fuzzyhighlight
 // <<<<<<<<<<<<<<<<<<<< fuzzyhighlight
+
+// >>>>>>>>>>>>>>>>>>>> highlight
+// ==================== highlight
+// <<<<<<<<<<<<<<<<<<<< highlight
 
 static int
 drawitem(struct item *item, int x, int y, int w)
