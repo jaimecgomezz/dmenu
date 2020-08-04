@@ -45,6 +45,9 @@ enum {
   // >>>>>>>>>>>>>>>>>>>> more-color
   // ==================== more-color
   // <<<<<<<<<<<<<<<<<<<< more-color
+  // >>>>>>>>>>>>>>>>>>>> high-priority
+  // ==================== high-priority
+  // <<<<<<<<<<<<<<<<<<<< high-priority
   SchemeNorm,
   SchemeSel,
   SchemeOut,
@@ -64,6 +67,9 @@ struct item {
   // >>>>>>>>>>>>>>>>>>>> json
   // ==================== json
   // <<<<<<<<<<<<<<<<<<<< json
+  // >>>>>>>>>>>>>>>>>>>> high-priority
+  // ==================== high-priority
+  // <<<<<<<<<<<<<<<<<<<< high-priority
 };
 
 static char text[BUFSIZ] = "";
@@ -109,6 +115,9 @@ static int mon = -1, screen;
 // >>>>>>>>>>>>>>>>>>>> xresources
 // ==================== xresources
 // <<<<<<<<<<<<<<<<<<<< xresources
+// >>>>>>>>>>>>>>>>>>>> high-priority
+// ==================== high-priority
+// <<<<<<<<<<<<<<<<<<<< high-priority
 
 static Atom clip, utf8;
 static Display *dpy;
@@ -133,6 +142,10 @@ static char *(*fstrstr)(const char *, const char *) = strstr;
 // >>>>>>>>>>>>>>>>>>>> multi-selection
 // ==================== multi-selection
 // <<<<<<<<<<<<<<<<<<<< multi-selection
+
+// >>>>>>>>>>>>>>>>>>>> high-priority
+// ==================== high-priority
+// <<<<<<<<<<<<<<<<<<<< high-priority
 
 static void
 appenditem(struct item *item, struct item **list, struct item **last)
@@ -222,6 +235,9 @@ drawitem(struct item *item, int x, int y, int w)
   // >>>>>>>>>>>>>>>>>>>> more-color
   // ==================== more-color
   // <<<<<<<<<<<<<<<<<<<< more-color
+  // >>>>>>>>>>>>>>>>>>>> high-priority
+  // ==================== high-priority
+  // <<<<<<<<<<<<<<<<<<<< high-priority
 	else
 		drw_setscheme(drw, scheme[SchemeNorm]);
 
@@ -391,6 +407,9 @@ match(void)
 	int i, tokc = 0;
 	size_t len, textsize;
 	struct item *item, *lprefix, *lsubstr, *prefixend, *substrend;
+  // >>>>>>>>>>>>>>>>>>>> high-priority
+  // ==================== high-priority
+  // <<<<<<<<<<<<<<<<<<<< high-priority
 
   // >>>>>>>>>>>>>>>>>>>> json
   // ==================== json
@@ -403,11 +422,11 @@ match(void)
 			die("cannot realloc %u bytes:", tokn * sizeof *tokv);
 	len = tokc ? strlen(tokv[0]) : 0;
 
-  // >>>>>>>>>>>>>>>>>>>> prefix-completition
-  // ==================== prefix-completition
+  // >>>>>>>>>>>>>>>>>>>> prefix-completition-high-priority
+  // ==================== prefix-completition-high-priority
 	matches = lprefix = lsubstr = matchend = prefixend = substrend = NULL;
 	textsize = strlen(text) + 1;
-  // <<<<<<<<<<<<<<<<<<<< prefix-completition
+  // <<<<<<<<<<<<<<<<<<<< prefix-completition-high-priority
 	for (item = items; item && item->text; item++) {
 		for (i = 0; i < tokc; i++)
 			if (!fstrstr(item->text, tokv[i]))
@@ -417,9 +436,15 @@ match(void)
 		if (i != tokc) /* not all tokens match */
     // <<<<<<<<<<<<<<<<<<<< dynamic-options
 			continue;
-		/* exact matches go first, then prefixes, then substrings */
+    // >>>>>>>>>>>>>>>>>>>> high-priority
+    // ==================== high-priority
+    /* exact matches go first, then prefixes, then substrings */
+    // <<<<<<<<<<<<<<<<<<<< high-priority
 		if (!tokc || !fstrncmp(text, item->text, textsize))
 			appenditem(item, &matches, &matchend);
+    // >>>>>>>>>>>>>>>>>>>> high-priority
+    // ==================== high-priority
+    // <<<<<<<<<<<<<<<<<<<< high-priority
 		else if (!fstrncmp(tokv[0], item->text, len))
 			appenditem(item, &lprefix, &prefixend);
     // >>>>>>>>>>>>>>>>>>>> prefix-completition
@@ -428,6 +453,11 @@ match(void)
     // <<<<<<<<<<<<<<<<<<<< prefix-completition
 			appenditem(item, &lsubstr, &substrend);
 	}
+
+  // >>>>>>>>>>>>>>>>>>>> high-priority
+  // ==================== high-priority
+  // <<<<<<<<<<<<<<<<<<<< high-priority
+
 	if (lprefix) {
 		if (matches) {
 			matchend->right = lprefix;
@@ -807,6 +837,9 @@ readstdin(void)
     // ==================== json-multi-selection
     items[i].out = 0;
     // <<<<<<<<<<<<<<<<<<<< json-multi-selection
+    // >>>>>>>>>>>>>>>>>>>> high-priority
+    // ==================== high-priority
+    // <<<<<<<<<<<<<<<<<<<< high-priority
 		drw_font_getexts(drw->fonts, buf, strlen(buf), &tmpmax, NULL);
 		if (tmpmax > inputw) {
 			inputw = tmpmax;
@@ -1093,6 +1126,9 @@ usage(void)
     // >>>>>>>>>>>>>>>>>>>> line-height
     // ==================== line-height
     // <<<<<<<<<<<<<<<<<<<< line-height
+    // >>>>>>>>>>>>>>>>>>>> high-priority
+    // ==================== high-priority
+    // <<<<<<<<<<<<<<<<<<<< high-priority
     "\n\t\t"
     "[-nb color]"
     "[-nf color]"
@@ -1228,6 +1264,9 @@ main(int argc, char *argv[])
     // >>>>>>>>>>>>>>>>>>>> line-height
     // ==================== line-height
     // <<<<<<<<<<<<<<<<<<<< line-height
+    // >>>>>>>>>>>>>>>>>>>> high-priority
+    // ==================== high-priority
+    // <<<<<<<<<<<<<<<<<<<< high-priority
 		else
 			usage();
 

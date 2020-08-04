@@ -1,0 +1,213 @@
+diff --git a/config.def.h b/config.def.h
+index e1587e3..ee8b8ec 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -19,7 +19,7 @@ static const char *colors[SchemeLast][2] = {
+   // ==================== more-color
+   // <<<<<<<<<<<<<<<<<<<< more-color
+   // >>>>>>>>>>>>>>>>>>>> high-priority
+-  // ==================== high-priority
++  [SchemeHp] = { "#bbbbbb", "#333333" },
+   // <<<<<<<<<<<<<<<<<<<< high-priority
+ };
+ /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
+diff --git a/dmenu.1 b/dmenu.1
+index 2997968..a6d66c6 100644
+--- a/dmenu.1
++++ b/dmenu.1
+@@ -75,7 +75,12 @@ dmenu \- dynamic menu
+ \" ==================== line-height
+ \" <<<<<<<<<<<<<<<<<<<< line-height
+ \" >>>>>>>>>>>>>>>>>>>> high-priority
+-\" ==================== high-priority
++.RB [ \-hpb
++.IR color ]
++.RB [ \-hpf
++.IR color ]
++.RB [ \-hpl
++.IR list ]
+ \" <<<<<<<<<<<<<<<<<<<< high-priority
+ .RB [ \-nb
+ .IR color ]
+@@ -189,7 +194,15 @@ defines the prompt to be displayed to the left of the input field.
+ \" ==================== line-height
+ \" <<<<<<<<<<<<<<<<<<<< line-height
+ \" >>>>>>>>>>>>>>>>>>>> high-priority
+-\" ==================== high-priority
++.BI \-hpb " color"
++defines the high priority background color.
++.TP
++.BI \-hpf " color"
++defines the high priority foreground color.
++.TP
++.BI \-hpl " list"
++a CSV (comma-seperated list) of high priority items
++.TP
+ \" <<<<<<<<<<<<<<<<<<<< high-priority
+ .BI \-nb " color"
+ defines the normal background color.
+diff --git a/dmenu.c b/dmenu.c
+index d11a468..b4d4559 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -46,7 +46,7 @@ enum {
+   // ==================== more-color
+   // <<<<<<<<<<<<<<<<<<<< more-color
+   // >>>>>>>>>>>>>>>>>>>> high-priority
+-  // ==================== high-priority
++  SchemeHp,
+   // <<<<<<<<<<<<<<<<<<<< high-priority
+   SchemeNorm,
+   SchemeSel,
+@@ -68,7 +68,7 @@ struct item {
+   // ==================== json
+   // <<<<<<<<<<<<<<<<<<<< json
+   // >>>>>>>>>>>>>>>>>>>> high-priority
+-  // ==================== high-priority
++  int hp;
+   // <<<<<<<<<<<<<<<<<<<< high-priority
+ };
+ 
+@@ -116,7 +116,8 @@ static int mon = -1, screen;
+ // ==================== xresources
+ // <<<<<<<<<<<<<<<<<<<< xresources
+ // >>>>>>>>>>>>>>>>>>>> high-priority
+-// ==================== high-priority
++static char **hpitems = NULL;
++static int hplength = 0;
+ // <<<<<<<<<<<<<<<<<<<< high-priority
+ 
+ static Atom clip, utf8;
+@@ -144,7 +145,35 @@ static char *(*fstrstr)(const char *, const char *) = strstr;
+ // <<<<<<<<<<<<<<<<<<<< multi-selection
+ 
+ // >>>>>>>>>>>>>>>>>>>> high-priority
+-// ==================== high-priority
++static char**
++tokenize(char *source, const char *delim, int *llen) {
++  int listlength = 0;
++  char **list = malloc(1 * sizeof(char*));
++  char *token = strtok(source, delim);
++
++  while (token) {
++    if (!(list = realloc(list, sizeof(char*) * (listlength + 1))))
++      die("Unable to realloc %d bytes\n", sizeof(char*) * (listlength + 1));
++    if (!(list[listlength] = strdup(token)))
++      die("Unable to strdup %d bytes\n", strlen(token) + 1);
++    token = strtok(NULL, delim);
++    listlength++;
++  }
++
++  *llen = listlength;
++  return list;
++}
++
++static int
++arrayhas(char **list, int length, char *item) {
++  for (int i = 0; i < length; i++) {
++    int len1 = strlen(list[i]);
++    int len2 = strlen(item);
++    if (fstrncmp(list[i], item, len1 > len2 ? len2 : len1) == 0)
++      return 1;
++  }
++  return 0;
++}
+ // <<<<<<<<<<<<<<<<<<<< high-priority
+ 
+ static void
+@@ -236,7 +265,8 @@ drawitem(struct item *item, int x, int y, int w)
+   // ==================== more-color
+   // <<<<<<<<<<<<<<<<<<<< more-color
+   // >>>>>>>>>>>>>>>>>>>> high-priority
+-  // ==================== high-priority
++  else if (item->hp)
++    drw_setscheme(drw, scheme[SchemeHp]);
+   // <<<<<<<<<<<<<<<<<<<< high-priority
+ 	else
+ 		drw_setscheme(drw, scheme[SchemeNorm]);
+@@ -408,7 +438,7 @@ match(void)
+ 	size_t len, textsize;
+ 	struct item *item, *lprefix, *lsubstr, *prefixend, *substrend;
+   // >>>>>>>>>>>>>>>>>>>> high-priority
+-  // ==================== high-priority
++  struct item *lhpprefix, *hpprefixend;
+   // <<<<<<<<<<<<<<<<<<<< high-priority
+ 
+   // >>>>>>>>>>>>>>>>>>>> json
+@@ -423,8 +453,7 @@ match(void)
+ 	len = tokc ? strlen(tokv[0]) : 0;
+ 
+   // >>>>>>>>>>>>>>>>>>>> prefix-completition-high-priority
+-  // ==================== prefix-completition-high-priority
+-	matches = lprefix = lsubstr = matchend = prefixend = substrend = NULL;
++  matches = lhpprefix = lprefix = lsubstr = matchend = hpprefixend = prefixend = substrend = NULL;
+ 	textsize = strlen(text) + 1;
+   // <<<<<<<<<<<<<<<<<<<< prefix-completition-high-priority
+ 	for (item = items; item && item->text; item++) {
+@@ -437,13 +466,13 @@ match(void)
+     // <<<<<<<<<<<<<<<<<<<< dynamic-options
+ 			continue;
+     // >>>>>>>>>>>>>>>>>>>> high-priority
+-    // ==================== high-priority
+-    /* exact matches go first, then prefixes, then substrings */
++    /* exact matches go first, then prefixes with high priority, then prefixes, then substrings */
+     // <<<<<<<<<<<<<<<<<<<< high-priority
+ 		if (!tokc || !fstrncmp(text, item->text, textsize))
+ 			appenditem(item, &matches, &matchend);
+     // >>>>>>>>>>>>>>>>>>>> high-priority
+-    // ==================== high-priority
++    else if (item->hp && !fstrncmp(tokv[0], item->text, len))
++      appenditem(item, &lhpprefix, &hpprefixend);
+     // <<<<<<<<<<<<<<<<<<<< high-priority
+ 		else if (!fstrncmp(tokv[0], item->text, len))
+ 			appenditem(item, &lprefix, &prefixend);
+@@ -455,7 +484,14 @@ match(void)
+ 	}
+ 
+   // >>>>>>>>>>>>>>>>>>>> high-priority
+-  // ==================== high-priority
++  if (lhpprefix) {
++    if (matches) {
++      matchend->right = lhpprefix;
++      lhpprefix->left = matchend;
++    } else
++      matches = lhpprefix;
++    matchend = hpprefixend;
++  }
+   // <<<<<<<<<<<<<<<<<<<< high-priority
+ 
+ 	if (lprefix) {
+@@ -838,7 +874,7 @@ readstdin(void)
+     items[i].out = 0;
+     // <<<<<<<<<<<<<<<<<<<< json-multi-selection
+     // >>>>>>>>>>>>>>>>>>>> high-priority
+-    // ==================== high-priority
++    items[i].hp = arrayhas(hpitems, hplength, items[i].text);
+     // <<<<<<<<<<<<<<<<<<<< high-priority
+ 		drw_font_getexts(drw->fonts, buf, strlen(buf), &tmpmax, NULL);
+ 		if (tmpmax > inputw) {
+@@ -1127,7 +1163,9 @@ usage(void)
+     // ==================== line-height
+     // <<<<<<<<<<<<<<<<<<<< line-height
+     // >>>>>>>>>>>>>>>>>>>> high-priority
+-    // ==================== high-priority
++    "[-hpb color]"
++    "[-hpf color]"
++    "[-hpl list]"
+     // <<<<<<<<<<<<<<<<<<<< high-priority
+     "\n\t\t"
+     "[-nb color]"
+@@ -1265,7 +1303,12 @@ main(int argc, char *argv[])
+     // ==================== line-height
+     // <<<<<<<<<<<<<<<<<<<< line-height
+     // >>>>>>>>>>>>>>>>>>>> high-priority
+-    // ==================== high-priority
++    else if (!strcmp(argv[i], "-hpb"))  /* high priority background color */
++      colors[SchemeHp][ColBg] = argv[++i];
++    else if (!strcmp(argv[i], "-hpf")) /* low priority background color */
++      colors[SchemeHp][ColFg] = argv[++i];
++    else if (!strcmp(argv[i], "-hpl"))
++      hpitems = tokenize(argv[++i], ",", &hplength);
+     // <<<<<<<<<<<<<<<<<<<< high-priority
+ 		else
+ 			usage();

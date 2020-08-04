@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.35.0] - 2020-08-03
+
+### Changed
+
+- Make prefix-completition compatible with high-priority
+- Prepare the high-priority patch integration
+- Make json compatible with high-priority
+
+### Added
+
+- Add the high-priority patch
+- Add the high-priority patch to docs
+
 ## [0.34.0] - 2020-08-03
 
 ### Changed
