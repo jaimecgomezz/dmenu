@@ -25,7 +25,7 @@ contains() {
 }
 report_applied() { report_patch_conflict "$1" "has" "remove" ; exit 1 ; }
 report_unapplied() { report_patch_conflict "$1" "hasn't" "add" ; exit 1 ; }
-report_patch_conflict() { echo "[!] ( $1 ) $2 been applied, $3 the patch name from the '$TRACK_FILE' file if mistaken" ; }
+report_patch_conflict() { echo "[!] ( $1 ) $2 been applied, $3 the patch name from/to the '$TRACK_FILE' file if mistaken" ; }
 
 
 # Test args syntax
