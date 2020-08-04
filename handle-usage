@@ -15,6 +15,9 @@ Patches:
   incremental         Makes dmenu to print out the current text each time a key is pressed
   preselect           This patch adds an option to preselect an item by providing a number
   initial-text        Adds an option to provide preselected text
+  line-height         The patch adds a '-lh' option, which sets the minimum height of a
+                      dmenu line. This helps integrate dmenu with other UI elements that
+                      require a particular vertical size
   fuzzyhighlight      This patch make it so that fuzzy matches gets highlighted and is
                       therefore meant to be used together with fuzzymatch
   managed             Makes dmenu a window rather than an overlay
