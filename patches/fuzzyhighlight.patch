@@ -1,5 +1,5 @@
 diff --git a/config.def.h b/config.def.h
-index 990b39e..fa597d8 100644
+index e7b1e50..b67d9af 100644
 --- a/config.def.h
 +++ b/config.def.h
 @@ -13,7 +13,8 @@ static const char *colors[SchemeLast][2] = {
@@ -10,13 +10,13 @@ index 990b39e..fa597d8 100644
 +  [SchemeSelHighlight] = { "#ffc978", "#005577" },
 +  [SchemeNormHighlight] = { "#ffc978", "#222222" },
    // <<<<<<<<<<<<<<<<<<<< fuzzyhighlight
- };
- /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
+   // >>>>>>>>>>>>>>>>>>>> more-color
+   // ==================== more-color
 diff --git a/dmenu.1 b/dmenu.1
-index bdf9ea7..3479a15 100644
+index 2997968..b71a0e0 100644
 --- a/dmenu.1
 +++ b/dmenu.1
-@@ -41,7 +41,14 @@ dmenu \- dynamic menu
+@@ -86,7 +86,14 @@ dmenu \- dynamic menu
  .RB [ \-sf
  .IR color ]
  \" >>>>>>>>>>>>>>>>>>>> fuzzyhighlight
@@ -32,7 +32,7 @@ index bdf9ea7..3479a15 100644
  \" <<<<<<<<<<<<<<<<<<<< fuzzyhighlight
  .P
  .BR dmenu_run " ..."
-@@ -117,7 +124,18 @@ defines the selected background color.
+@@ -207,7 +214,18 @@ defines the selected background color.
  defines the selected foreground color.
  .TP
  \" >>>>>>>>>>>>>>>>>>>> fuzzyhighlight
@@ -53,10 +53,10 @@ index bdf9ea7..3479a15 100644
  .SH USAGE
  dmenu is completely controlled by the keyboard.  Items are selected using the
 diff --git a/dmenu.c b/dmenu.c
-index 2f808ff..d9d7bc5 100644
+index ea6d3de..c3569e8 100644
 --- a/dmenu.c
 +++ b/dmenu.c
-@@ -31,7 +31,8 @@
+@@ -40,7 +40,8 @@
  /* enums */
  enum {
    // >>>>>>>>>>>>>>>>>>>> fuzzyhighlight
@@ -64,9 +64,9 @@ index 2f808ff..d9d7bc5 100644
 +  SchemeNormHighlight,
 +  SchemeSelHighlight,
    // <<<<<<<<<<<<<<<<<<<< fuzzyhighlight
-   SchemeNorm,
-   SchemeSel,
-@@ -135,14 +136,50 @@ cistrstr(const char *s, const char *sub)
+   // >>>>>>>>>>>>>>>>>>>> more-color
+   // ==================== more-color
+@@ -219,7 +220,43 @@ cistrstr(const char *s, const char *sub)
  }
  
  // >>>>>>>>>>>>>>>>>>>> fuzzyhighlight
@@ -74,43 +74,44 @@ index 2f808ff..d9d7bc5 100644
 +static void
 +drawhighlights(struct item *item, int x, int y, int maxw)
 +{
-+	int i, indent;
-+	char *highlight;
-+	char c;
++  int i, indent;
++  char *highlight;
++  char c;
 +
-+	if (!(strlen(item->text) && strlen(text)))
-+		return;
++  if (!(strlen(item->text) && strlen(text)))
++    return;
 +
-+	drw_setscheme(drw, scheme[item == sel ?
-+		SchemeSelHighlight :
-+		SchemeNormHighlight]);
-+	for (i = 0, highlight = item->text; *highlight && text[i];)
-+	{
-+		if (*highlight == text[i])
-+		{ /*get indentation */
-+			c = *highlight;
-+			*highlight = '\0';
-+			indent = TEXTW(item->text);
-+			*highlight = c;
++  drw_setscheme(drw, scheme[item == sel ?
++    SchemeSelHighlight :
++    SchemeNormHighlight]);
++  for (i = 0, highlight = item->text; *highlight && text[i];)
++  {
++    if (*highlight == text[i])
++    { /*get indentation */
++      c = *highlight;
++      *highlight = '\0';
++      indent = TEXTW(item->text);
++      *highlight = c;
 +
-+			/*highlight character */
-+			c = highlight[1];
-+			highlight[1] = '\0';
-+			drw_text(				drw,
-+				x + indent - (lrpad / 2),
-+				y,
-+				MIN(maxw - indent, TEXTW(highlight) - lrpad),
-+				bh, 0, highlight, 0
-+		);
-+			highlight[1] = c;
-+			i++;
-+		}
-+		highlight++;
-+	}
++      /*highlight character */
++      c = highlight[1];
++      highlight[1] = '\0';
++      drw_text(				drw,
++        x + indent - (lrpad / 2),
++        y,
++        MIN(maxw - indent, TEXTW(highlight) - lrpad),
++        bh, 0, highlight, 0
++    );
++      highlight[1] = c;
++      i++;
++    }
++    highlight++;
++  }
 +}
  // <<<<<<<<<<<<<<<<<<<< fuzzyhighlight
  
- static int
+ // >>>>>>>>>>>>>>>>>>>> highlight
+@@ -230,7 +267,7 @@ static int
  drawitem(struct item *item, int x, int y, int w)
  {
    // >>>>>>>>>>>>>>>>>>>> fuzzyhighlight
@@ -119,7 +120,7 @@ index 2f808ff..d9d7bc5 100644
    // <<<<<<<<<<<<<<<<<<<< fuzzyhighlight
  	if (item == sel)
  		drw_setscheme(drw, scheme[SchemeSel]);
-@@ -152,8 +189,9 @@ drawitem(struct item *item, int x, int y, int w)
+@@ -249,8 +286,9 @@ drawitem(struct item *item, int x, int y, int w)
  		drw_setscheme(drw, scheme[SchemeNorm]);
  
    // >>>>>>>>>>>>>>>>>>>> fuzzyhighlight-highlight
@@ -131,7 +132,7 @@ index 2f808ff..d9d7bc5 100644
    // <<<<<<<<<<<<<<<<<<<< fuzzyhighlight-highlight
  }
  
-@@ -814,7 +852,10 @@ usage(void)
+@@ -1142,7 +1180,10 @@ usage(void)
      "[-sb color]"
      "[-sf color]"
      // >>>>>>>>>>>>>>>>>>>> fuzzyhighlight
@@ -143,7 +144,7 @@ index 2f808ff..d9d7bc5 100644
      // <<<<<<<<<<<<<<<<<<<< fuzzyhighlight
      "\n",
      stderr
-@@ -877,7 +918,14 @@ main(int argc, char *argv[])
+@@ -1248,7 +1289,14 @@ main(int argc, char *argv[])
      // ==================== dynamic-options
      // <<<<<<<<<<<<<<<<<<<< dynamic-options
      // >>>>>>>>>>>>>>>>>>>> fuzzyhighlight
@@ -157,5 +158,5 @@ index 2f808ff..d9d7bc5 100644
 +		else if (!strcmp(argv[i], "-shf")) /*selected hi foreground color */
 +			colors[SchemeSelHighlight][ColFg] = argv[++i];
      // <<<<<<<<<<<<<<<<<<<< fuzzyhighlight
- 		else
- 			usage();
+     // >>>>>>>>>>>>>>>>>>>> grid
+     // ==================== grid
