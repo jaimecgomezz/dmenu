@@ -25,8 +25,8 @@ index 9fd99c1..14c42d0 100644
 @@ -567,8 +567,20 @@ insert:
  	case XK_Return:
  	case XK_KP_Enter:
-     // >>>>>>>>>>>>>>>>>>>> pipeout-json-multi-selection
--    // ==================== pipeout-json-multi-selection
+     // >>>>>>>>>>>>>>>>>>>> pipeout-json-multi-selection-print-input-text
+-    // ==================== pipeout-json-multi-selection-print-input-text
 -    puts((sel && !(ev->state & ShiftMask)) ? sel->text : text);
 +    if ((sel && !(ev->state & ShiftMask))) {
 +      if (sel->text[0] == startpipe[0]) {
@@ -42,6 +42,6 @@ index 9fd99c1..14c42d0 100644
 +      }
 +        puts(text);
 +    }
-     // <<<<<<<<<<<<<<<<<<<< pipeout-json-multi-selection
+     // <<<<<<<<<<<<<<<<<<<< pipeout-json-multi-selection-print-input-text
  		if (!(ev->state & ControlMask)) {
  			cleanup();

@@ -675,10 +675,10 @@ insert:
 		break;
 	case XK_Return:
 	case XK_KP_Enter:
-    // >>>>>>>>>>>>>>>>>>>> pipeout-json-multi-selection
-    // ==================== pipeout-json-multi-selection
+    // >>>>>>>>>>>>>>>>>>>> pipeout-json-multi-selection-print-input-text
+    // ==================== pipeout-json-multi-selection-print-input-text
     puts((sel && !(ev->state & ShiftMask)) ? sel->text : text);
-    // <<<<<<<<<<<<<<<<<<<< pipeout-json-multi-selection
+    // <<<<<<<<<<<<<<<<<<<< pipeout-json-multi-selection-print-input-text
 		if (!(ev->state & ControlMask)) {
       // >>>>>>>>>>>>>>>>>>>> multi-selection
       // ==================== multi-selection
