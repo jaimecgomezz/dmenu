@@ -35,7 +35,7 @@ Patches:
                       be matched
                         - Not compatible with: json
   pipeout             This patch allows the selected text to be piped back out with dmenu
-                        - Not compatible with: json
+                        - Not compatible with: json, print-input-text
   center              Makes dmenu appear centered on the screen
                         - Not compatible with: xyw
   xyw                 The patch adds options for setting window position and width
@@ -53,10 +53,10 @@ Patches:
                         - Not compatible with: password, line-height
   json                Adds support for json-files
                         - Only use object and strings
-                        - Not compatible with: pipeout, fuzzymatch, dynamic-options
+                        - Not compatible with: pipeout, fuzzymatch, dynamic-options, print-input-text
   multi-selection     Makes dmenu output your selections only on exit
                         - Use <Ctrl-Enter> to select, and <Enter> to exit
-                        - Not compatible with: pipeout, json
+                        - Not compatible with: pipeout, json, print-input-text
   prefix-completition Changes the behaviour of the matched items and the Tab key:
                         - Only items prefixed by the written text will match
                         - The Tab key will replace the current query with the longest common
@@ -95,3 +95,7 @@ Patches:
                           To change this behaviour, set 'histnodup' to 0 in config.def.h
                         - Press ctrl-r, like in bash or ksh, and the suggestions will be replaced with the
                           history. Press ctrl-r again to revert
+  print-input-text    This patch adds a flag (-pit) which makes Return key to ignore selection and print the
+                      input text to stdout. The flag basically swaps the functions of Return and Shift+Return
+                      hotkeys
+                        - Not compatible with: pipeout, json, multi-selection

@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.33.0] - 2020-08-03
+
+### Changed
+
+- Make pipeout, json, and multi-selection compatible with print-input-text
+- Prepare the print-input-text-patch integration
+
+### Added
+
+- Add the print-input-text-patch
+- Add the print-input-text-patch to docs
+
 ## [0.32.0] - 2020-08-03
 
 ### Changed

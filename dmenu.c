@@ -100,6 +100,9 @@ static int mon = -1, screen;
 // >>>>>>>>>>>>>>>>>>>> navhistory
 // ==================== navhistory
 // <<<<<<<<<<<<<<<<<<<< navhistory
+// >>>>>>>>>>>>>>>>>>>> print-input-text
+// ==================== print-input-text
+// <<<<<<<<<<<<<<<<<<<< print-input-text
 
 static Atom clip, utf8;
 static Display *dpy;
@@ -675,10 +678,10 @@ insert:
 		break;
 	case XK_Return:
 	case XK_KP_Enter:
-    // >>>>>>>>>>>>>>>>>>>> pipeout-json-multi-selection
-    // ==================== pipeout-json-multi-selection
+    // >>>>>>>>>>>>>>>>>>>> pipeout-json-multi-selection-print-input-text
+    // ==================== pipeout-json-multi-selection-print-input-text
     puts((sel && !(ev->state & ShiftMask)) ? sel->text : text);
-    // <<<<<<<<<<<<<<<<<<<< pipeout-json-multi-selection
+    // <<<<<<<<<<<<<<<<<<<< pipeout-json-multi-selection-print-input-text
 		if (!(ev->state & ControlMask)) {
       // >>>>>>>>>>>>>>>>>>>> multi-selection
       // ==================== multi-selection
@@ -1137,6 +1140,9 @@ main(int argc, char *argv[])
     // >>>>>>>>>>>>>>>>>>>> instant
     // ==================== instant
     // <<<<<<<<<<<<<<<<<<<< instant
+    // >>>>>>>>>>>>>>>>>>>> print-input-text
+    // ==================== print-input-text
+    // <<<<<<<<<<<<<<<<<<<< print-input-text
 		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
 			fstrncmp = strncasecmp;
 			fstrstr = cistrstr;

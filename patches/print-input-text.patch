@@ -1,0 +1,79 @@
+diff --git a/dmenu.1 b/dmenu.1
+index 0792e75..d773f52 100644
+--- a/dmenu.1
++++ b/dmenu.1
+@@ -38,7 +38,7 @@ dmenu \- dynamic menu
+ \" ==================== instant
+ \" <<<<<<<<<<<<<<<<<<<< instant
+ \" >>>>>>>>>>>>>>>>>>>> print-input-text
+-\" ==================== print-input-text
++.RB [ \-pt ]
+ \" <<<<<<<<<<<<<<<<<<<< print-input-text
+ .RB [ \-m
+ .IR monitor ]
+@@ -144,7 +144,9 @@ prints version information to stdout, then exits.
+ \" ==================== instant
+ \" <<<<<<<<<<<<<<<<<<<< instant
+ \" >>>>>>>>>>>>>>>>>>>> print-input-text
+-\" ==================== print-input-text
++.B \-pit
++Return key prints input text instead of selection.
++.TP
+ \" <<<<<<<<<<<<<<<<<<<< print-input-text
+ .BI \-m " monitor"
+ dmenu is displayed on the monitor number supplied. Monitor numbers are starting
+@@ -213,8 +215,7 @@ Copy the selected item to the input field.
+ .B Return
+ Confirm selection.  Prints the selected item to stdout and exits, returning
+ \" >>>>>>>>>>>>>>>>>>>> print-input-text
+-\" ==================== print-input-text
+-success.
++success. If \-pit option is given it confirms input instead of selection.
+ \" <<<<<<<<<<<<<<<<<<<< print-input-text
+ .TP
+ .B Ctrl-Return
+@@ -223,7 +224,7 @@ Confirm selection.  Prints the selected item to stdout and continues.
+ .B Shift\-Return
+ Confirm input.  Prints the input text to stdout and exits, returning success.
+ \" >>>>>>>>>>>>>>>>>>>> print-input-text
+-\" ==================== print-input-text
++If \-pit option is given it confirms selection instead of input.
+ \" <<<<<<<<<<<<<<<<<<<< print-input-text
+ .TP
+ .B Escape
+diff --git a/dmenu.c b/dmenu.c
+index 97726de..b4bb162 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -101,7 +101,7 @@ static int mon = -1, screen;
+ // ==================== navhistory
+ // <<<<<<<<<<<<<<<<<<<< navhistory
+ // >>>>>>>>>>>>>>>>>>>> print-input-text
+-// ==================== print-input-text
++static int use_text_input = 0;
+ // <<<<<<<<<<<<<<<<<<<< print-input-text
+ 
+ static Atom clip, utf8;
+@@ -679,8 +679,10 @@ insert:
+ 	case XK_Return:
+ 	case XK_KP_Enter:
+     // >>>>>>>>>>>>>>>>>>>> pipeout-json-multi-selection-print-input-text
+-    // ==================== pipeout-json-multi-selection-print-input-text
+-    puts((sel && !(ev->state & ShiftMask)) ? sel->text : text);
++    if (use_text_input)
++      puts((sel && (ev->state & ShiftMask)) ? sel->text : text);
++    else
++      puts((sel && !(ev->state & ShiftMask)) ? sel->text : text);
+     // <<<<<<<<<<<<<<<<<<<< pipeout-json-multi-selection-print-input-text
+ 		if (!(ev->state & ControlMask)) {
+       // >>>>>>>>>>>>>>>>>>>> multi-selection
+@@ -1141,7 +1143,8 @@ main(int argc, char *argv[])
+     // ==================== instant
+     // <<<<<<<<<<<<<<<<<<<< instant
+     // >>>>>>>>>>>>>>>>>>>> print-input-text
+-    // ==================== print-input-text
++    else if (!strcmp(argv[i], "-pit")) /* favors text input over selection */
++      use_text_input = 1;
+     // <<<<<<<<<<<<<<<<<<<< print-input-text
+ 		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
+ 			fstrncmp = strncasecmp;
