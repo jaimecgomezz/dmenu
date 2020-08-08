@@ -1,14 +1,3 @@
-usage: handle ACTION PATCH [OPTIONS]
-
-A truly modular implementation of dmenu
-
-Options:
-  -d                  By default the compiler output is redirected, this option prevents this. Useful for debugging
-
-Actions:
-  patch               Apply the PATCH and rebuild
-  depatch             Removes the PATCH and rebuild
-
 Patches:
   border              Allows borders in the dmenu window
   case-insensitive    Makes dmenu case insensitive
