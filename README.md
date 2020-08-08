@@ -24,6 +24,19 @@ This distribution aims to solve the patches integration problem. Is meant to be 
 
 
 
+|                                                              | Scripts                                                      |                                                          |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | -------------------------------------------------------- |
+| [dbrowse](https://github.com/clamiax/scripts/blob/master/src/dbrowse) | [passmenu](https://git.zx2c4.com/password-store/tree/contrib/dmenu/passmenu) | [dbdb](https://tools.suckless.org/dmenu/scripts/dbdb.sh) |
+| [dmenu-pass](https://efe.kim/files/scripts/dmenu_pass)       | [passmenu2](https://tools.suckless.org/dmenu/scripts/passmenu2) | [clipmenu](https://github.com/cdown/clipmenu)            |
+| [dmenu-path](https://github.com/ema/dotfiles/blob/master/bin/dmenu_path) | [todo](https://tools.suckless.org/dmenu/scripts/todo)        |                                                          |
+| [dmenu-run](https://tools.suckless.org/dmenu/scripts/dmenu_run_with_command_history/) (command history) | [via](https://github.com/xalexalex/via)                      |                                                          |
+| [dmenu-websearch](https://efe.kim/files/scripts/dmenu_websearch) | [dmenu-run-i](https://tools.suckless.org/dmenu/scripts/dmenu_run_i) |                                                          |
+| [mpdmenu](https://github.com/cdown/mpdmenu/blob/master/mpdmenu) | [dmenu-launch](https://github.com/fsilveir/dmenu-launch)     |                                                          |
+
+The scripts shown above are the ones listed on the official [suckless page](https://tools.suckless.org/dmenu/scripts/). Can be founded (obviously) under the `scripts` folder for convenience.
+
+
+
 ## Installation
 
 Currently there’s no package available, so a manual installation is required.
