@@ -1,8 +1,6 @@
 # dmenu
 
-[dmenu](https://tools.suckless.org/dmenu/) is a dynamic menu for X. It manages large numbers of user-defined menu items efficiently.
-
-This distribution aims to solve the patches integration problem. Is meant to be driven by the community, allowing to make `suckless software for everybody`.
+A patch-friendly [dmenu](https://tools.suckless.org/dmenu/) distribution. Lets make `suckless software for everybody`.
 
 
 
@@ -33,13 +31,13 @@ This distribution aims to solve the patches integration problem. Is meant to be 
 | [dmenu-websearch](https://efe.kim/files/scripts/dmenu_websearch) | [dmenu-run-i](https://tools.suckless.org/dmenu/scripts/dmenu_run_i) |
 | [mpdmenu](https://github.com/cdown/mpdmenu/blob/master/mpdmenu) | [dmenu-launch](https://github.com/fsilveir/dmenu-launch)     |
 
-The scripts shown above are the ones listed on the official [suckless page](https://tools.suckless.org/dmenu/scripts/). Can be founded (obviously) under the `scripts` folder for convenience.
+The scripts shown above are the ones listed on the official [suckless page](https://tools.suckless.org/dmenu/scripts/). They can be founded under the `scripts` folder for convenience.
 
 
 
 ## Installation
 
-Currently there’s no package available, so a manual installation is required.
+Currently there’s no package available, so a manual installation is needed.
 
 ### Requirements
 
@@ -64,16 +62,16 @@ Currently there’s no package available, so a manual installation is required.
 
 ## Patching
 
-This [dmenu](https://tools.suckless.org/dmenu/) distribution comes with [handle](https://github.com/jaimecgomezz/dmenu/blob/master/handle), a utility that will take care of patches for you, just run:
+This distribution comes with [handle](https://github.com/jaimecgomezz/dmenu/blob/master/handle), a utility that will take care of patches for you, just run:
 
 ```sh
 # Usage: ./handle ACTION PATCH [OPTIONS]
 
-# Installing the border patch
-./handle patch border
+# Installing patch A
+./handle patch A
 
-# Uninstalling the border patch
-./handle depatch border
+# Removing border A
+./handle depatch A
 ```
 
 The rest of ACTIONS, PATCHES and OPTIONS currently available can be found running:
@@ -86,23 +84,23 @@ The rest of ACTIONS, PATCHES and OPTIONS currently available can be found runnin
 
 ## Testing patches
 
-For those willing to support the project, here’s a handy utility, the [test-patch](https://github.com/jaimecgomezz/dmenu/blob/master/test-patch) script. It is meant to test the integration of a given patch with all the other patches available, so whenever you need know if the patch you’ve been working on its ready, use it.
+For those willing to support the project, here’s a handy utility, [test-patch](https://github.com/jaimecgomezz/dmenu/blob/master/test-patch) script. It will test the integration of a given patch with all the other patches listed under the `patches` folder. Whenever you need know if the patch you’ve been working on its ready, use it!
 
 `````sh
 # Usage: ./test-patch PATCH
 
-# Testing the patch center
-./test-patch center
+# Testing the patch A
+./test-patch A
 ...
-border			Ok		# Means both patches can be used simultaneously
-xyw				Failed!	# This not necessary means the patch is wrong, it might just be that both patches modify dmenu in a similar way so they can be used simultaneously
+B			Ok	# Means both patches can be used simultaneously
+C			Failed!	# Means that the both patches have conflicts integrating together
 ...
 `````
 
-When the tests are finished, [test-patch](https://github.com/jaimecgomezz/dmenu/blob/master/test-patch) will report the results. If a patch fails you can:
+When the tests are finished, `test-patch` will report the results. If a patch “fails” you should:
 
-- Make the older patch compatible with the new one
-- Warn about the incompatibility of both patches, in the [handle-usage](https://github.com/jaimecgomezz/dmenu/blob/master/handle-usage) doc
+- Make the older patch compatible with the new patch. Not on a functional level, but in a code level.
+- Warn about the incompatibility of both patches in the `handle-usage` doc.
 
 WARNING: This utility DO NOT test the patch functionality (if it does whats it’s suppose to do), it only makes you aware of any patch that might have troubles integrating with it.
 
@@ -110,7 +108,7 @@ WARNING: This utility DO NOT test the patch functionality (if it does whats it�
 
 ## Notes
 
-- The proper documentation is a high priority, unfortunately, it requires a considerable amount of time. It will be delivered soon, of course, your contributions are encouraged!
+The proper documentation is a high priority, unfortunately, it requires a considerable amount of time. It will be delivered soon, of course, your contributions are encouraged!
 
 
 
