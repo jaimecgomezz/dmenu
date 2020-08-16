@@ -2,7 +2,7 @@
 
 A patch-friendly [dmenu](https://tools.suckless.org/dmenu/) distribution. Lets make `suckless software for everybody`.
 
-
+[![ss-Sun-16-Aug20-00-46.png](https://i.postimg.cc/SjbbsJVX/ss-Sun-16-Aug20-00-46.png)](https://postimg.cc/Mf5F3ZCx)
 
 ## Features
 
