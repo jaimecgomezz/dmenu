@@ -18,7 +18,7 @@ index dd53810..7ded1db 100644
  \" <<<<<<<<<<<<<<<<<<<< prefix-completition
  \" >>>>>>>>>>>>>>>>>>>> instant
 -\" ==================== instant
-+.RB [ \-it ]
++.RB [ \-ins ]
  \" <<<<<<<<<<<<<<<<<<<< instant
  .RB [ \-m
  .IR monitor ]
@@ -27,7 +27,7 @@ index dd53810..7ded1db 100644
  \" <<<<<<<<<<<<<<<<<<<< prefix-completition
  \" >>>>>>>>>>>>>>>>>>>> instant
 -\" ==================== instant
-+.B \-it
++.B \-ins
 +dmenu instantly selects if only one match.
 +.TP
  \" <<<<<<<<<<<<<<<<<<<< instant
@@ -55,7 +55,7 @@ index 5ade51f..2f97033 100644
      // <<<<<<<<<<<<<<<<<<<< prefix-completition
      // >>>>>>>>>>>>>>>>>>>> instant
 -    // ==================== instant
-+    "[-it]"
++    "[-ins]"
      // <<<<<<<<<<<<<<<<<<<< instant
      "\n\t\t"
      "[-m monitor]"
@@ -64,7 +64,7 @@ index 5ade51f..2f97033 100644
      // <<<<<<<<<<<<<<<<<<<< prefix-completition
      // >>>>>>>>>>>>>>>>>>>> instant
 -    // ==================== instant
-+    else if (!strcmp(argv[i], "-it")) /* instant select only match */
++    else if (!strcmp(argv[i], "-ins")) /* instant select only match */
 +      instant = 1;
      // <<<<<<<<<<<<<<<<<<<< instant
  		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
