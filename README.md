@@ -2,6 +2,9 @@
 
 A patch-friendly [dmenu](https://tools.suckless.org/dmenu/) distribution. Lets make `suckless software for everybody`.
 
+## Important
+As you might know, there have been some sever accusations [[1](https://chaos.social/@raichoo/101880564196043164), [2](https://twitter.com/pid_eins/status/1113738764797534208)] towards some `suckless` chairmans and their relation with some nazi stuff. To be honest, I can't completely verify this, but it really makes me prefer keeping the project on standby until the whole thing can be clarified. So... yeah, hope for the best.
+
 [![ss-Sun-16-Aug20-00-54.png](https://i.postimg.cc/3xS7jJxq/ss-Sun-16-Aug20-00-54.png)](https://postimg.cc/18qLsS60)
 
 ## Features
